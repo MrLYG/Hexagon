@@ -30,6 +30,8 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private float GDSwitchCD = 0.5f;
     private float GDSwitchCount = 0f;
 
+    [SerializeField] private LayerMask lightLayer;
+
     //private float currentJumpVelocity = 0f;
 
     void Start()
@@ -63,14 +65,15 @@ public class PlayerControl : MonoBehaviour
             if (canSwitchGD) 
             {
                 bool playerInsideLight = false;
-                foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("SpotLight"))
+                foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("RotationLight"))
                 {
-                    if (gameObject.GetComponent<Gravity_SpotLight>().isPlayerInside()) {
+                    if (gameObject.GetComponent<RotationLight>().isPlayerInside()) {
                         playerInsideLight = true;
                     }
                 }
                 if (playerInsideLight)
                 {
+                    m_GravityManager.setCameraFollowing(true);
                     if (Input.GetKeyDown(KeyCode.Q))
                     {
                         m_GravityManager.SwitchGravityDirection(GravityDirection.Left);
@@ -79,6 +82,27 @@ public class PlayerControl : MonoBehaviour
                     {
                         m_GravityManager.SwitchGravityDirection(GravityDirection.Right);
                     }
+                    canSwitchGD = false;
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift)) {
+            if (canSwitchGD)
+            {
+                bool inLight = false;
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.5f, lightLayer);
+                for (int i = 0; i < colliders.Length; i++)
+                {
+                    if (colliders[i].gameObject.CompareTag("ReverseLight"))
+                    {
+                        inLight = true;
+                    }
+                }
+                if (inLight)
+                {
+                    m_GravityManager.setCameraFollowing(false);
+                    m_GravityManager.SwitchGravityDirection(GravityDirection.Up);
                     canSwitchGD = false;
                 }
             }
@@ -132,23 +156,47 @@ public class PlayerControl : MonoBehaviour
         jump = false;
 
         Vector3 targetVelocity = Vector3.zero;
-        switch (currentGD)
+        if (m_GravityManager.getCameraFollowing())
         {
-            case GravityDirection.Down:
-                targetVelocity = new Vector2(dirt * walkSpeed * Time.deltaTime * 10f, m_Rigidbody2D.velocity.y);
-                break;
-            case GravityDirection.Up:
-                targetVelocity = new Vector2(-dirt * walkSpeed * Time.deltaTime * 10f, m_Rigidbody2D.velocity.y);
-                break;
-            case GravityDirection.Left:
-                targetVelocity = new Vector2(m_Rigidbody2D.velocity.x , -dirt * walkSpeed * Time.deltaTime * 10f);
-                break;
-            case GravityDirection.Right:
-                targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, dirt * walkSpeed * Time.deltaTime * 10f);
-                break;
-            default:
-                targetVelocity = new Vector2(dirt * walkSpeed * Time.deltaTime * 10f, m_Rigidbody2D.velocity.y);
-                break;
+            switch (currentGD)
+            {
+                case GravityDirection.Down:
+                    targetVelocity = new Vector2(dirt * walkSpeed * Time.deltaTime * 10f, m_Rigidbody2D.velocity.y);
+                    break;
+                case GravityDirection.Up:
+                    targetVelocity = new Vector2(-dirt * walkSpeed * Time.deltaTime * 10f, m_Rigidbody2D.velocity.y);
+                    break;
+                case GravityDirection.Left:
+                    targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, -dirt * walkSpeed * Time.deltaTime * 10f);
+                    break;
+                case GravityDirection.Right:
+                    targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, dirt * walkSpeed * Time.deltaTime * 10f);
+                    break;
+                default:
+                    targetVelocity = new Vector2(dirt * walkSpeed * Time.deltaTime * 10f, m_Rigidbody2D.velocity.y);
+                    break;
+            }
+        }
+        else
+        {
+            switch (currentGD)
+            {
+                case GravityDirection.Down:
+                    targetVelocity = new Vector2(dirt * walkSpeed * Time.deltaTime * 10f, m_Rigidbody2D.velocity.y);
+                    break;
+                case GravityDirection.Up:
+                    targetVelocity = new Vector2(dirt * walkSpeed * Time.deltaTime * 10f, m_Rigidbody2D.velocity.y);
+                    break;
+                case GravityDirection.Left:
+                    targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, dirt * walkSpeed * Time.deltaTime * 10f);
+                    break;
+                case GravityDirection.Right:
+                    targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, dirt * walkSpeed * Time.deltaTime * 10f);
+                    break;
+                default:
+                    targetVelocity = new Vector2(dirt * walkSpeed * Time.deltaTime * 10f, m_Rigidbody2D.velocity.y);
+                    break;
+            }
         }
         // And then smoothing it out and applying it to the character
         m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, smoothMovementTime);
@@ -191,39 +239,40 @@ public class PlayerControl : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground")) {
-            //currentJumpVelocity = 0;
+        if (collision.gameObject.CompareTag("DeadZone"))
+        {
+            Debug.Log("You are dead");
         }
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GravityDirection currentGD = m_GravityManager.getCurrentGD();
         if (collision.gameObject.CompareTag("Gate")) {
-            bool cameraFollowing = m_GravityManager.getCameraFollowing();
-            if (cameraFollowing)
-            {
-                switch (currentGD)
-                {
-                    case GravityDirection.Down:
-                        m_GravityManager.SwitchGravityDirection(GravityDirection.Right);
-                        break;
-                    case GravityDirection.Up:
-                        m_GravityManager.SwitchGravityDirection(GravityDirection.Left);
-                        break;
-                    case GravityDirection.Left:
-                        m_GravityManager.SwitchGravityDirection(GravityDirection.Up);
-                        break;
-                    case GravityDirection.Right:
-                        m_GravityManager.SwitchGravityDirection(GravityDirection.Down);
-                        break;
-                }
-            }
-            else {
-                m_GravityManager.SwitchGravityDirection(GravityDirection.Right);
-            }
+            m_GravityManager.setCameraFollowing(true);
+            m_GravityManager.ForceSwitchGravityDirection(GravityDirection.Down);
+        }
+
+        if (collision.gameObject.CompareTag("AbnormalGravityZone"))
+        {
+            float newGS = collision.gameObject.GetComponent<AbnormalGLight>().getGravityScale();
+            m_GravityManager.changeGravityScale(newGS);
+            m_Rigidbody2D.drag = 1.8f;
+        }
+
+        if (collision.gameObject.CompareTag("Goal")) {
+            Debug.Log("You Win!");
         }
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("AbnormalGravityZone"))
+        {
+            m_GravityManager.resetGravityScale();
+            m_Rigidbody2D.drag = 0;
+        }
+    }
+
     public void switchGroundCheckPosition()
     {
         GravityDirection currentGD = m_GravityManager.getCurrentGD();
