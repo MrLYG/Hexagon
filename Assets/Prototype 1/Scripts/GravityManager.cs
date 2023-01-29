@@ -11,13 +11,15 @@ public class GravityManager : MonoBehaviour
     private GravityDirection currentGD = GravityDirection.Down;
     private GravityDirection prevGD = GravityDirection.Down;
 
-    [SerializeField] private float gravityScale = 1f;
+    [SerializeField] private float initialGravityScale = 1f;
 
     [Header("Camera")]
     [Space]
     [SerializeField] private GameObject CAM;
     [SerializeField] private bool cameraFollowing = false;
     [Range(0, 10f)] [SerializeField] private float cameraRotationSpeed = 10f;
+
+    private bool prevCameraFollowing = false;
 
     private Quaternion targetRotation;
 
@@ -41,73 +43,77 @@ public class GravityManager : MonoBehaviour
         }
     }
 
-    public void SwitchGravityDirection(GravityDirection newDirection)
-    {
+    private GravityDirection findNextGravityDirection(GravityDirection newDirection) {
+        GravityDirection nextGD = currentGD;
         // Find next GD based on current camera following type
         prevGD = currentGD;
-        if (!cameraFollowing)
+        if (cameraFollowing && !prevCameraFollowing)
         {
-            currentGD = newDirection;
-        }
-        else
-        {
-            switch (newDirection)
+            // Check rotation angle of CAM to see which GD is the camera at
+            float camZ = CAM.transform.rotation.eulerAngles.z;
+            if (Mathf.Abs(camZ - 0) < 10 || Mathf.Abs(camZ - 0) > 350)
             {
-                case GravityDirection.Down:
-                    break;
-                case GravityDirection.Up:
-                    switch (currentGD)
-                    {
-                        case GravityDirection.Down:
-                            currentGD = GravityDirection.Up;
-                            break;
-                        case GravityDirection.Up:
-                            currentGD = GravityDirection.Down;
-                            break;
-                        case GravityDirection.Left:
-                            currentGD = GravityDirection.Right;
-                            break;
-                        case GravityDirection.Right:
-                            currentGD = GravityDirection.Left;
-                            break;
-                    }
-                    break;
-                case GravityDirection.Left:
-                    if (currentGD == GravityDirection.Right)
-                        currentGD = GravityDirection.Down;
-                    else
-                        currentGD++;
-                    break;
-                case GravityDirection.Right:
-                    if (currentGD == GravityDirection.Down)
-                        currentGD = GravityDirection.Right;
-                    else
-                        currentGD--;
-                    break;
-                default:
-                    break;
+                nextGD = GravityDirection.Down;
+            }
+            else if (Mathf.Abs(camZ - 90) < 10 || Mathf.Abs(camZ - 90) > 350)
+            {
+                nextGD = GravityDirection.Right;
+            }
+            else if (Mathf.Abs(camZ - 180) < 10 || Mathf.Abs(camZ - 180) > 350)
+            {
+                nextGD = GravityDirection.Up;
+            }
+            else if (Mathf.Abs(camZ - 360) < 10 || Mathf.Abs(camZ - 360) > 350)
+            {
+                nextGD = GravityDirection.Left;
             }
         }
-
-        // Switch GD
-        switch (currentGD)
+        switch (newDirection)
         {
             case GravityDirection.Down:
-                Physics2D.gravity = new Vector2(0, -gravityScale * 9.8f);
                 break;
             case GravityDirection.Up:
-                Physics2D.gravity = new Vector2(0, gravityScale * 9.8f);
+                switch (nextGD)
+                {
+                    case GravityDirection.Down:
+                        nextGD = GravityDirection.Up;
+                        break;
+                    case GravityDirection.Up:
+                        nextGD = GravityDirection.Down;
+                        break;
+                    case GravityDirection.Left:
+                        nextGD = GravityDirection.Right;
+                        break;
+                    case GravityDirection.Right:
+                        nextGD = GravityDirection.Left;
+                        break;
+                }
                 break;
             case GravityDirection.Left:
-                Physics2D.gravity = new Vector2(-gravityScale * 9.8f, 0);
+                if (nextGD == GravityDirection.Right)
+                    nextGD = GravityDirection.Down;
+                else
+                    nextGD++;
                 break;
             case GravityDirection.Right:
-                Physics2D.gravity = new Vector2(gravityScale * 9.8f, 0);
-                break;
-            default:
-                Physics2D.gravity = new Vector2(0, -gravityScale * 9.8f);
+                if (nextGD == GravityDirection.Down)
+                    nextGD = GravityDirection.Right;
+                else
+                    nextGD--;
                 break;
         }
+        return nextGD;
+    }
+    public void SwitchGravityDirection(GravityDirection newDirection)
+    {
+        ForceSwitchGravityDirection(findNextGravityDirection(newDirection));
+    }
+
+    public void ForceSwitchGravityDirection(GravityDirection newDirection) {
+        currentGD = newDirection;
+
+        // Switch GD
+        resetGravityScale();
 
         // Swith Player's ground check to according GD
         m_PlayerControl.switchGroundCheckPosition();
@@ -129,36 +135,71 @@ public class GravityManager : MonoBehaviour
                 case GravityDirection.Right:
                     targetRotation = Quaternion.Euler(0, 0, 90);
                     break;
-                default:
-                    targetRotation = Quaternion.Euler(0, 0, 0);
-                    break;
             }
         }
 
         // Rotate all spot light to current GD
-        foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("SpotLight"))
+        foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("RotationLight"))
         {
             switch (currentGD)
             {
                 case GravityDirection.Down:
-                    gameObject.GetComponent<Gravity_SpotLight>().rotateLight(Quaternion.Euler(0, 0, 0));
+                    gameObject.GetComponent<RotationLight>().rotateLight(Quaternion.Euler(0, 0, 0));
                     break;
                 case GravityDirection.Up:
-                    gameObject.GetComponent<Gravity_SpotLight>().rotateLight(Quaternion.Euler(0, 0, 180));
+                    gameObject.GetComponent<RotationLight>().rotateLight(Quaternion.Euler(0, 0, 180));
                     break;
                 case GravityDirection.Left:
-                    gameObject.GetComponent<Gravity_SpotLight>().rotateLight(Quaternion.Euler(0, 0, -90));
+                    gameObject.GetComponent<RotationLight>().rotateLight(Quaternion.Euler(0, 0, -90));
                     break;
                 case GravityDirection.Right:
-                    gameObject.GetComponent<Gravity_SpotLight>().rotateLight(Quaternion.Euler(0, 0, 90));
-                    break;
-                default:
-                    gameObject.GetComponent<Gravity_SpotLight>().rotateLight(Quaternion.Euler(0, 0, 0));
+                    gameObject.GetComponent<RotationLight>().rotateLight(Quaternion.Euler(0, 0, 90));
                     break;
             }
         }
+
+        prevCameraFollowing = cameraFollowing;
     }
 
+    // Change GS to given scale
+    public void changeGravityScale(float newGS)
+    {
+        switch (currentGD)
+        {
+            case GravityDirection.Down:
+                Physics2D.gravity = new Vector2(0, newGS * - initialGravityScale * 9.8f);
+                break;
+            case GravityDirection.Up:
+                Physics2D.gravity = new Vector2(0, newGS * initialGravityScale * 9.8f);
+                break;
+            case GravityDirection.Left:
+                Physics2D.gravity = new Vector2(newGS  * - initialGravityScale * 9.8f, 0);
+                break;
+            case GravityDirection.Right:
+                Physics2D.gravity = new Vector2(newGS * initialGravityScale * 9.8f, 0);
+                break;
+        }
+    }
+
+    // Change GS to initial scale based on current GD
+    public void resetGravityScale()
+    {
+        switch (currentGD)
+        {
+            case GravityDirection.Down:
+                Physics2D.gravity = new Vector2(0, -initialGravityScale * 9.8f);
+                break;
+            case GravityDirection.Up:
+                Physics2D.gravity = new Vector2(0, initialGravityScale * 9.8f);
+                break;
+            case GravityDirection.Left:
+                Physics2D.gravity = new Vector2(-initialGravityScale * 9.8f, 0);
+                break;
+            case GravityDirection.Right:
+                Physics2D.gravity = new Vector2(initialGravityScale * 9.8f, 0);
+                break;
+        }
+    }
 
     public GravityDirection getCurrentGD()
     {
@@ -166,5 +207,8 @@ public class GravityManager : MonoBehaviour
     }
     public bool getCameraFollowing() {
         return cameraFollowing;
+    }
+    public void setCameraFollowing(bool newCF) {
+        cameraFollowing = newCF;
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gravity_SpotLight : MonoBehaviour
+public class RotationLight : MonoBehaviour
 {
     [SerializeField] private UnityEngine.Rendering.Universal.Light2D m_SpotLight;
     [Range(0, 10f)] [SerializeField] private float rotationSpeed = 7f;
@@ -84,7 +84,7 @@ public class Gravity_SpotLight : MonoBehaviour
             // Raycast to see if there're obstacles blocking the light
             RaycastHit2D hitPlayer = Physics2D.Raycast(transform.position, directToPlayer, distToPlayer + 0.5f, blockingLayer);
             
-            Debug.DrawRay(transform.position, directToPlayer * (distToPlayer + 0.5f), Color.red, 1);
+            Debug.DrawRay(transform.position, directToPlayer * (distToPlayer + 0.5f), Color.green, 1);
 
             if (hitPlayer.collider.gameObject.CompareTag("Player"))
             {
