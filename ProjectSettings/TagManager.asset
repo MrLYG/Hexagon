@@ -7,7 +7,11 @@ TagManager:
   - Gate
   - Ground
   - Background
-  - SpotLight
+  - ReverseLight
+  - RotationLight
+  - AbnormalGravityZone
+  - DeadZone
+  - Goal
   layers:
   - Default
   - TransparentFX
@@ -17,7 +21,7 @@ TagManager:
   - UI
   - Player
   - Ground
-  - 
+  - Light
   - 
   - 
   - 
