@@ -527,7 +527,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontal: 0
   vertical: 0
-  speed: 8
+  speed: 25
+  rigidbody2D: {fileID: 499254090}
+  smoothMovementTime: 0.05
 --- !u!212 &499254087
 SpriteRenderer:
   m_ObjectHideFlags: 0
