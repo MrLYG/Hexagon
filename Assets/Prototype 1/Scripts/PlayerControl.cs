@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -33,10 +34,15 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private LayerMask lightLayer;
 
     //private float currentJumpVelocity = 0f;
+    [SerializeField] private float hitDuration = 0.1f;
+    private bool changingColor = false;
+    private float hitCount;
+
+    [SerializeField] private GameObject Canvas;
 
     void Start()
     {
-        
+        Canvas.SetActive(false);
     }
 
     // Update is called once per frame
@@ -235,6 +241,16 @@ public class PlayerControl : MonoBehaviour
             if (currentJumpVelocity < -gravityScale) currentJumpVelocity = -gravityScale;
         }
         */
+
+        if (changingColor)
+        {
+            hitCount += Time.deltaTime;
+            if(hitCount > hitDuration)
+            {
+                changingColor = false;
+                GetComponent<SpriteRenderer>().color = Color.white;
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -244,6 +260,7 @@ public class PlayerControl : MonoBehaviour
             Debug.Log("You are dead");
         }
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GravityDirection currentGD = m_GravityManager.getCurrentGD();
@@ -260,6 +277,8 @@ public class PlayerControl : MonoBehaviour
         }
 
         if (collision.gameObject.CompareTag("Goal")) {
+            Canvas.SetActive(true);
+            Time.timeScale = 0;
             Debug.Log("You Win!");
         }
     }
@@ -293,6 +312,16 @@ public class PlayerControl : MonoBehaviour
             default:
                 groundCheck.position = transform.position + new Vector3(0, -0.4f, 0);
                 break;
+        }
+    }
+
+    public void getHurt()
+    {
+        if (!changingColor)
+        {
+            changingColor = true;
+            hitCount = 0;
+            GetComponent<SpriteRenderer>().color = Color.yellow;
         }
     }
 
