@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -39,11 +40,13 @@ public class PlayerControl : MonoBehaviour
     private bool canBeHit = true;
     private float hitCount;
 
-    [SerializeField] private GameObject Canvas;
+    [SerializeField] private GameObject WinningText;
+    [SerializeField] private GameObject CoinText;
+    private int coins = 0;
 
     void Start()
     {
-        Canvas.SetActive(false);
+        WinningText.SetActive(false);
     }
 
     // Update is called once per frame
@@ -291,9 +294,15 @@ public class PlayerControl : MonoBehaviour
         }
 
         if (collision.gameObject.CompareTag("Goal")) {
-            Canvas.SetActive(true);
+            WinningText.SetActive(true);
             Time.timeScale = 0;
             Debug.Log("You Win!");
+        }
+
+        if (collision.gameObject.CompareTag("Coin"))
+        {
+            Destroy(collision.gameObject);
+            getCoin();
         }
     }
 
@@ -337,6 +346,12 @@ public class PlayerControl : MonoBehaviour
             hitCount = 0;
             GetComponent<SpriteRenderer>().color = Color.yellow;
         }
+    }
+
+    public void getCoin()
+    {
+        coins++;
+        CoinText.GetComponent<TextMeshProUGUI>().text = "Coins Collected: " + coins;
     }
 
     /*
