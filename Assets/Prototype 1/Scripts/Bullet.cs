@@ -42,8 +42,11 @@ public class Bullet : MonoBehaviour
             Destroy(this);
             Debug.Log("Game Over");
         }
+    }
 
-        if (collision.gameObject.CompareTag("Ground"))
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Ground"))
         {
             Destroy(this);
         }

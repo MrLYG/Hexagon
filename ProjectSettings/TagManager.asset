@@ -12,6 +12,7 @@ TagManager:
   - AbnormalGravityZone
   - DeadZone
   - Goal
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -48,12 +48,4 @@ public class EnemyAttacking : MonoBehaviour
 
         shootingCDCount += Time.deltaTime;
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("Game Over");
-        }
-    }
 }

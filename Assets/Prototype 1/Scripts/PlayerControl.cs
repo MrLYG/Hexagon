@@ -34,8 +34,9 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private LayerMask lightLayer;
 
     //private float currentJumpVelocity = 0f;
-    [SerializeField] private float hitDuration = 0.1f;
-    private bool changingColor = false;
+    [SerializeField] private float hitDuration = 0.2f;
+    [SerializeField] private float hitCD = 0.4f;
+    private bool canBeHit = true;
     private float hitCount;
 
     [SerializeField] private GameObject Canvas;
@@ -242,22 +243,35 @@ public class PlayerControl : MonoBehaviour
         }
         */
 
-        if (changingColor)
+        if (!canBeHit)
         {
             hitCount += Time.deltaTime;
             if(hitCount > hitDuration)
             {
-                changingColor = false;
                 GetComponent<SpriteRenderer>().color = Color.white;
+            }
+            if(hitCount > hitCD)
+            {
+                canBeHit = true;
             }
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("DeadZone"))
+        if (collision.gameObject.CompareTag("DeadZone") || collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("You are dead");
+            getHurt();
+            //Debug.Log("You are dead");
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("DeadZone") || collision.gameObject.CompareTag("Enemy"))
+        {
+            getHurt();
+            //Debug.Log("You are dead");
         }
     }
 
@@ -317,9 +331,9 @@ public class PlayerControl : MonoBehaviour
 
     public void getHurt()
     {
-        if (!changingColor)
+        if (canBeHit)
         {
-            changingColor = true;
+            canBeHit = false;
             hitCount = 0;
             GetComponent<SpriteRenderer>().color = Color.yellow;
         }
