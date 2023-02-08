@@ -130,4 +130,4 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 192
-  Bullet: {fileID: 0}
+  Bullet: {fileID: 3150887071543932543, guid: 5e09d73514f68bf4a9adb6cb5fc6fff4, type: 3}
