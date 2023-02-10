@@ -30,7 +30,7 @@ public class RespawnManager : MonoBehaviour
         curCP = newCP;
     }
 
-    private void RespawnPlayer()
+    public void RespawnPlayer()
     {
         m_Player.GetComponent<PlayerRespawn>().Respawn(curCP, curCP.GetComponent<RespawnPoint>().gravityDirection);
     }
