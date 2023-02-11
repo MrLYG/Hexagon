@@ -17,6 +17,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private Rigidbody2D m_Rigidbody2D;
 
     [SerializeField] GravityManager m_GravityManager;
+    [SerializeField] RespawnManager m_RepawnManager;
 
     private Vector3 velocity = Vector3.zero;
 
@@ -44,8 +45,13 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private GameObject CoinText;
     private int coins = 0;
 
+    [SerializeField] private GameObject HPText;
+    private int hp = 5;
+    [SerializeField] private int initialHP = 5;
+
     void Start()
     {
+        hp = initialHP;
         WinningText.SetActive(false);
     }
 
@@ -264,7 +270,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("DeadZone") || collision.gameObject.CompareTag("Enemy"))
         {
-            getHurt();
+            getHurt(0.5f);
             //Debug.Log("You are dead");
         }
     }
@@ -273,7 +279,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("DeadZone") || collision.gameObject.CompareTag("Enemy"))
         {
-            getHurt();
+            getHurt(0.5f);
             //Debug.Log("You are dead");
         }
     }
@@ -338,13 +344,23 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    public void getHurt()
+    public void getHurt(float cd)
     {
+        hitCD = cd;
         if (canBeHit)
         {
             canBeHit = false;
             hitCount = 0;
             GetComponent<SpriteRenderer>().color = Color.yellow;
+
+            hp--;
+            HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
+
+            if(hp <= 0)
+            {
+                m_RepawnManager.GetComponent<RespawnManager>().RespawnPlayer();
+                hp = initialHP;
+            }
         }
     }
 

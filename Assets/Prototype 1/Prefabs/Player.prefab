@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 6061397498481008622}
   - component: {fileID: 6061397498481008621}
   - component: {fileID: 6061397498481008623}
+  - component: {fileID: 6061397499637108558}
+  - component: {fileID: 6061397499637108564}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -147,10 +149,17 @@ MonoBehaviour:
     m_Bits: 128
   m_Rigidbody2D: {fileID: 6061397498481008593}
   m_GravityManager: {fileID: 0}
+  m_RepawnManager: {fileID: 0}
   GDSwitchCD: 0.2
   lightLayer:
     serializedVersion: 2
     m_Bits: 256
+  hitDuration: 0.15
+  hitCD: 0.2
+  WinningText: {fileID: 0}
+  CoinText: {fileID: 0}
+  HPText: {fileID: 0}
+  initialHP: 5
 --- !u!114 &6061397498481008623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,7 +186,38 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 47652
+  m_InstanceId: -2732
+--- !u!114 &6061397499637108558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6061397498481008598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2418bfb08dfeb594c9efa86ff7f0eb08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Camera: {fileID: 0}
+  m_CM: {fileID: 0}
+  target: {fileID: 0}
+  orthoSize: 12
+  m_Player: {fileID: 6061397498481008598}
+  initialOrthoSize: 0
+--- !u!114 &6061397499637108564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6061397498481008598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c9fe5797fe4d9c4db75c5ce0442d1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GravityManager: {fileID: 0}
 --- !u!1 &6061397500328888221
 GameObject:
   m_ObjectHideFlags: 0
