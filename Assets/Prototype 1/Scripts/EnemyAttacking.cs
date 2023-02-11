@@ -40,6 +40,7 @@ public class EnemyAttacking : MonoBehaviour
                     GameObject bl = Instantiate(Bullet, transform.position, Quaternion.identity);
                     bl.GetComponent<Bullet>().setTarget(m_Player);
                     bl.GetComponent<Bullet>().setSpeed(bulletSpeed);
+                    bl.GetComponent<Bullet>().parent = gameObject;
 
                     shootingCDCount = 0;
                 }

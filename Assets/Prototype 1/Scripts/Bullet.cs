@@ -6,12 +6,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private GameObject target;
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameObject parent;
 
     public void setSpeed(float newSpeed)
     {
