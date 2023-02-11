@@ -38,7 +38,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerControl>().getHurt();
+            collision.gameObject.GetComponent<PlayerControl>().getHurt(0.2f);
             Destroy(this);
             Debug.Log("Game Over");
         }
