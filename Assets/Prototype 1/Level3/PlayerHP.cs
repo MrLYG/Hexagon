@@ -15,7 +15,7 @@ public class PlayerHP : MonoBehaviour
     [SerializeField] private GameObject analytics;
     private int hp = 5;
     [SerializeField] private int initialHP = 3;
-    // Start is called before the first frame update
+
     void Start()
     {
         hp = initialHP;
@@ -26,10 +26,14 @@ public class PlayerHP : MonoBehaviour
         if (!canBeHit)
         {
             hitCount += Time.deltaTime;
+
+            // Animation time ends, reset to white color
             if (hitCount > hitDuration)
             {
                 GetComponent<SpriteRenderer>().color = Color.white;
             }
+
+            // Invincible time ends, reset canBeHit
             if (hitCount > hitCD)
             {
                 canBeHit = true;
@@ -39,19 +43,24 @@ public class PlayerHP : MonoBehaviour
 
     public void getHurt(float cd, GameObject reasonObj)
     {
-        hitCD = cd;
         if (canBeHit)
         {
+            // Set invincible time
+            hitCD = cd;
+
+            // Set up time count and animation
             canBeHit = false;
             hitCount = 0;
             GetComponent<SpriteRenderer>().color = Color.yellow;
             
+            // Decrease HP and UI
             hp--;
             HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
 
             // trigger to collect data
             analytics.GetComponent<Analytics>().beHits++;
 
+            // Respawn player if HP reduced to 0 or below
             if (hp <= 0)
             {
                 m_RepawnManager.GetComponent<RespawnManager>().RespawnPlayer();

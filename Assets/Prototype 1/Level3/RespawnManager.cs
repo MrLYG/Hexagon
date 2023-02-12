@@ -16,9 +16,9 @@ public class RespawnManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Respawn via pressing 'R'
         if (Input.GetKeyDown(KeyCode.R))
         {
             RespawnPlayer();
@@ -27,7 +27,13 @@ public class RespawnManager : MonoBehaviour
 
     public void SetCheckPoint(GameObject newCP)
     {
+        // Reset the color of previous checkpoint
+        if (curCP != null)
+            curCP.GetComponent<SpriteRenderer>().color = Color.yellow;
+
+        // Assign new checkpoint
         curCP = newCP;
+        curCP.GetComponent<SpriteRenderer>().color = Color.green;
     }
 
     public void RespawnPlayer()

@@ -18,10 +18,10 @@ public class RespawnPoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Player activate the checkpoint by touching it
         if (collision.gameObject.CompareTag("Player"))
         {
             m_RespawnManager.GetComponent<RespawnManager>().SetCheckPoint(gameObject);
-            GetComponent<SpriteRenderer>().color = Color.green;
         }
     }
 }
