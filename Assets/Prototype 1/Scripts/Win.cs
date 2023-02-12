@@ -6,8 +6,9 @@ using Proyecto26;
 
 public class Win : MonoBehaviour
 {
+
     public string level; 
-    public GameObject Timerref;
+    public GameObject analytics;
     private readonly string basePath = "https://hexagon-11bf5-default-rtdb.firebaseio.com";
     // Start is called before the first frame update
     void Start()
@@ -33,7 +34,8 @@ public class Win : MonoBehaviour
         m.uid = "22";
         m.level = level;
         m.isWin = true;
-        m.runTime = Timerref.GetComponent<Timer>().runningTime;
+        m.runTime = analytics.GetComponent<Analytics>().runningTime;
+        m.beHits = analytics.GetComponent<Analytics>().beHits;
         Debug.Log(m.ToString());
         RestClient.Post(basePath + "/posts" + ".json", m);
         return null;
