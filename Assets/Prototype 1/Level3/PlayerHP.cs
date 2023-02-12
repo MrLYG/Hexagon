@@ -12,6 +12,7 @@ public class PlayerHP : MonoBehaviour
     private float hitCount;
 
     [SerializeField] private GameObject HPText;
+    [SerializeField] private GameObject analytics;
     private int hp = 5;
     [SerializeField] private int initialHP = 5;
     // Start is called before the first frame update
@@ -44,9 +45,12 @@ public class PlayerHP : MonoBehaviour
             canBeHit = false;
             hitCount = 0;
             GetComponent<SpriteRenderer>().color = Color.yellow;
-
+            
             hp--;
             HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
+
+            // trigger to collect data
+            analytics.GetComponent<Analytics>().beHits++;
 
             if (hp <= 0)
             {

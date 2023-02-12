@@ -10,6 +10,7 @@ public class Model
     public string level;
     public bool isWin;
     public float runTime;
+    public float beHits;
     public override string ToString()
     {
         return UnityEngine.JsonUtility.ToJson(this, true);
