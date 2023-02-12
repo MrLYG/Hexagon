@@ -6,12 +6,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private GameObject target;
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameObject parent;
 
     public void setSpeed(float newSpeed)
     {
@@ -38,9 +33,9 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerControl>().getHurt(0.2f);
+            collision.gameObject.GetComponent<PlayerHP>().getHurt(0.2f, gameObject);
             Destroy(this);
-            Debug.Log("Game Over");
+            //Debug.Log("Game Over");
         }
     }
 

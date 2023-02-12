@@ -36,22 +36,12 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private LayerMask lightLayer;
 
     //private float currentJumpVelocity = 0f;
-    [SerializeField] private float hitDuration = 0.2f;
-    [SerializeField] private float hitCD = 0.4f;
-    private bool canBeHit = true;
-    private float hitCount;
+
 
     [SerializeField] private GameObject WinningText;
-    [SerializeField] private GameObject CoinText;
-    private int coins = 0;
-
-    [SerializeField] private GameObject HPText;
-    private int hp = 5;
-    [SerializeField] private int initialHP = 5;
 
     void Start()
     {
-        hp = initialHP;
         WinningText.SetActive(false);
     }
 
@@ -251,26 +241,13 @@ public class PlayerControl : MonoBehaviour
             if (currentJumpVelocity < -gravityScale) currentJumpVelocity = -gravityScale;
         }
         */
-
-        if (!canBeHit)
-        {
-            hitCount += Time.deltaTime;
-            if(hitCount > hitDuration)
-            {
-                GetComponent<SpriteRenderer>().color = Color.white;
-            }
-            if(hitCount > hitCD)
-            {
-                canBeHit = true;
-            }
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("DeadZone") || collision.gameObject.CompareTag("Enemy"))
         {
-            getHurt(0.5f);
+            GetComponent<PlayerHP>().getHurt(0.5f, collision.gameObject);
             //Debug.Log("You are dead");
         }
     }
@@ -279,7 +256,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("DeadZone") || collision.gameObject.CompareTag("Enemy"))
         {
-            getHurt(0.5f);
+            GetComponent<PlayerHP>().getHurt(0.5f, collision.gameObject);
             //Debug.Log("You are dead");
         }
     }
@@ -303,12 +280,6 @@ public class PlayerControl : MonoBehaviour
             WinningText.SetActive(true);
             Time.timeScale = 0;
             Debug.Log("You Win!");
-        }
-
-        if (collision.gameObject.CompareTag("Coin"))
-        {
-            Destroy(collision.gameObject);
-            getCoin();
         }
     }
 
@@ -344,31 +315,6 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    public void getHurt(float cd)
-    {
-        hitCD = cd;
-        if (canBeHit)
-        {
-            canBeHit = false;
-            hitCount = 0;
-            GetComponent<SpriteRenderer>().color = Color.yellow;
-
-            hp--;
-            HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
-
-            if(hp <= 0)
-            {
-                m_RepawnManager.GetComponent<RespawnManager>().RespawnPlayer();
-                hp = initialHP;
-            }
-        }
-    }
-
-    public void getCoin()
-    {
-        coins++;
-        CoinText.GetComponent<TextMeshProUGUI>().text = "Coins Collected: " + coins;
-    }
 
     /*
     private void SwitchGravityDirection(GravityDirection newDirection) {
