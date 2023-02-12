@@ -43,6 +43,16 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         WinningText.SetActive(false);
+
+        foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("GravityManager"))
+        {
+            m_GravityManager = gameObject.GetComponent<GravityManager>();
+        }
+
+        foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("GravityManager"))
+        {
+            m_RepawnManager = gameObject.GetComponent<RespawnManager>();
+        }
     }
 
     // Update is called once per frame

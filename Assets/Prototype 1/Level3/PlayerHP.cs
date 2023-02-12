@@ -14,7 +14,7 @@ public class PlayerHP : MonoBehaviour
     [SerializeField] private GameObject HPText;
     [SerializeField] private GameObject analytics;
     private int hp = 5;
-    [SerializeField] private int initialHP = 5;
+    [SerializeField] private int initialHP = 3;
     // Start is called before the first frame update
     void Start()
     {
