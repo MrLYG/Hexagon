@@ -217,6 +217,7 @@ public class PlayerControl : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Gate"))
         {
+            m_GravityManager.setCameraFollowing(collision.gameObject.GetComponent<ModifyGravityGate>().cameraFollowing);
             m_GravityManager.ForceSwitchGravityDirection(collision.gameObject.GetComponent<ModifyGravityGate>().gravityDirection);
         }
 

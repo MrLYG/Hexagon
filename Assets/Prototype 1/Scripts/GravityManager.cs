@@ -51,19 +51,19 @@ public class GravityManager : MonoBehaviour
         {
             // Check rotation angle of CAM to see which GD is the camera at
             float camZ = CAM.transform.rotation.eulerAngles.z;
-            if (Mathf.Abs(camZ - 0) < 10 || Mathf.Abs(camZ - 0) > 350)
+            if (Mathf.Abs(Mathf.Abs(camZ) - 0) < 10 || Mathf.Abs(Mathf.Abs(camZ) - 0) > 350)
             {
                 nextGD = GravityDirection.Down;
             }
-            else if (Mathf.Abs(camZ - 90) < 10 || Mathf.Abs(camZ - 90) > 350)
+            else if (Mathf.Abs(Mathf.Abs(camZ) - 90) < 10 || Mathf.Abs(Mathf.Abs(camZ) - 90) > 350)
             {
                 nextGD = GravityDirection.Right;
             }
-            else if (Mathf.Abs(camZ - 180) < 10 || Mathf.Abs(camZ - 180) > 350)
+            else if (Mathf.Abs(Mathf.Abs(camZ) - 180) < 10 || Mathf.Abs(Mathf.Abs(camZ) - 180) > 350)
             {
                 nextGD = GravityDirection.Up;
             }
-            else if (Mathf.Abs(camZ - 360) < 10 || Mathf.Abs(camZ - 360) > 350)
+            else if (Mathf.Abs(Mathf.Abs(camZ) - 270) < 10 || Mathf.Abs(Mathf.Abs(camZ) - 270) > 350)
             {
                 nextGD = GravityDirection.Left;
             }
