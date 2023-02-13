@@ -22,7 +22,10 @@ public class PlayerHP : MonoBehaviour
         {
             m_RepawnManager = gameObject;
         }
+
+        // Initialize HP
         hp = initialHP;
+        HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
     }
 
     private void FixedUpdate()
@@ -70,6 +73,7 @@ public class PlayerHP : MonoBehaviour
             {
                 m_RepawnManager.GetComponent<RespawnManager>().RespawnPlayer();
                 hp = initialHP;
+                HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
             }
         }
     }

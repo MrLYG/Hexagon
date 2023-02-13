@@ -10,19 +10,14 @@ public class PlayerControl : MonoBehaviour
     [Space]
     [SerializeField] private float walkSpeed;
     [Range(0, .3f)] [SerializeField] private float smoothMovementTime = 0.05f;
-    //[SerializeField] private float initialJumpVelocity = 10f;
     [SerializeField] private float jumpForce = 400f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Rigidbody2D m_Rigidbody2D;
 
     [SerializeField] GravityManager m_GravityManager;
-    [SerializeField] RespawnManager m_RepawnManager;
 
     private Vector3 velocity = Vector3.zero;
-
-    //[SerializeField] private float speed;
-    // Start is called before the first frame update
 
     private float dirt;
     private bool jump;
@@ -35,9 +30,6 @@ public class PlayerControl : MonoBehaviour
 
     [SerializeField] private LayerMask lightLayer;
 
-    //private float currentJumpVelocity = 0f;
-
-
     [SerializeField] private GameObject WinningText;
 
     void Start()
@@ -48,16 +40,23 @@ public class PlayerControl : MonoBehaviour
         {
             m_GravityManager = gameObject.GetComponent<GravityManager>();
         }
-
-        foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("RespawnManager"))
-        {
-            m_RepawnManager = gameObject.GetComponent<RespawnManager>();
-        }
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Gravity Switching CD
+        if (!canSwitchGD)
+        {
+            GDSwitchCount += Time.deltaTime;
+        }
+
+        // Stop movement when at overallview
+        if (GetComponent<overallView>().enabled && Input.GetKey(KeyCode.M))
+        {
+            return;
+        }
+
+        // Movement inputs
         if (Input.GetKey(KeyCode.A)) 
         {
             dirt = -1.0f;
@@ -75,7 +74,7 @@ public class PlayerControl : MonoBehaviour
             jump = true;
         }
 
-        // Player Input to change GD
+        // Player Input to change GD : Rotation
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E))
         {
             if (canSwitchGD) 
@@ -103,6 +102,7 @@ public class PlayerControl : MonoBehaviour
             }
         }
 
+        // Reverse
         if (Input.GetKeyDown(KeyCode.LeftShift)) {
             if (canSwitchGD)
             {
@@ -117,17 +117,10 @@ public class PlayerControl : MonoBehaviour
                 }
                 if (inLight)
                 {
-                    m_GravityManager.setCameraFollowing(false);
-                    m_GravityManager.SwitchGravityDirection(GravityDirection.Up);
+                    m_GravityManager.ReverseGravityDirection();
                     canSwitchGD = false;
                 }
             }
-        }
-
-        // Gravity Switching CD
-        if (!canSwitchGD)
-        {
-            GDSwitchCount += Time.deltaTime;
         }
     }
 
@@ -171,86 +164,33 @@ public class PlayerControl : MonoBehaviour
         }
         jump = false;
 
-        Vector3 targetVelocity = Vector3.zero;
-        if (m_GravityManager.getCameraFollowing())
+        Vector3 targetVelocity;
+        if (!m_GravityManager.getCameraFollowing())
         {
-            switch (currentGD)
-            {
-                case GravityDirection.Down:
-                    targetVelocity = new Vector2(dirt * walkSpeed * Time.deltaTime * 10f, m_Rigidbody2D.velocity.y);
-                    break;
-                case GravityDirection.Up:
-                    targetVelocity = new Vector2(-dirt * walkSpeed * Time.deltaTime * 10f, m_Rigidbody2D.velocity.y);
-                    break;
-                case GravityDirection.Left:
-                    targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, -dirt * walkSpeed * Time.deltaTime * 10f);
-                    break;
-                case GravityDirection.Right:
-                    targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, dirt * walkSpeed * Time.deltaTime * 10f);
-                    break;
-                default:
-                    targetVelocity = new Vector2(dirt * walkSpeed * Time.deltaTime * 10f, m_Rigidbody2D.velocity.y);
-                    break;
-            }
+            currentGD = m_GravityManager.getPreviousGD();
         }
-        else
-        {
-            switch (currentGD)
-            {
-                case GravityDirection.Down:
-                    targetVelocity = new Vector2(dirt * walkSpeed * Time.deltaTime * 10f, m_Rigidbody2D.velocity.y);
-                    break;
-                case GravityDirection.Up:
-                    targetVelocity = new Vector2(dirt * walkSpeed * Time.deltaTime * 10f, m_Rigidbody2D.velocity.y);
-                    break;
-                case GravityDirection.Left:
-                    targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, dirt * walkSpeed * Time.deltaTime * 10f);
-                    break;
-                case GravityDirection.Right:
-                    targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, dirt * walkSpeed * Time.deltaTime * 10f);
-                    break;
-                default:
-                    targetVelocity = new Vector2(dirt * walkSpeed * Time.deltaTime * 10f, m_Rigidbody2D.velocity.y);
-                    break;
-            }
-        }
-        // And then smoothing it out and applying it to the character
-        m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, smoothMovementTime);
 
-        /*
-        if (jump && grounded)
+        switch (currentGD)
         {
-            currentJumpVelocity = initialJumpVelocity;
-        }
-        jump = false;
-
-        switch (currentGD) {
             case GravityDirection.Down:
-                transform.position += new Vector3(dist * walkSpeed * Time.deltaTime, currentJumpVelocity * Time.deltaTime, 0);
+                targetVelocity = new Vector2(dirt * walkSpeed * Time.deltaTime * 10f, m_Rigidbody2D.velocity.y);
                 break;
             case GravityDirection.Up:
-                transform.position += new Vector3(-dist * walkSpeed * Time.deltaTime, -currentJumpVelocity * Time.deltaTime, 0);
+                targetVelocity = new Vector2(-dirt * walkSpeed * Time.deltaTime * 10f, m_Rigidbody2D.velocity.y);
                 break;
             case GravityDirection.Left:
-                transform.position += new Vector3(currentJumpVelocity * Time.deltaTime, -dist * walkSpeed * Time.deltaTime, 0);
+                targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, -dirt * walkSpeed * Time.deltaTime * 10f);
                 break;
             case GravityDirection.Right:
-                transform.position += new Vector3(-currentJumpVelocity * Time.deltaTime, dist * walkSpeed * Time.deltaTime, 0);
+                targetVelocity = new Vector2(m_Rigidbody2D.velocity.x, dirt * walkSpeed * Time.deltaTime * 10f);
                 break;
             default:
-                transform.position += new Vector3(dist * walkSpeed * Time.deltaTime, currentJumpVelocity * Time.deltaTime, 0);
+                targetVelocity = new Vector2(dirt * walkSpeed * Time.deltaTime * 10f, m_Rigidbody2D.velocity.y);
                 break;
         }
 
-        if (currentJumpVelocity > 0) {
-            currentJumpVelocity -= gravityScale * Time.deltaTime;
-            if (currentJumpVelocity < 0) currentJumpVelocity = 0;
-        }
-        if (!grounded && currentJumpVelocity > -gravityScale) {
-            currentJumpVelocity -= gravityScale * Time.deltaTime;
-            if (currentJumpVelocity < -gravityScale) currentJumpVelocity = -gravityScale;
-        }
-        */
+        // And then smoothing it out and applying it to the character
+        m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, smoothMovementTime);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -274,16 +214,16 @@ public class PlayerControl : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GravityDirection currentGD = m_GravityManager.getCurrentGD();
-        if (collision.gameObject.CompareTag("Gate")) {
-            m_GravityManager.setCameraFollowing(true);
-            m_GravityManager.ForceSwitchGravityDirection(GravityDirection.Down);
+
+        if (collision.gameObject.CompareTag("Gate"))
+        {
+            m_GravityManager.ForceSwitchGravityDirection(collision.gameObject.GetComponent<ModifyGravityGate>().gravityDirection);
         }
 
         if (collision.gameObject.CompareTag("AbnormalGravityZone"))
         {
-            float newGS = collision.gameObject.GetComponent<AbnormalGLight>().getGravityScale();
-            m_GravityManager.changeGravityScale(newGS);
-            m_Rigidbody2D.drag = 1.8f;
+            m_GravityManager.changeGravityScale(collision.gameObject.GetComponent<AbnormalGLight>().getGravityScale());
+            m_Rigidbody2D.drag = collision.gameObject.GetComponent<AbnormalGLight>().gravityDrag;
         }
 
         if (collision.gameObject.CompareTag("Goal")) {
@@ -325,29 +265,31 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-
-    /*
-    private void SwitchGravityDirection(GravityDirection newDirection) {
-        currentGD = newDirection;
-        currentJumpVelocity = -gravityScale / 2;
+    public void rotateText()
+    {
+        GravityDirection currentGD = m_GravityManager.getCurrentGD();
         switch (currentGD)
         {
             case GravityDirection.Down:
-                groundCheck.position = transform.position + new Vector3(0, -0.4f, 0);
+                transform.Find("Canvas").transform.rotation = Quaternion.Euler(0, 0, 0);
+                transform.Find("Canvas").transform.localPosition = new Vector3(0, 1.2f, 0);
                 break;
             case GravityDirection.Up:
-                groundCheck.position = transform.position + new Vector3(0, 0.4f, 0);
+                transform.Find("Canvas").transform.rotation = Quaternion.Euler(0, 0, 180);
+                transform.Find("Canvas").transform.localPosition = new Vector3(0, -1.2f, 0);
                 break;
             case GravityDirection.Left:
-                groundCheck.position = transform.position + new Vector3(-0.4f, 0, 0);
+                transform.Find("Canvas").transform.rotation = Quaternion.Euler(0, 0, 270);
+                transform.Find("Canvas").transform.localPosition = new Vector3(1.2f, 0, 0);
                 break;
             case GravityDirection.Right:
-                groundCheck.position = transform.position + new Vector3(0.4f, 0, 0);
+                transform.Find("Canvas").transform.rotation = Quaternion.Euler(0, 0, 90);
+                transform.Find("Canvas").transform.localPosition = new Vector3(-1.2f, 0, 0);
                 break;
             default:
-                groundCheck.position = transform.position + new Vector3(0, -0.4f, 0);
+                transform.Find("Canvas").transform.rotation = Quaternion.Euler(0, 0, 0);
+                transform.Find("Canvas").transform.localPosition = new Vector3(0, 1.2f, 0);
                 break;
         }
     }
-    */
 }

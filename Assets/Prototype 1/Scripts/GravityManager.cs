@@ -45,8 +45,8 @@ public class GravityManager : MonoBehaviour
 
     private GravityDirection findNextGravityDirection(GravityDirection newDirection) {
         GravityDirection nextGD = currentGD;
+
         // Find next GD based on current camera following type
-        prevGD = currentGD;
         if (cameraFollowing && !prevCameraFollowing)
         {
             // Check rotation angle of CAM to see which GD is the camera at
@@ -109,6 +109,13 @@ public class GravityManager : MonoBehaviour
         ForceSwitchGravityDirection(findNextGravityDirection(newDirection));
     }
 
+    public void ReverseGravityDirection() {
+        if(getCameraFollowing())
+            prevGD = currentGD;
+        setCameraFollowing(false);
+        ForceSwitchGravityDirection(findNextGravityDirection(GravityDirection.Up));
+    }
+
     public void ForceSwitchGravityDirection(GravityDirection newDirection) {
         currentGD = newDirection;
 
@@ -117,6 +124,7 @@ public class GravityManager : MonoBehaviour
 
         // Swith Player's ground check to according GD
         m_PlayerControl.switchGroundCheckPosition();
+        m_PlayerControl.rotateText();
 
         // Rotate Camera if needed
         if (cameraFollowing)
@@ -184,6 +192,8 @@ public class GravityManager : MonoBehaviour
     // Change GS to initial scale based on current GD
     public void resetGravityScale()
     {
+        float drag = m_Player.GetComponent<Rigidbody2D>().drag;
+        m_Player.GetComponent<Rigidbody2D>().drag = 0;
         switch (currentGD)
         {
             case GravityDirection.Down:
@@ -199,11 +209,16 @@ public class GravityManager : MonoBehaviour
                 Physics2D.gravity = new Vector2(initialGravityScale * 9.8f, 0);
                 break;
         }
+        m_Player.GetComponent<Rigidbody2D>().drag = drag;
     }
 
     public GravityDirection getCurrentGD()
     {
         return currentGD;
+    }
+    public GravityDirection getPreviousGD()
+    {
+        return prevGD;
     }
     public bool getCameraFollowing() {
         return cameraFollowing;

@@ -82,11 +82,11 @@ public class RotationLight : MonoBehaviour
         if (angle >= angleLowerBound - detectionOffset && angle <= angleUpperBound + detectionOffset)
         {
             // Raycast to see if there're obstacles blocking the light
-            RaycastHit2D hitPlayer = Physics2D.Raycast(transform.position, directToPlayer, distToPlayer + 0.5f, blockingLayer);
+            RaycastHit2D hitPlayer = Physics2D.Raycast(transform.position, directToPlayer, m_SpotLight.pointLightOuterRadius, blockingLayer);
             
-            Debug.DrawRay(transform.position, directToPlayer * (distToPlayer + 0.5f), Color.green, 1);
+            Debug.DrawRay(transform.position, directToPlayer * m_SpotLight.pointLightOuterRadius, Color.green, 1);
 
-            if (hitPlayer.collider.gameObject.CompareTag("Player"))
+            if (hitPlayer.collider != null && hitPlayer.collider.gameObject.CompareTag("Player"))
             {
                 //Debug.Log("Inside");
                 return true;

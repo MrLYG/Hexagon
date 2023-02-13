@@ -29,7 +29,7 @@ public class InstructionTrigger : MonoBehaviour
             timeCount += Time.deltaTime;
             if(timeCount > lastingTime)
             {
-                if(IntructionText.GetComponent<TextMeshProUGUI>().text == m_Instruction)
+                if(IntructionText.GetComponent<TextMeshProUGUI>().text.Equals(m_Instruction))
                 {
                     IntructionText.GetComponent<TextMeshProUGUI>().text = "";
                 }

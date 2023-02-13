@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Gate
   - Ground
   - Background
   - ReverseLight
@@ -17,6 +16,9 @@ TagManager:
   - RespawnManager
   - GravityManager
   - Instruction
+  - Zone
+  - Gate
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -62,4 +64,7 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 3379971521
+    locked: 0
+  - name: UI
+    uniqueID: 3311049029
     locked: 0
