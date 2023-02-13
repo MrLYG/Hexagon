@@ -10,7 +10,7 @@ public class GameStart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameInstruction.text = "Press D & A to move.";
+        //gameInstruction.text = "Press D & A to move.";
         Time.timeScale = 0;
     }
 
