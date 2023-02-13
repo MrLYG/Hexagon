@@ -49,7 +49,7 @@ public class PlayerControl : MonoBehaviour
             m_GravityManager = gameObject.GetComponent<GravityManager>();
         }
 
-        foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("GravityManager"))
+        foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("RespawnManager"))
         {
             m_RepawnManager = gameObject.GetComponent<RespawnManager>();
         }

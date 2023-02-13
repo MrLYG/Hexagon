@@ -5,7 +5,7 @@ using TMPro;
 
 public class PlayerHP : MonoBehaviour
 {
-    [SerializeField] RespawnManager m_RepawnManager;
+    [SerializeField] GameObject m_RepawnManager;
     [SerializeField] private float hitDuration = 0.2f;
     [SerializeField] private float hitCD = 0.4f;
     private bool canBeHit = true;
@@ -18,6 +18,10 @@ public class PlayerHP : MonoBehaviour
 
     void Start()
     {
+        foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("RespawnManager"))
+        {
+            m_RepawnManager = gameObject;
+        }
         hp = initialHP;
     }
 
@@ -58,7 +62,8 @@ public class PlayerHP : MonoBehaviour
             HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
 
             // trigger to collect data
-            analytics.GetComponent<Analytics>().beHits++;
+            if(analytics != null)
+                analytics.GetComponent<Analytics>().beHits++;
 
             // Respawn player if HP reduced to 0 or below
             if (hp <= 0)
