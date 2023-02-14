@@ -19,7 +19,7 @@ public class GameStart : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
-            Time.timeScale = 1;
+            Time.timeScale = 1.0f;
             Destroy(gameObject);
         }
     }

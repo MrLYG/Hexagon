@@ -229,7 +229,7 @@ public class PlayerControl : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Goal")) {
             WinningText.SetActive(true);
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
             Debug.Log("You Win!");
         }
     }

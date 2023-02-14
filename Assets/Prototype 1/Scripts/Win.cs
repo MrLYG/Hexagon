@@ -3,13 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Proyecto26;
+using UnityEngine.SceneManagement;
 
 public class Win : MonoBehaviour
 {
 
-    public string level; 
+    public string level;
+    //public int nextLevel;
     public GameObject analytics;
     private readonly string basePath = "https://hexagon-11bf5-default-rtdb.firebaseio.com";
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +28,11 @@ public class Win : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Win Win");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             generateJson();
         }
     }
+
     private Model generateJson()
     {
         Model m = new Model();
