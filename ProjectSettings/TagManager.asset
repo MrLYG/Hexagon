@@ -19,6 +19,8 @@ TagManager:
   - Zone
   - Gate
   - Item
+  - BattleManager
+  - Weapon
   layers:
   - Default
   - TransparentFX
