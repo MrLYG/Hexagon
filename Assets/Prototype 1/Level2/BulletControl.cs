@@ -2,31 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletMoveRight : MonoBehaviour
+public class BulletControl : MonoBehaviour
 {
+    public float distance;
     public float speed = 0.5f;
-    // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.right * Time.fixedDeltaTime * speed);
+        //transform.Translate(Vector3.left * Time.fixedDeltaTime * speed);
+        transform.localPosition += Vector3.right * Time.deltaTime * speed;
         DestroyGameObject();
     }
 
     void DestroyGameObject()
     {
-        if (gameObject.transform.position.x > 39)
+        if (gameObject.transform.localPosition.x > distance)
         {
             Destroy(gameObject);
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
