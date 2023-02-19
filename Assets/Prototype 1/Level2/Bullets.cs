@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bullets : MonoBehaviour
 {
+    public float distance;
     public GameObject bullet;
     public float startDelay = 1.5f;
     public float spawnInterval = 4.0f;
@@ -14,15 +15,10 @@ public class Bullets : MonoBehaviour
         InvokeRepeating("FireBullet", startDelay, spawnInterval);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void FireBullet()
     {
-        Instantiate(bullet, transform.position, bullet.transform.rotation);
-
+        GameObject bulletObject = Instantiate(bullet, transform.position, Quaternion.identity);
+        bulletObject.GetComponent<BulletControl>().distance = distance;
+        bulletObject.transform.parent = transform;
     }
 }

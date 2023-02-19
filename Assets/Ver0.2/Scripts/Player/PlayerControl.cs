@@ -248,10 +248,10 @@ public class PlayerControl : MonoBehaviour
             m_Rigidbody2D.drag = collision.gameObject.GetComponent<AbnormalGLight>().gravityDrag;
         }
 
-        if (collision.gameObject.CompareTag("Goal")) {
-            //WinningText.SetActive(true);
-            //Time.timeScale = 0;
-            //Debug.Log("You Win!");
+        if (collision.gameObject.CompareTag("DeadZone") || collision.gameObject.CompareTag("Enemy"))
+        {
+            GetComponent<PlayerHP>().getHurt(0.5f, collision.gameObject);
+            //Debug.Log("You are dead");
         }
     }
 
