@@ -247,12 +247,6 @@ public class PlayerControl : MonoBehaviour
             m_ObjectGravity.changeGravityScale(collision.gameObject.GetComponent<AbnormalGLight>().getGravityScale(), gameObject);
             m_Rigidbody2D.drag = collision.gameObject.GetComponent<AbnormalGLight>().gravityDrag;
         }
-
-        if (collision.gameObject.CompareTag("DeadZone") || collision.gameObject.CompareTag("Enemy"))
-        {
-            GetComponent<PlayerHP>().getHurt(0.5f, collision.gameObject);
-            //Debug.Log("You are dead");
-        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

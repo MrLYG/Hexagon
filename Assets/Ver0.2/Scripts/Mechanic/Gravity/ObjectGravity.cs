@@ -7,6 +7,8 @@ public class ObjectGravity : MonoBehaviour
 {
     private float GravityScale;
 
+    [SerializeField] private GravityManager m_GravityManager;
+
     private Rigidbody2D m_rg2d;
 
     private GravityDirection currentGD = GravityDirection.Down;
@@ -19,42 +21,24 @@ public class ObjectGravity : MonoBehaviour
     {
         m_rg2d = gameObject.GetComponent<Rigidbody2D>();
         GravityScale = initialGravityScale;
+
+        if (m_GravityManager == null)
+        {
+            foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("GravityManager"))
+            {
+                m_GravityManager = gameObject.GetComponent<GravityManager>();
+            }
+        }
     }
 
     private void FixedUpdate()
     {
         m_rg2d.AddForce(getCurrentGravity());
-        /*
-        switch (currentGD)
-        {
-            case GravityDirection.Down:
-                m_rg2d.AddForce(new Vector2(0, GravityScale * -9.8f));
-                break;
-            case GravityDirection.Up:
-                m_rg2d.AddForce(new Vector2(0, GravityScale * 9.8f));
-                break;
-            case GravityDirection.Left:
-                m_rg2d.AddForce(new Vector2(GravityScale * -9.8f, 0));
-                break;
-            case GravityDirection.Right:
-                m_rg2d.AddForce(new Vector2(GravityScale * 9.8f, 0));
-                break;
-                
-                case GravityDirection.Down:
-                    Physics2D.gravity = new Vector2(0, -initialGravityScale * 9.8f);
-                    break;
-                case GravityDirection.Up:
-                    Physics2D.gravity = new Vector2(0, initialGravityScale * 9.8f);
-                    break;
-                case GravityDirection.Left:
-                    Physics2D.gravity = new Vector2(-initialGravityScale * 9.8f, 0);
-                    break;
-                case GravityDirection.Right:
-                    Physics2D.gravity = new Vector2(initialGravityScale * 9.8f, 0);
-                    break;
-                
     }
-        */
+
+    public void ReverseGravityDirection()
+    {
+        m_GravityManager.ReverseGravityDirection(gameObject);
     }
 
     public Vector2 getCurrentGravity()
@@ -78,23 +62,6 @@ public class ObjectGravity : MonoBehaviour
     public void changeGravityScale(float newGS, GameObject target)
     {
         GravityScale = newGS;
-        /*
-        switch (currentGD)
-        {
-            case GravityDirection.Down:
-                Physics2D.gravity = new Vector2(0, newGS * -initialGravityScale * 9.8f);
-                break;
-            case GravityDirection.Up:
-                Physics2D.gravity = new Vector2(0, newGS * initialGravityScale * 9.8f);
-                break;
-            case GravityDirection.Left:
-                Physics2D.gravity = new Vector2(newGS * -initialGravityScale * 9.8f, 0);
-                break;
-            case GravityDirection.Right:
-                Physics2D.gravity = new Vector2(newGS * initialGravityScale * 9.8f, 0);
-                break;
-         }
-         */
     }
 
     // Change GS to initial scale based on current GD

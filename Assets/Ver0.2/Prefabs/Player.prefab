@@ -258,6 +258,7 @@ GameObject:
   - component: {fileID: 3828223674493895317}
   - component: {fileID: 820199934}
   - component: {fileID: 820199949}
+  - component: {fileID: 1015405797}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -386,7 +387,7 @@ MonoBehaviour:
   walkSpeed: 30
   smoothMovementTime: 0.05
   jumpForce: 750
-  m_groundCheck: {fileID: 0}
+  m_groundCheck: {fileID: 6061397500328888222}
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -409,6 +410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5e3afbb328b0a148b6b7ffde2a57de1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_GravityManager: {fileID: 0}
   initialGravityScale: 4
 --- !u!114 &6061397498481008623
 MonoBehaviour:
@@ -436,7 +438,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -144112
+  m_InstanceId: -1408
 --- !u!114 &6061397499637108558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -537,8 +539,20 @@ MonoBehaviour:
   forceIncreasingSpeed: 4
   predicionDot: {fileID: 5606517341168248430, guid: 3a0cf7acc39c4c34d9859de21f3cfaf6, type: 3}
   numDots: 7
-  Bullets:
-  - {fileID: 4805909504083269419, guid: 4ebc830f2bec9b249a18c254b6a9a044, type: 3}
+  Bullets: []
+--- !u!114 &1015405797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6061397498481008598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6e7dda50fb04454bb97f68d3ba8b3cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageText: {fileID: 4909749031897745626, guid: b161b8c930e72664e9ae7b6657f06a5a, type: 3}
 --- !u!1 &6061397500328888221
 GameObject:
   m_ObjectHideFlags: 0
