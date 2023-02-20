@@ -73,6 +73,12 @@ public class PlayerHP : MonoBehaviour
             hp--;
             HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
 
+            // Damage Pop
+            if(GetComponent<DamagePop>() != null)
+            {
+                GetComponent<DamagePop>().PopDamage(1);
+            }
+
             // trigger to collect data
             if(analytics != null)
                 analytics.GetComponent<Analytics>().beHits++;

@@ -104,9 +104,13 @@ public class GravityManager : MonoBehaviour
 
     public void ReverseGravityDirection(GameObject target)
     {
-        if (getCameraFollowing())
-            target.GetComponent<ObjectGravity>().setPreviousGD(target.GetComponent<ObjectGravity>().getCurrentGD());
-        setCameraFollowing(false);
+        if (target.CompareTag("Player"))
+        {
+            target.GetComponent<PlayerBattle>().SwitchWeaponSide();
+            if (getCameraFollowing())
+                target.GetComponent<ObjectGravity>().setPreviousGD(target.GetComponent<ObjectGravity>().getCurrentGD());
+            setCameraFollowing(false);
+        }
         ForceSwitchGravityDirection(findNextGravityDirection(GravityDirection.Up, target), target);
     }
 
