@@ -35,8 +35,9 @@ public class Win : MonoBehaviour
 
     private Model generateJson()
     {
-        Model m = new Model();
-        m.uid = "22";
+        Model m = new Model();       
+        string uuid = PlayerPrefs.GetString("UUID");
+        m.uid = uuid;
         m.level = level;
         m.isWin = true;
         m.runTime = analytics.GetComponent<Analytics>().runningTime;
