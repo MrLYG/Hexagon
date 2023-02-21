@@ -26,7 +26,7 @@ public class EnemyControl : MonoBehaviour
                         wayPoints[wayPointIndex].transform.position,
                         moveSpeed * Time.deltaTime);
 
-        if(transform.position == wayPoints[wayPointIndex].transform.position)
+        if(Mathf.Abs(transform.position.x - wayPoints[wayPointIndex].transform.position.x) < 0.1f)
         {
             wayPointIndex++;
         }
