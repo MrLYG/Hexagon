@@ -21,7 +21,7 @@
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "buildOutputDirList",
-                "value": "{\"m_Value\":\"D:/DeskTop/Hexagon/WebGL Builds/Menu;D:/DeskTop/Hexagon/WebGL Builds/Level1;D:/DeskTop/Hexagon/WebGL Builds/Level2;D:/Unity Repository/Hexagon/WebGL Builds;C:/Users/songz/Desktop/Hexagon/WebGL Builds;;;;;\"}"
+                "value": "{\"m_Value\":\"C:/Users/avill/Unity/Builds;D:/DeskTop/Hexagon/WebGL Builds/Menu;D:/DeskTop/Hexagon/WebGL Builds/Level1;D:/DeskTop/Hexagon/WebGL Builds/Level2;D:/Unity Repository/Hexagon/WebGL Builds;C:/Users/songz/Desktop/Hexagon/WebGL Builds;;;;\"}"
             }
         ]
     }
