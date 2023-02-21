@@ -48,6 +48,7 @@ public class Win : MonoBehaviour
         Model m = new Model();       
         string uuid = PlayerPrefs.GetString("UUID");
         m.uid = uuid;
+        m.collectDate = getNowDate();
         m.level = level;
         m.isWin = true;
         m.runTime = analytics.GetComponent<Analytics>().runningTime;
@@ -55,5 +56,12 @@ public class Win : MonoBehaviour
         Debug.Log(m.ToString());
         RestClient.Post(basePath + "/posts" + ".json", m);
         return null;
+    }
+
+    private string getNowDate()
+    {
+        DateTime currentTime = DateTime.Now;
+        string timeString = currentTime.ToString("yyyy/MM/dd HH:mm:ss");
+        return timeString;
     }
 }

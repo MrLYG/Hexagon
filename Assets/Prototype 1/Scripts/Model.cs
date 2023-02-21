@@ -8,6 +8,7 @@ public class Model
 {
     public string uid;
     public string level;
+    public string collectDate;
     public bool isWin;
     public float runTime;
     public float beHits;
