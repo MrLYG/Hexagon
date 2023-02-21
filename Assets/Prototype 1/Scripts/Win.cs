@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class Win : MonoBehaviour
 {
-
+    [SerializeField] private string nextLevel;
     public string level;
     //public int nextLevel;
     public GameObject analytics;
@@ -28,7 +28,7 @@ public class Win : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Win Win");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneManager.LoadScene(nextLevel);
             generateJson();
         }
     }

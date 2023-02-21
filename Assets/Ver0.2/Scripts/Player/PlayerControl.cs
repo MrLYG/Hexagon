@@ -247,12 +247,6 @@ public class PlayerControl : MonoBehaviour
             m_ObjectGravity.changeGravityScale(collision.gameObject.GetComponent<AbnormalGLight>().getGravityScale(), gameObject);
             m_Rigidbody2D.drag = collision.gameObject.GetComponent<AbnormalGLight>().gravityDrag;
         }
-
-        if (collision.gameObject.CompareTag("Goal")) {
-            //WinningText.SetActive(true);
-            //Time.timeScale = 0;
-            //Debug.Log("You Win!");
-        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

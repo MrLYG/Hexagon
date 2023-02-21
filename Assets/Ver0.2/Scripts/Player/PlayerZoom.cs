@@ -15,6 +15,9 @@ public class PlayerZoom : MonoBehaviour
 
     [SerializeField] private float initialOrthoSize;
 
+    //[SerializeField] private float movingZoomSpeed;
+    //[SerializeField] private float movingZoomRatio;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,12 +45,6 @@ public class PlayerZoom : MonoBehaviour
         {
             camCenter = true;
 
-            //gameObject.transform.localScale *= 1.5f;
-            //gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
-            //gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-            //gameObject.GetComponent<CircleCollider2D>().enabled = false;
-            //transform.Find("Canvas").gameObject.SetActive(true);
-
             // Make Important Object Bigger
             foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Item"))
             {
@@ -58,14 +55,9 @@ public class PlayerZoom : MonoBehaviour
                 gameObject.transform.localScale *= 2;
             }
         }
-        else if(Input.GetKeyUp(KeyCode.M))
+        else if (Input.GetKeyUp(KeyCode.M))
         {
             camCenter = false;
-
-            //gameObject.transform.localScale /= 1.5f;
-            //gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
-            //gameObject.GetComponent<CircleCollider2D>().enabled = true;
-            //transform.Find("Canvas").gameObject.SetActive(false);
 
             // Reset Scale of Important Object
             foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Item"))
@@ -76,7 +68,20 @@ public class PlayerZoom : MonoBehaviour
             {
                 gameObject.transform.localScale /= 2;
             }
-        } 
+        }
+
+        /*
+        if (GetComponent<Rigidbody2D>().velocity.magnitude > 0)
+        {
+            m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize =
+                Mathf.Lerp(m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize, initialOrthoSize * movingZoomRatio, movingZoomSpeed * Time.deltaTime);
+        }
+        else
+        {
+            m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize =
+                Mathf.Lerp(m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize, initialOrthoSize, movingZoomSpeed * Time.deltaTime);
+        }
+        */
     }
 
     void FixedUpdate()

@@ -5,7 +5,7 @@ using UnityEngine;
 public class IWeapon : MonoBehaviour
 {
     public float AttackCD;
-    public float Damage;
+    public int Damage;
     public Vector3 InitialPos;
     public Vector3 InitialRot;
 
@@ -21,13 +21,13 @@ public class IWeapon : MonoBehaviour
     {
         transform.parent = Player.transform;
         transform.localPosition = InitialPos;
-        transform.rotation = Quaternion.Euler(InitialRot);
+        transform.localRotation = Quaternion.Euler(InitialRot);
     }
 
     public virtual void Reset()
     {
         transform.localPosition = InitialPos;
-        transform.rotation = Quaternion.Euler(InitialRot);
+        transform.localRotation = Quaternion.Euler(InitialRot);
     }
 
     public virtual void SwitchSide()

@@ -9,6 +9,7 @@ public class WStick : IWeapon
     [SerializeField] private float AttackSpeed = 3f;
     [SerializeField] private Vector3 EndLocationRotation;
     private float switchTimes = 0;
+    private List<GameObject> hitTargets = new List<GameObject>();
 
     public override void StartAttack()
     {
@@ -17,8 +18,8 @@ public class WStick : IWeapon
     }
     public override void Attack()
     {
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(EndLocationRotation), AttackSpeed * Time.deltaTime);
-        float zDiff = transform.eulerAngles.z - EndLocationRotation.z;
+        transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(EndLocationRotation), AttackSpeed * Time.deltaTime);
+        float zDiff = transform.localRotation.eulerAngles.z - EndLocationRotation.z;
         if (Mathf.Abs(zDiff % 360 - 360) <= 10 || Mathf.Abs(zDiff % 360) <= 10)
         {
             Attacking = false;
@@ -32,12 +33,17 @@ public class WStick : IWeapon
     public override void SetUp(GameObject Player)
     {
         base.SetUp(Player);
+        if (!Player.GetComponent<PlayerControl>().facingRight)
+        {
+            SwitchSide();
+        }
         GetComponent<BoxCollider2D>().enabled = false;
     }
 
     public override void Reset()
     {
         base.Reset();
+        hitTargets.Clear();
         GetComponent<BoxCollider2D>().enabled = false;
     }
 
@@ -60,6 +66,17 @@ public class WStick : IWeapon
         else
         {
             switchTimes++;
+        }
+    }
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            if (!hitTargets.Contains(collision.gameObject))
+            {
+                collision.gameObject.GetComponent<EnemyHP>().damage(gameObject);
+                hitTargets.Add(collision.gameObject);
+            }
         }
     }
 }

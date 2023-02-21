@@ -6,18 +6,15 @@ public class EnemyKnockBack : MonoBehaviour
 {
     [SerializeField] private float knockBackForce;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void KnockBack(GameObject byObject)
     {
-        if (collision.gameObject.CompareTag("Weapon"))
+        if (byObject.transform.position.x - transform.position.x < 0)
         {
-           if(collision.gameObject.transform.position.x - transform.position.x < 0)
-            {
-                GetComponent<Rigidbody2D>().AddForce(new Vector3(knockBackForce, knockBackForce, 0));
-            }
-            else
-            {
-                GetComponent<Rigidbody2D>().AddForce(new Vector3(-knockBackForce, knockBackForce, 0));
-            }
+            GetComponent<Rigidbody2D>().AddForce(new Vector3(knockBackForce, knockBackForce, 0));
+        }
+        else
+        {
+            GetComponent<Rigidbody2D>().AddForce(new Vector3(-knockBackForce, knockBackForce, 0));
         }
     }
 }
