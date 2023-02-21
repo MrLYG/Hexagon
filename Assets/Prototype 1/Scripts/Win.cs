@@ -13,23 +13,33 @@ public class Win : MonoBehaviour
     public GameObject analytics;
     private readonly string basePath = "https://hexagon-11bf5-default-rtdb.firebaseio.com";
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
+    private bool isPlayerNearby = false;
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (isPlayerNearby && Input.GetKeyDown(KeyCode.W))
+        {
+            Debug.Log("Win Win");
+            SceneManager.LoadScene(nextLevel);
+            generateJson();
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Win Win");
-            SceneManager.LoadScene(nextLevel);
-            generateJson();
+            isPlayerNearby = true;
+            collision.gameObject.GetComponent<PlayerInstruction>().seteText("W");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            isPlayerNearby = false;
+            collision.gameObject.GetComponent<PlayerInstruction>().resetText();
         }
     }
 

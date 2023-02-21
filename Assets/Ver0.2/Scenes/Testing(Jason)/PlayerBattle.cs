@@ -22,7 +22,7 @@ public class PlayerBattle : MonoBehaviour
         //PlayerPrefs.SetString("PlayerWeapon", "Stick");
         //if (SceneManager.GetActiveScene().name.Equals("Testing"))
         //{
-            PlayerPrefs.DeleteKey("PlayerWeapon");
+        //    PlayerPrefs.DeleteKey("PlayerWeapon");
         //}
 
         // If have weapons from previou level, carry over

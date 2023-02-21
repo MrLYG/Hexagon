@@ -438,7 +438,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1408
+  m_InstanceId: -25150
 --- !u!114 &6061397499637108558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,6 +539,8 @@ MonoBehaviour:
   forceIncreasingSpeed: 4
   predicionDot: {fileID: 5606517341168248430, guid: 3a0cf7acc39c4c34d9859de21f3cfaf6, type: 3}
   numDots: 7
+  BulletPrefabs:
+  - {fileID: 4805909504083269419, guid: 4ebc830f2bec9b249a18c254b6a9a044, type: 3}
   Bullets: []
 --- !u!114 &1015405797
 MonoBehaviour:

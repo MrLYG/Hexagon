@@ -22,7 +22,7 @@ public class PlayerSpecialBullet : MonoBehaviour
     void Start()
     {
         // Reseting for now
-        PlayerPrefs.DeleteKey("PlayerBlueLight");
+        //PlayerPrefs.DeleteKey("PlayerBlueLight");
 
         // If have blue lights
         if (PlayerPrefs.HasKey("PlayerBlueLight"))

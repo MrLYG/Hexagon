@@ -9,7 +9,9 @@ public class MenuManager : MonoBehaviour
     {
         string uniqueID = System.Guid.NewGuid().ToString();
         PlayerPrefs.SetString("UUID", uniqueID);
-        
+
+        PlayerPrefs.DeleteKey("PlayerWeapon");
+        PlayerPrefs.DeleteKey("PlayerBlueLight");
     }
     public void QuitGame()
     {
