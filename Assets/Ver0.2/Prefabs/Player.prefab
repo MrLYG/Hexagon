@@ -259,6 +259,7 @@ GameObject:
   - component: {fileID: 820199934}
   - component: {fileID: 820199949}
   - component: {fileID: 1015405797}
+  - component: {fileID: 947359380049399852}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -438,7 +439,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -25150
+  m_InstanceId: -4964
 --- !u!114 &6061397499637108558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -555,6 +556,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DamageText: {fileID: 4909749031897745626, guid: b161b8c930e72664e9ae7b6657f06a5a, type: 3}
+--- !u!114 &947359380049399852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6061397498481008598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a2d4d121038bf7449b19c1c6660610e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6061397500328888221
 GameObject:
   m_ObjectHideFlags: 0
