@@ -9,7 +9,8 @@ public class ReverseLight : MonoBehaviour
     [SerializeField] private List<GameObject> AffectedObjects = new List<GameObject>();
     private void Start()
     {
-        Invoke("RemoveLight", ApperanceTime);
+        if(ApperanceTime > 0)
+            Invoke("RemoveLight", ApperanceTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
