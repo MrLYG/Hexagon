@@ -5,32 +5,32 @@ using UnityEngine.SceneManagement;
 
 public class LevelSelection : MonoBehaviour
 {
-    public int gameLevelScene;
+    [SerializeField] private string gameLevelScene;
 
     public void StartGame()
     {
         SceneManager.LoadScene(gameLevelScene);
         switch (gameLevelScene) {
-            case 1: PlayerPrefs.DeleteKey("PlayerWeapon");
+            case "Level1": PlayerPrefs.DeleteKey("PlayerWeapon");
                 PlayerPrefs.DeleteKey("PlayerBlueLight");
                 break;
-            case 2:
+            case "Level2":
                 PlayerPrefs.DeleteKey("PlayerWeapon");
                 PlayerPrefs.DeleteKey("PlayerBlueLight");
                 break;
-            case 3:
+            case "Level3":
                 PlayerPrefs.DeleteKey("PlayerWeapon");
                 PlayerPrefs.DeleteKey("PlayerBlueLight");
                 break;
-            case 4:
+            case "Level4":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
                 PlayerPrefs.DeleteKey("PlayerBlueLight");
                 break;
-            case 5:
+            case "Level5":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
                 PlayerPrefs.DeleteKey("PlayerBlueLight");
                 break;
-            case 6:
+            case "Level6":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
                 PlayerPrefs.SetInt("PlayerBlueLight", 1);
                 break;
