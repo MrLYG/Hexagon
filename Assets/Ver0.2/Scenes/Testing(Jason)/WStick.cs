@@ -8,6 +8,7 @@ public class WStick : IWeapon
     
     [SerializeField] private float AttackSpeed = 3f;
     [SerializeField] private Vector3 EndLocationRotation;
+    private Vector3 CurELR;
     private float switchTimes = 0;
     private List<GameObject> hitTargets = new List<GameObject>();
 
@@ -18,8 +19,8 @@ public class WStick : IWeapon
     }
     public override void Attack()
     {
-        transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(EndLocationRotation), AttackSpeed * Time.deltaTime);
-        float zDiff = transform.localRotation.eulerAngles.z - EndLocationRotation.z;
+        transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(CurELR), AttackSpeed * Time.deltaTime);
+        float zDiff = transform.localRotation.eulerAngles.z - CurELR.z;
         if (Mathf.Abs(zDiff % 360 - 360) <= 10 || Mathf.Abs(zDiff % 360) <= 10)
         {
             Attacking = false;
@@ -33,10 +34,7 @@ public class WStick : IWeapon
     public override void SetUp(GameObject Player)
     {
         base.SetUp(Player);
-        if (!Player.GetComponent<PlayerControl>().facingRight)
-        {
-            SwitchSide();
-        }
+        CurELR = EndLocationRotation;
         GetComponent<BoxCollider2D>().enabled = false;
     }
 
@@ -56,11 +54,36 @@ public class WStick : IWeapon
     }
     public override void SwitchSide()
     {
+        base.SwitchSide();
+        bool facingRight = m_Player.GetComponent<PlayerControl>().facingRight;
         if (!Attacking)
         {
             switchTimes = 0;
-            InitialPos = new Vector3(InitialPos.x * -1, InitialPos.y, InitialPos.z);
-            EndLocationRotation = new Vector3(0, 0, EndLocationRotation.z * -1);
+            if (!facingRight)
+            {
+                if (!Reverse)
+                {
+                    CurPos = new Vector3(InitialPos.x * -1, InitialPos.y, InitialPos.z);
+                    CurELR = new Vector3(0, 0, EndLocationRotation.z * -1);
+                }
+                else {
+                    CurPos = InitialPos;
+                    CurELR = EndLocationRotation;
+                }
+            }
+            else
+            {
+                if (!Reverse)
+                {
+                    CurPos = InitialPos;
+                    CurELR = EndLocationRotation;
+                }
+                else
+                {
+                    CurPos = new Vector3(InitialPos.x * -1, InitialPos.y, InitialPos.z);
+                    CurELR = new Vector3(0, 0, EndLocationRotation.z * -1);
+                }
+            }
             Reset();
         }
         else

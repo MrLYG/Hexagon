@@ -32,16 +32,20 @@ public class ReverseLight : MonoBehaviour
         }
     }
 
+    // Reset gravity of object after affecting time
     private void ResetGravity()
     {
         if(AffectedObjects[0] != null)
         {
-            AffectedObjects[0].GetComponent<ObjectGravity>().ReverseGravityDirection();
+            // Ignore player when player is at his invinvible time (after respawn)
+            if(!(AffectedObjects[0].CompareTag("Player") && AffectedObjects[0].GetComponent<PlayerRespawn>().Invincible))
+                AffectedObjects[0].GetComponent<ObjectGravity>().ReverseGravityDirection();
             AffectedObjects.RemoveAt(0);
         }
     }
     private void RemoveLight()
     {
+        // If there are still affecting object in the list, disable collider and finish reversing gravity before destroy this light
         if(AffectedObjects.Count != 0)
         {
             transform.GetChild(0).gameObject.SetActive(false);

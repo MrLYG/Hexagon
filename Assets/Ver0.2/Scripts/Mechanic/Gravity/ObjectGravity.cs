@@ -7,13 +7,16 @@ public class ObjectGravity : MonoBehaviour
 {
     private float GravityScale;
 
+    [Tooltip("Reference of Gravity Manager")]
     [SerializeField] private GravityManager m_GravityManager;
 
+    [Tooltip("Reference of rg2d")]
     private Rigidbody2D m_rg2d;
 
     private GravityDirection currentGD = GravityDirection.Down;
     private GravityDirection prevGD = GravityDirection.Down;
 
+    [Tooltip("The base gravity scale for the object")]
     [SerializeField] private float initialGravityScale = 4f;
 
     // Start is called before the first frame update

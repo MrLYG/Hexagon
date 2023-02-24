@@ -6,21 +6,34 @@ using TMPro;
 
 public class PlayerZoom : MonoBehaviour
 {
+    // References
     private bool camCenter = false;
     private GameObject m_Camera;
     private GameObject m_CM;
 
+    // Params for 'm' key functions
     private GameObject target;
-    private float orthoSize;
+    private float targetOrthoSize;
+    private float curOrthoSize;
 
-    [SerializeField] private float initialOrthoSize;
+    private float initialOrthoSize;
 
-    //[SerializeField] private float movingZoomSpeed;
-    //[SerializeField] private float movingZoomRatio;
+    // Params for move & zoom function
+    [Header("Move & Zoom")]
+    [Space]
 
-    // Start is called before the first frame update
+    [Tooltip("True on/off the function of move & zoom")]
+    [SerializeField] private bool movingZoom;
+
+    [Tooltip("Speed to zoom in while moving")]
+    [SerializeField] private float movingZoomSpeed;
+
+    [Tooltip("Scale ratio to zoom in while moving")]
+    [SerializeField] private float movingZoomRatio;
+
     void Start()
     {
+        // Get reference of camera if we don't already have
         if (m_Camera == null || m_CM == null)
         {
             foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("MainCamera"))
@@ -35,7 +48,12 @@ public class PlayerZoom : MonoBehaviour
                 }
             }
         }
+
+        // Get initial zoom scale and set up camera to follow player
         initialOrthoSize = m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize;
+        curOrthoSize = initialOrthoSize;
+        m_CM.GetComponent<CinemachineVirtualCamera>().Follow = gameObject.transform;
+        m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = curOrthoSize;
     }
 
     // Update is called once per frame
@@ -54,6 +72,10 @@ public class PlayerZoom : MonoBehaviour
             {
                 gameObject.transform.localScale *= 2;
             }
+
+            curOrthoSize = targetOrthoSize;
+            m_CM.GetComponent<CinemachineVirtualCamera>().Follow = target.transform;
+            m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = curOrthoSize;
         }
         else if (Input.GetKeyUp(KeyCode.M))
         {
@@ -68,31 +90,26 @@ public class PlayerZoom : MonoBehaviour
             {
                 gameObject.transform.localScale /= 2;
             }
-        }
 
-        if (camCenter)
-        {
-            m_CM.GetComponent<CinemachineVirtualCamera>().Follow = target.transform;
-            m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = orthoSize;
-        }
-        else
-        {
+            curOrthoSize = initialOrthoSize;
             m_CM.GetComponent<CinemachineVirtualCamera>().Follow = gameObject.transform;
-            m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = initialOrthoSize;
+            m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = curOrthoSize;
         }
 
-        /*
-        if (GetComponent<Rigidbody2D>().velocity.magnitude > 0)
+        // Moving will have the camera zoom closer on player
+        if (movingZoom)
         {
-            m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize =
-                Mathf.Lerp(m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize, initialOrthoSize * movingZoomRatio, movingZoomSpeed * Time.deltaTime);
+            if (GetComponent<PlayerControl>().isMoving())
+            {
+                m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize =
+                    Mathf.Lerp(m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize, curOrthoSize * movingZoomRatio, movingZoomSpeed * Time.deltaTime);
+            }
+            else
+            {
+                m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize =
+                    Mathf.Lerp(m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize, curOrthoSize, movingZoomSpeed * Time.deltaTime);
+            }
         }
-        else
-        {
-            m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize =
-                Mathf.Lerp(m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize, initialOrthoSize, movingZoomSpeed * Time.deltaTime);
-        }
-        */
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -100,7 +117,7 @@ public class PlayerZoom : MonoBehaviour
         if (collision.gameObject.CompareTag("Zone"))
         {
             target = collision.gameObject.GetComponent<CameraZone>().cameraAnchor;
-            orthoSize = collision.gameObject.GetComponent<CameraZone>().orthoSize;
+            targetOrthoSize = collision.gameObject.GetComponent<CameraZone>().orthoSize;
         }
     }
 }

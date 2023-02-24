@@ -10,7 +10,7 @@ public class DamagePop : MonoBehaviour
     public void PopDamage(int damage)
     {
         GameObject dmgText = Instantiate(DamageText, transform.position, Quaternion.identity);
-        dmgText.transform.parent = transform;
+        dmgText.transform.SetParent(transform, true);
         dmgText.transform.Find("DamageText").GetComponent<TextMeshProUGUI>().text = "-" + damage.ToString();
     }
 

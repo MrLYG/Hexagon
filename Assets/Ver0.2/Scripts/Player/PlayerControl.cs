@@ -8,31 +8,49 @@ public class PlayerControl : MonoBehaviour
 {
     [Header("Movement")]
     [Space]
+
+    [Tooltip("Walking speed")]
     [SerializeField] private float walkSpeed;
+
+    [Tooltip("Moving smoothing, high value will cause player to slide")]
     [Range(0, .3f)] [SerializeField] private float smoothMovementTime = 0.05f;
+
+    [Tooltip("Jumping force")]
     [SerializeField] private float jumpForce = 400f;
+
+    [Tooltip("Ground check object reference")]
     [SerializeField] private Transform m_groundCheck;
+
+    [Tooltip("Layers to be consider ground")]
     [SerializeField] private LayerMask groundLayer;
+
+    [Tooltip("rb2d reference")]
     [SerializeField] private Rigidbody2D m_Rigidbody2D;
 
+    [Tooltip("Reference of Gravity Manager")]
     [SerializeField] private GravityManager m_GravityManager;
 
     private Vector3 velocity = Vector3.zero;
 
+    // Params used for basic movements
     private float dirt;
     private bool jump;
     private bool grounded;
 
-    // Inner CD for switching gravity
+    // Params for gravity related operation
     private bool canSwitchGD = true;
+    [Tooltip("Cooldown time for switching gravity direction")]
     [SerializeField] private float GDSwitchCD = 0.5f;
     private float GDSwitchCount = 0f;
 
+    [Tooltip("Layers to be consider light")]
     [SerializeField] private LayerMask lightLayer;
 
     private ObjectGravity m_ObjectGravity;
 
+    // Params for player orientation (Useful for setting weapon orientation)
     public bool facingRight = true;
+    private bool moving = false;
 
     // Start is called before the first frame update
     void Start()
@@ -71,6 +89,7 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetKey(KeyCode.A)) 
         {
             dirt = -1.0f;
+            moving = true;
             if (facingRight)
             {
                 facingRight = !facingRight;
@@ -80,6 +99,7 @@ public class PlayerControl : MonoBehaviour
         else if (Input.GetKey(KeyCode.D))
         {
             dirt = 1.0f;
+            moving = true;
             if (!facingRight)
             {
                 facingRight = !facingRight;
@@ -87,6 +107,7 @@ public class PlayerControl : MonoBehaviour
             }
         }
         else {
+            moving = false;
             dirt = 0f;
         }
 
@@ -276,5 +297,8 @@ public class PlayerControl : MonoBehaviour
                 gameObject.transform.rotation = Quaternion.Euler(0, 0, 90);
                 break;
         }
+    }
+    public bool isMoving() {
+        return moving;
     }
 }

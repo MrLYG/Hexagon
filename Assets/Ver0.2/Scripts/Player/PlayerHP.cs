@@ -5,16 +5,27 @@ using TMPro;
 
 public class PlayerHP : MonoBehaviour
 {
+    [Tooltip("Reference of Respawn Manager")]
     [SerializeField] private GameObject m_RepawnManager;
+
+    [Tooltip("Being hit coloring changing duration")]
     [SerializeField] private float hitDuration = 0.2f;
+
+    [Tooltip("Invincible time after being hit")]
     [SerializeField] private float hitCD = 0.4f;
+
     private bool canBeHit = true;
     private float hitCount;
 
+    [Tooltip("Reference of the HP UI")]
     [SerializeField] private GameObject HPText;
+
+    [Tooltip("Reference of Analytic object")]
     [SerializeField] private GameObject analytics;
-    private int hp = 5;
+    
+    [Tooltip("Initial HP")]
     [SerializeField] private int initialHP = 3;
+    private int hp;
 
     void Start()
     {
