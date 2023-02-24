@@ -4,50 +4,71 @@ using UnityEngine;
 
 public class PlayerSpecialBullet : MonoBehaviour
 {
+    [Tooltip("Initial distance")]
     [SerializeField] private float initLaunchForce;
+
+    [Tooltip("Max distance")]
     [SerializeField] private float maxLaunchForce;
+
+    [Tooltip("Charging speed while holding down button")]
     [SerializeField] private float forceIncreasingSpeed;
+
+    [Tooltip("Prefab of prediction dots")]
     [SerializeField] private GameObject predicionDot;
+
+    [Tooltip("Number of dots to have for prediction line")]
     [SerializeField] private int numDots;
+
+    // Reference of the list of prediction dots
     private List<GameObject> predicionDots = new List<GameObject>();
 
+    // Params related to throwing lights
     private float curLaunchForce;
     private bool charging = false;
 
+    [Tooltip("All bullets prefabs for different lights")]
     [SerializeField] private List<GameObject> BulletPrefabs;
+
+    [Tooltip("Bullets prefabs that player currently have")]
     [SerializeField] private List<GameObject> Bullets;
+
+    // Prefab of the curret in-use bullet
     private GameObject curBullet;
+
+    [Tooltip("CD for using powers")]
+    [SerializeField] private float powerCD = 1f;
+
+    private bool canUsePower = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Reseting for now
-        //PlayerPrefs.DeleteKey("PlayerBlueLight");
-
         // If have blue lights
         if (PlayerPrefs.HasKey("PlayerBlueLight"))
         {
             getPower(BulletPrefabs[0]);
         }
 
+        // Create prediction dots and make them inivisible for now
         for (int i = 0; i < numDots; i++)
         {
             predicionDots.Add(Instantiate(predicionDot, transform.position, Quaternion.identity));
         }
+        showDots(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (curBullet != null)
         {
             // Start Charging
-            if (Input.GetMouseButtonDown(1) && !charging)
+            if (Input.GetMouseButtonDown(1) && !charging && canUsePower)
             {
                 curLaunchForce = initLaunchForce;
                 charging = true;
                 showDots(true);
             }
+
             // Release
             if (Input.GetMouseButtonUp(1) && charging)
             {
@@ -59,7 +80,11 @@ public class PlayerSpecialBullet : MonoBehaviour
                     bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(1, 1) * curLaunchForce;
                 else
                     bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(-1, 1) * curLaunchForce;
+                canUsePower = false;
+                Invoke("resetPowerCD", powerCD);
             }
+
+            // Charge up launching force and upate projection line
             if (charging)
             {
                 DrawProjectile();
@@ -72,6 +97,7 @@ public class PlayerSpecialBullet : MonoBehaviour
         }
     }
 
+    // Get a referene of the bullet prefab and include into player's bullet list
     public void getPower(GameObject bullet)
     {
         if(bullet.name.Equals("ReverseBullet"))
@@ -84,6 +110,11 @@ public class PlayerSpecialBullet : MonoBehaviour
             Bullets.Add(bullet);
         }
         curBullet = Bullets[Bullets.Count - 1];
+    }
+
+    // Invoked when CD for using power has passed
+    private void resetPowerCD() {
+        canUsePower = true;
     }
 
     // For showing prediction line

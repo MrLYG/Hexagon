@@ -5,6 +5,7 @@ using TMPro;
 
 public class PlayerCoin : MonoBehaviour
 {
+    [Tooltip("Reference of the Coin UI")]
     [SerializeField] private GameObject CoinText;
     private int coins = 0;
 

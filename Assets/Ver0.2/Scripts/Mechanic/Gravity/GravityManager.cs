@@ -106,6 +106,7 @@ public class GravityManager : MonoBehaviour
     {
         if (target.CompareTag("Player"))
         {
+            target.GetComponent<PlayerBattle>().ReverseWeapon();
             target.GetComponent<PlayerBattle>().SwitchWeaponSide();
             if (getCameraFollowing())
                 target.GetComponent<ObjectGravity>().setPreviousGD(target.GetComponent<ObjectGravity>().getCurrentGD());

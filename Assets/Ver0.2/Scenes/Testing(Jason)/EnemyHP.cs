@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EnemyHP : MonoBehaviour
 {
-    private int hp = 2;
+    [Tooltip("Initial HP")]
     [SerializeField] private int initialHP = 2;
+    private int hp = 2;
 
     private void Start()
     {
@@ -18,7 +19,8 @@ public class EnemyHP : MonoBehaviour
         hp -= damage;
         if (hp <= 0)
         {
-            Destroy(gameObject);
+            // Deactivate the enemy
+            gameObject.SetActive(false);
         }
 
         // If have knockback script, perform knockback
@@ -27,6 +29,7 @@ public class EnemyHP : MonoBehaviour
             GetComponent<EnemyKnockBack>().KnockBack(byObject);
         }
 
+        // If have damage script, perform damage poping
         if (GetComponent<DamagePop>() != null)
         {
             GetComponent<DamagePop>().PopDamage(damage);

@@ -8,6 +8,10 @@ public class IWeapon : MonoBehaviour
     public int Damage;
     public Vector3 InitialPos;
     public Vector3 InitialRot;
+    public Vector3 CurPos;
+    public Vector3 CurRot;
+    public GameObject m_Player;
+    public bool Reverse;
 
     public virtual void StartAttack()
     {
@@ -19,19 +23,29 @@ public class IWeapon : MonoBehaviour
     }
     public virtual void SetUp(GameObject Player)
     {
-        transform.parent = Player.transform;
-        transform.localPosition = InitialPos;
-        transform.localRotation = Quaternion.Euler(InitialRot);
+        if (m_Player == null)
+        {
+            m_Player = Player;
+            transform.parent = m_Player.transform;
+        }
+        CurPos = InitialPos;
+        CurRot = InitialRot;
+        Reverse = false;
+        Reset();
     }
 
     public virtual void Reset()
     {
-        transform.localPosition = InitialPos;
-        transform.localRotation = Quaternion.Euler(InitialRot);
+        transform.localPosition = CurPos;
+        transform.localRotation = Quaternion.Euler(CurRot);
     }
 
     public virtual void SwitchSide()
     {
+        //facingRight = !facingRight;
+    }
 
+    public virtual void ReverseWeapon() {
+        Reverse = !Reverse;
     }
 }
