@@ -70,6 +70,17 @@ public class PlayerZoom : MonoBehaviour
             }
         }
 
+        if (camCenter)
+        {
+            m_CM.GetComponent<CinemachineVirtualCamera>().Follow = target.transform;
+            m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = orthoSize;
+        }
+        else
+        {
+            m_CM.GetComponent<CinemachineVirtualCamera>().Follow = gameObject.transform;
+            m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = initialOrthoSize;
+        }
+
         /*
         if (GetComponent<Rigidbody2D>().velocity.magnitude > 0)
         {
@@ -82,20 +93,6 @@ public class PlayerZoom : MonoBehaviour
                 Mathf.Lerp(m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize, initialOrthoSize, movingZoomSpeed * Time.deltaTime);
         }
         */
-    }
-
-    void FixedUpdate()
-    {
-        if (camCenter)
-        {
-            m_CM.GetComponent<CinemachineVirtualCamera>().Follow = target.transform;
-            m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = orthoSize;
-        }
-        else
-        {
-            m_CM.GetComponent<CinemachineVirtualCamera>().Follow = gameObject.transform;
-            m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = initialOrthoSize;
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
