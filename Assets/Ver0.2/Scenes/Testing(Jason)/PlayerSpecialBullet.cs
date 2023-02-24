@@ -80,6 +80,7 @@ public class PlayerSpecialBullet : MonoBehaviour
                     bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(1, 1) * curLaunchForce;
                 else
                     bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(-1, 1) * curLaunchForce;
+
                 canUsePower = false;
                 Invoke("resetPowerCD", powerCD);
             }

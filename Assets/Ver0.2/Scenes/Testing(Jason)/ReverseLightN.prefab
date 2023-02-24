@@ -708,5 +708,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ApperanceTime: 3
-  AffectTime: 1
+  AffectTime: 3
   AffectedObjects: []

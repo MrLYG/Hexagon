@@ -7,10 +7,18 @@ public class ReverseLight : MonoBehaviour
     [SerializeField] private float ApperanceTime;
     [SerializeField] private float AffectTime;
     [SerializeField] private List<GameObject> AffectedObjects = new List<GameObject>();
+    private GameObject m_Player;
+
     private void Start()
     {
         if(ApperanceTime > 0)
             Invoke("RemoveLight", ApperanceTime);
+
+        // Get reference of Player
+        foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            m_Player = gameObject;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -28,6 +36,9 @@ public class ReverseLight : MonoBehaviour
                 {
                     collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 }
+
+                // Remove light when it affected 1 object
+                RemoveLight();
             }
         }
     }
@@ -46,7 +57,7 @@ public class ReverseLight : MonoBehaviour
     private void RemoveLight()
     {
         // If there are still affecting object in the list, disable collider and finish reversing gravity before destroy this light
-        if(AffectedObjects.Count != 0)
+        if (AffectedObjects.Count != 0)
         {
             transform.GetChild(0).gameObject.SetActive(false);
             GetComponent<CircleCollider2D>().enabled = false;
