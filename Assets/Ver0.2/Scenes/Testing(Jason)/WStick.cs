@@ -97,7 +97,7 @@ public class WStick : IWeapon
         {
             if (!hitTargets.Contains(collision.gameObject))
             {
-                collision.gameObject.GetComponent<EnemyHP>().damage(gameObject);
+                collision.gameObject.GetComponent<EnemyHP>().damage(gameObject, Damage);
                 hitTargets.Add(collision.gameObject);
             }
         }

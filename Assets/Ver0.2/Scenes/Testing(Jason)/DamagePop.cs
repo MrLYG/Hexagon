@@ -7,7 +7,7 @@ public class DamagePop : MonoBehaviour
 {
     [SerializeField] private GameObject DamageText;
 
-    public void PopDamage(int damage)
+    public void PopDamage(float damage)
     {
         GameObject dmgText = Instantiate(DamageText, transform.position, Quaternion.identity);
         dmgText.transform.SetParent(transform, true);

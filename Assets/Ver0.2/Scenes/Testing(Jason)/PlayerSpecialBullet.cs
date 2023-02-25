@@ -62,11 +62,26 @@ public class PlayerSpecialBullet : MonoBehaviour
         if (curBullet != null)
         {
             // Start Charging
-            if (Input.GetMouseButtonDown(1) && !charging && canUsePower)
+            if (Input.GetMouseButtonDown(1) && !charging )
             {
-                curLaunchForce = initLaunchForce;
-                charging = true;
-                showDots(true);
+                // Can use power & Player not in reverse position & not other blue light exists
+                if (canUsePower && GetComponent<ObjectGravity>().getCurrentGD() != GravityDirection.Up)
+                {
+                    bool haveActiveLight = false;
+                    if (GameObject.FindGameObjectsWithTag("ReverseLight").Length != 0) {
+                        foreach (GameObject lights in GameObject.FindGameObjectsWithTag("ReverseLight")) {
+                            if (lights.GetComponent<CircleCollider2D>().enabled) {
+                                haveActiveLight = true;
+                            }
+                        }
+                    }
+                    if (!haveActiveLight)
+                    {
+                        curLaunchForce = initLaunchForce;
+                        charging = true;
+                        showDots(true);
+                    }
+                }
             }
 
             // Release
@@ -81,8 +96,7 @@ public class PlayerSpecialBullet : MonoBehaviour
                 else
                     bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(-1, 1) * curLaunchForce;
 
-                canUsePower = false;
-                Invoke("resetPowerCD", powerCD);
+                startPowerCD(powerCD);
             }
 
             // Charge up launching force and upate projection line
@@ -111,6 +125,11 @@ public class PlayerSpecialBullet : MonoBehaviour
             Bullets.Add(bullet);
         }
         curBullet = Bullets[Bullets.Count - 1];
+    }
+
+    public void startPowerCD(float time) {
+        canUsePower = false;
+        Invoke("resetPowerCD", time);
     }
 
     // Invoked when CD for using power has passed

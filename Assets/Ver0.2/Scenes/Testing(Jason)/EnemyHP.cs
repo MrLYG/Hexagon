@@ -5,17 +5,17 @@ using UnityEngine;
 public class EnemyHP : MonoBehaviour
 {
     [Tooltip("Initial HP")]
-    [SerializeField] private int initialHP = 2;
-    private int hp = 2;
+    [SerializeField] private float initialHP = 2;
+    private float hp = 2;
 
     private void Start()
     {
         hp = initialHP;
     }
 
-    public void damage(GameObject byObject)
+    public void damage(GameObject byObject, float damage)
     {
-        int damage = byObject.GetComponent<IWeapon>().Damage;
+        //int damage = byObject.GetComponent<IWeapon>().Damage;
         hp -= damage;
         if (hp <= 0)
         {
