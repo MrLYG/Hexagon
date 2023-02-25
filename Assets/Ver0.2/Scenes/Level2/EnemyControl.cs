@@ -22,8 +22,11 @@ public class EnemyControl : MonoBehaviour
 
     void Move()
     {
+        Vector2 targetPosition = wayPoints[wayPointIndex].transform.position;
+        targetPosition.y = transform.position.y;
+
         transform.position = Vector2.MoveTowards(transform.position,
-                        wayPoints[wayPointIndex].transform.position,
+                        targetPosition,
                         moveSpeed * Time.deltaTime);
 
         if(Mathf.Abs(transform.position.x - wayPoints[wayPointIndex].transform.position.x) < 0.1f)
