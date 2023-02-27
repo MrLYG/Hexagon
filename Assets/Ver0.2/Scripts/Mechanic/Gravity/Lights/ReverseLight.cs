@@ -2,26 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReverseLight : MonoBehaviour
+public class ReverseLight : ILight
 {
-    [SerializeField] private float ApperanceTime;
     [SerializeField] private float AffectTime;
-    [SerializeField] private List<GameObject> AffectedObjects = new List<GameObject>();
-    private GameObject m_Player;
 
-    private void Start()
-    {
-        if(ApperanceTime > 0)
-            Invoke("RemoveLight", ApperanceTime);
-
-        // Get reference of Player
-        foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            m_Player = gameObject;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    public override void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy"))
         {
@@ -54,7 +39,8 @@ public class ReverseLight : MonoBehaviour
             AffectedObjects.RemoveAt(0);
         }
     }
-    private void RemoveLight()
+
+    public override void RemoveLight()
     {
         // If there are still affecting object in the list, disable collider and finish reversing gravity before destroy this light
         if (AffectedObjects.Count != 0)

@@ -26,6 +26,9 @@ public class PlayerRespawn : MonoBehaviour
         transform.position = location.transform.position;
         m_GravityManager.GetComponent<GravityManager>().ForceSwitchGravityDirection(gravityDirection, gameObject);
 
+        // Reset player HP
+        GetComponent<PlayerHP>().setHP();
+
         // Reset weapon status
         GetComponent<PlayerBattle>().ResetWeapon();
 

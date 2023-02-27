@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpiderControl : MonoBehaviour
+public class SpiderControl : IEnemy
 {
     [SerializeField] private Transform[] wayPoints;
-    [SerializeField] private float moveSpeed = 2f;
     int wayPointIndex = 0;
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
+        base.Start();
         transform.position = wayPoints[wayPointIndex].transform.position;
     }
 
@@ -24,7 +24,7 @@ public class SpiderControl : MonoBehaviour
     {
         transform.position = Vector2.MoveTowards(transform.position,
                         wayPoints[wayPointIndex].transform.position,
-                        moveSpeed * Time.deltaTime);
+                        curSpeed * Time.deltaTime);
 
         if (Mathf.Abs(transform.position.y - wayPoints[wayPointIndex].transform.position.y) < 0.1f)
         {
@@ -35,5 +35,10 @@ public class SpiderControl : MonoBehaviour
         {
             wayPointIndex = 0;
         }
+    }
+    public override void reset()
+    {
+        base.reset();
+        wayPointIndex = 0;
     }
 }

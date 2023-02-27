@@ -24,8 +24,8 @@ public class PlayerHP : MonoBehaviour
     [SerializeField] private GameObject analytics;
     
     [Tooltip("Initial HP")]
-    [SerializeField] private int initialHP = 3;
-    private int hp;
+    [SerializeField] private float initialHP = 3;
+    private float hp;
 
     void Start()
     {
@@ -85,7 +85,7 @@ public class PlayerHP : MonoBehaviour
             HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
 
             // Damage Pop
-            if(GetComponent<DamagePop>() != null)
+            if(GetComponent<DamagePop>() != null && hp > 0)
             {
                 GetComponent<DamagePop>().PopDamage(1);
             }
@@ -98,9 +98,18 @@ public class PlayerHP : MonoBehaviour
             if (hp <= 0)
             {
                 m_RepawnManager.GetComponent<RespawnManager>().RespawnPlayer();
-                hp = initialHP;
-                HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
             }
         }
+    }
+
+    public void setHP(float newHP)
+    {
+        hp = newHP;
+        HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
+    }
+
+    public void setHP() {
+        hp = initialHP;
+        HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
     }
 }

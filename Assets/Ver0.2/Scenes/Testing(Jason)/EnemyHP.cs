@@ -10,7 +10,7 @@ public class EnemyHP : MonoBehaviour
 
     private void Start()
     {
-        hp = initialHP;
+        resetHP();
     }
 
     public void damage(GameObject byObject, float damage)
@@ -21,6 +21,7 @@ public class EnemyHP : MonoBehaviour
         {
             // Deactivate the enemy
             gameObject.SetActive(false);
+            return;
         }
 
         // If have knockback script, perform knockback
@@ -34,5 +35,9 @@ public class EnemyHP : MonoBehaviour
         {
             GetComponent<DamagePop>().PopDamage(damage);
         }
+    }
+
+    public void resetHP() {
+        hp = initialHP;
     }
 }

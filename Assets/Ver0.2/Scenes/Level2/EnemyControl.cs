@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyControl : MonoBehaviour
+public class EnemyControl : IEnemy
 {
     [SerializeField] Transform[] wayPoints;
-    [SerializeField] float moveSpeed = 2f;
     int wayPointIndex = 0;
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
-        transform.position = wayPoints[wayPointIndex].transform.position; 
+        base.Start();
+        transform.position = wayPoints[wayPointIndex].transform.position;
     }
 
     // Update is called once per frame
@@ -27,7 +27,7 @@ public class EnemyControl : MonoBehaviour
 
         transform.position = Vector2.MoveTowards(transform.position,
                         targetPosition,
-                        moveSpeed * Time.deltaTime);
+                        curSpeed * Time.deltaTime);
 
         if(Mathf.Abs(transform.position.x - wayPoints[wayPointIndex].transform.position.x) < 0.1f)
         {
@@ -38,5 +38,11 @@ public class EnemyControl : MonoBehaviour
         {
             wayPointIndex = 0;
         }
+    }
+
+    public override void reset()
+    {
+        base.reset();
+        wayPointIndex = 0;
     }
 }

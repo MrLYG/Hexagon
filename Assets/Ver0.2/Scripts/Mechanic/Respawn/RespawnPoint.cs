@@ -5,6 +5,7 @@ using UnityEngine;
 public class RespawnPoint : MonoBehaviour
 {
     [SerializeField] private GameObject m_RespawnManager;
+    public List<GameObject> Enemies;
     public GravityDirection gravityDirection;
 
     private void Start()

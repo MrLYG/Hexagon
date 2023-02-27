@@ -39,5 +39,12 @@ public class RespawnManager : MonoBehaviour
     public void RespawnPlayer()
     {
         m_Player.GetComponent<PlayerRespawn>().Respawn(curCP, curCP.GetComponent<RespawnPoint>().gravityDirection);
+        RespawnEnemies();
+    }
+
+    public void RespawnEnemies() {
+        foreach (GameObject enemy in curCP.GetComponent<RespawnPoint>().Enemies) {
+            enemy.GetComponent<IEnemy>().reset();
+        }
     }
 }

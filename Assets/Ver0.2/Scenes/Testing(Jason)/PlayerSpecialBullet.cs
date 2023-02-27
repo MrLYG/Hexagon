@@ -33,7 +33,7 @@ public class PlayerSpecialBullet : MonoBehaviour
     [SerializeField] private List<GameObject> Bullets;
 
     // Prefab of the curret in-use bullet
-    private GameObject curBullet;
+    [SerializeField] private int curBulletIndex = -1;
 
     [Tooltip("CD for using powers")]
     [SerializeField] private float powerCD = 1f;
@@ -48,6 +48,10 @@ public class PlayerSpecialBullet : MonoBehaviour
         {
             getPower(BulletPrefabs[0]);
         }
+        if (PlayerPrefs.HasKey("PlayerGreenLight"))
+        {
+            //getPower(BulletPrefabs[1]);
+        }
 
         // Create prediction dots and make them inivisible for now
         for (int i = 0; i < numDots; i++)
@@ -59,57 +63,96 @@ public class PlayerSpecialBullet : MonoBehaviour
 
     void Update()
     {
-        if (curBullet != null)
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            // Start Charging
-            if (Input.GetMouseButtonDown(1) && !charging )
+
+        }
+
+        if (curBulletIndex == 0)
+        {
+            BlueLight();
+        }
+
+        if (curBulletIndex == 1)
+        {
+            GreenLight();
+        }
+    }
+
+    private void BlueLight() {
+        // Start Charging
+        if (Input.GetMouseButtonDown(1) && !charging)
+        {
+            // Can use power & Player not in reverse position & not other blue light exists
+            if (canUsePower && GetComponent<ObjectGravity>().getCurrentGD() != GravityDirection.Up)
             {
-                // Can use power & Player not in reverse position & not other blue light exists
-                if (canUsePower && GetComponent<ObjectGravity>().getCurrentGD() != GravityDirection.Up)
+                if (!haveTagObject("ReverseLight"))
                 {
-                    bool haveActiveLight = false;
-                    if (GameObject.FindGameObjectsWithTag("ReverseLight").Length != 0) {
-                        foreach (GameObject lights in GameObject.FindGameObjectsWithTag("ReverseLight")) {
-                            if (lights.GetComponent<CircleCollider2D>().enabled) {
-                                haveActiveLight = true;
-                            }
-                        }
-                    }
-                    if (!haveActiveLight)
-                    {
-                        curLaunchForce = initLaunchForce;
-                        charging = true;
-                        showDots(true);
-                    }
-                }
-            }
-
-            // Release
-            if (Input.GetMouseButtonUp(1) && charging)
-            {
-                charging = false;
-                showDots(false);
-
-                GameObject bullet = Instantiate(curBullet, transform.position, Quaternion.identity);
-                if (GetComponent<PlayerControl>().facingRight)
-                    bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(1, 1) * curLaunchForce;
-                else
-                    bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(-1, 1) * curLaunchForce;
-
-                startPowerCD(powerCD);
-            }
-
-            // Charge up launching force and upate projection line
-            if (charging)
-            {
-                DrawProjectile();
-                curLaunchForce += forceIncreasingSpeed * Time.deltaTime;
-                if (curLaunchForce > maxLaunchForce)
-                {
-                    curLaunchForce = maxLaunchForce;
+                    curLaunchForce = initLaunchForce;
+                    charging = true;
+                    showDots(true);
                 }
             }
         }
+
+        // Release
+        if (Input.GetMouseButtonUp(1) && charging)
+        {
+            charging = false;
+            showDots(false);
+
+            GameObject bullet = Instantiate(Bullets[curBulletIndex], transform.position, Quaternion.identity);
+            if (GetComponent<PlayerControl>().facingRight)
+                bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(1, 1) * curLaunchForce;
+            else
+                bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(-1, 1) * curLaunchForce;
+
+            startPowerCD(powerCD);
+        }
+
+        // Charge up launching force and upate projection line
+        if (charging)
+        {
+            DrawProjectile();
+            curLaunchForce += forceIncreasingSpeed * Time.deltaTime;
+            if (curLaunchForce > maxLaunchForce)
+            {
+                curLaunchForce = maxLaunchForce;
+            }
+        }
+    }
+
+    private void GreenLight() {
+        if (Input.GetMouseButtonDown(1))
+        {
+            // Can use power & no other green light exists
+            if (canUsePower)
+            {
+                if (!haveTagObject("GreenLight"))
+                {
+                    GameObject greenLight = Instantiate(Bullets[curBulletIndex], transform.position, Quaternion.identity);
+                    greenLight.transform.parent = transform;
+
+                    GetComponent<PlayerSlowFall>().startSlowFall();
+                    Invoke("greenLightCD", Bullets[curBulletIndex].GetComponent<GreenLight>().ApperanceTime);
+                }
+            }
+        }
+    }
+
+    private bool haveTagObject(string tag) {
+        bool haveObject = false;
+        if (GameObject.FindGameObjectsWithTag(tag).Length != 0)
+        {
+            foreach (GameObject lights in GameObject.FindGameObjectsWithTag(tag))
+            {
+                if (lights.GetComponent<CircleCollider2D>().enabled)
+                {
+                    haveObject = true;
+                }
+            }
+        }
+        return haveObject;
     }
 
     // Get a referene of the bullet prefab and include into player's bullet list
@@ -124,7 +167,8 @@ public class PlayerSpecialBullet : MonoBehaviour
         {
             Bullets.Add(bullet);
         }
-        curBullet = Bullets[Bullets.Count - 1];
+        curBulletIndex = Bullets.Count - 1;
+        //curBulletIndex = 0;
     }
 
     public void startPowerCD(float time) {
@@ -135,6 +179,11 @@ public class PlayerSpecialBullet : MonoBehaviour
     // Invoked when CD for using power has passed
     private void resetPowerCD() {
         canUsePower = true;
+    }
+
+    private void greenLightCD() {
+        GetComponent<PlayerSlowFall>().stopSlowFall();
+        startPowerCD(powerCD);
     }
 
     // For showing prediction line

@@ -93,11 +93,11 @@ public class WStick : IWeapon
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.GetComponent<IEnemy>())
         {
             if (!hitTargets.Contains(collision.gameObject))
             {
-                collision.gameObject.GetComponent<EnemyHP>().damage(gameObject, Damage);
+                collision.gameObject.GetComponent<IEnemy>().damage(gameObject, Damage);
                 hitTargets.Add(collision.gameObject);
             }
         }
