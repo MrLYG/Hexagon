@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerSpecialBullet : MonoBehaviour
 {
@@ -39,10 +42,13 @@ public class PlayerSpecialBullet : MonoBehaviour
     [SerializeField] private float powerCD = 1f;
 
     private bool canUsePower = true;
+    public Image coolDownIcon;
 
     // Start is called before the first frame update
     void Start()
     {
+        coolDownIcon.enabled = false;
+
         // If have blue lights
         if (PlayerPrefs.HasKey("PlayerBlueLight"))
         {
@@ -76,6 +82,24 @@ public class PlayerSpecialBullet : MonoBehaviour
         if (curBulletIndex == 1)
         {
             GreenLight();
+        }
+
+        if(!canUsePower)
+        {
+            coolDownIcon.fillAmount += 1.0f / powerCD * Time.deltaTime;
+        }
+
+        if (GetComponent<ObjectGravity>().getCurrentGD() == GravityDirection.Up || haveTagObject("ReverseLight") || !canUsePower)
+        {
+            Color color = coolDownIcon.color;
+            color.a = 0.5f;
+            coolDownIcon.color = color;
+        }
+        else
+        {
+            Color color = coolDownIcon.color;
+            color.a = 1f;
+            coolDownIcon.color = color;
         }
     }
 
@@ -160,6 +184,7 @@ public class PlayerSpecialBullet : MonoBehaviour
     {
         if(bullet.name.Equals("ReverseBullet"))
         {
+            coolDownIcon.enabled = true;
             PlayerPrefs.SetInt("PlayerBlueLight", 1);
         }
 
@@ -173,6 +198,8 @@ public class PlayerSpecialBullet : MonoBehaviour
 
     public void startPowerCD(float time) {
         canUsePower = false;
+        coolDownIcon.fillAmount = 0.0f;
+
         Invoke("resetPowerCD", time);
     }
 
