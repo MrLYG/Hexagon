@@ -46,6 +46,7 @@ public class Win : MonoBehaviour
 
     private Model generateJson()
     {
+        analytics.GetComponent<Analytics>().GetAllEnemiesObject();
         Model m = new Model();       
         string uuid = PlayerPrefs.GetString("UUID");
         m.uid = uuid;

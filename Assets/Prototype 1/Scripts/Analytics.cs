@@ -11,7 +11,7 @@ public class Analytics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetAllEnemies();
+        //GetAllEnemies();
     }
 
     
@@ -29,11 +29,25 @@ public class Analytics : MonoBehaviour
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-        // 遍历数组中的每个 GameObject
         foreach (GameObject e in enemies)
         {
             AnalyticsEnemy analyticsEnemie = new AnalyticsEnemy(e.GetInstanceID(), e.name, false, false, false, e.GetComponent<EnemyHP>().getHp(), e.GetComponent<EnemyHP>().getHp() > 0 ? "live" : "dead");
             analyticsEnemiesDict.Add(e.name, analyticsEnemie);
+        }
+    }
+
+    public void GetAllEnemiesObject()
+    {
+
+        GameObject[] allEnemies = Resources.FindObjectsOfTypeAll<GameObject>();
+
+        foreach (GameObject e in allEnemies)
+        {
+            if (e.CompareTag("Enemy"))
+            {
+                AnalyticsEnemy analyticsEnemie = new AnalyticsEnemy(e.GetInstanceID(), e.name, false, false, false, e.GetComponent<EnemyHP>().getHp(), e.GetComponent<EnemyHP>().getHp() > 0 ? "live" : "dead");
+                analyticsEnemiesDict.Add(e.name, analyticsEnemie);
+            }
         }
     }
 }

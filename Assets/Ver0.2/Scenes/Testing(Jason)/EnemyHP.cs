@@ -21,6 +21,7 @@ public class EnemyHP : MonoBehaviour
         {
             // Deactivate the enemy
             gameObject.SetActive(false);
+
             return;
         }
 
