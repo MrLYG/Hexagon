@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,8 +13,13 @@ public class Model
     public bool isWin;
     public float runTime;
     public float beHits;
+    public Dictionary<string, AnalyticsEnemy> analyticsEnemiesDict;
     public override string ToString()
     {
-        return UnityEngine.JsonUtility.ToJson(this, true);
+        //return UnityEngine.JsonUtility.ToJson(this, true);
+        return JsonConvert.SerializeObject(this);
     }
+
+    
 }
+

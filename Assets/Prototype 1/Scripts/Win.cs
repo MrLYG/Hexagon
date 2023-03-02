@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Proyecto26;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class Win : MonoBehaviour
 {
@@ -53,8 +54,12 @@ public class Win : MonoBehaviour
         m.isWin = true;
         m.runTime = analytics.GetComponent<Analytics>().runningTime;
         m.beHits = analytics.GetComponent<Analytics>().beHits;
+        
+
+        m.analyticsEnemiesDict = analytics.GetComponent<Analytics>().analyticsEnemiesDict;
         Debug.Log(m.ToString());
-        RestClient.Post(basePath + "/posts" + ".json", m);
+        RestClient.Post(basePath + "/hexagon" + ".json", m.ToString());
+        //analytics.GetComponent<Analytics>().GetAllEnemies();
         return null;
     }
 

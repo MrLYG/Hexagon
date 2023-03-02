@@ -40,4 +40,8 @@ public class EnemyHP : MonoBehaviour
     public void resetHP() {
         hp = initialHP;
     }
+    public float getHp()
+    {
+        return hp;
+    }
 }
