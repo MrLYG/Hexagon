@@ -46,7 +46,7 @@ public class Win : MonoBehaviour
 
     private Model generateJson()
     {
-        analytics.GetComponent<Analytics>().GetAllEnemiesObject();
+        
         Model m = new Model();       
         string uuid = PlayerPrefs.GetString("UUID");
         m.uid = uuid;
@@ -55,9 +55,10 @@ public class Win : MonoBehaviour
         m.isWin = true;
         m.runTime = analytics.GetComponent<Analytics>().runningTime;
         m.beHits = analytics.GetComponent<Analytics>().beHits;
-        
 
-        m.analyticsEnemiesDict = analytics.GetComponent<Analytics>().analyticsEnemiesDict;
+
+        m.analyticsEnemiesDict = AnalyticsUtils.GetAllEnemiesObject();
+        m.analyticsCheckpointsDict = AnalyticsUtils.GetAllCheckpointsObject();
         Debug.Log(m.ToString());
         RestClient.Post(basePath + "/hexagon" + ".json", m.ToString());
         //analytics.GetComponent<Analytics>().GetAllEnemies();
