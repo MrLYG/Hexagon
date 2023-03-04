@@ -58,6 +58,7 @@ public class Win : MonoBehaviour
         m.analyticsEnemiesDict = AnalyticsUtils.GetAllEnemiesObject();
         m.analyticsCheckpointsDict = AnalyticsUtils.GetAllCheckpointsObject();
         Debug.Log(m.ToString());
+        //RestClient.Post(basePath + "/hexagon" + ".json?name=YASKJXH9892ASDFA26*&52#&9ASXS851", m.ToString());
         RestClient.Post(basePath + "/hexagon" + ".json", m.ToString());
         //analytics.GetComponent<Analytics>().GetAllEnemies();
         return null;
