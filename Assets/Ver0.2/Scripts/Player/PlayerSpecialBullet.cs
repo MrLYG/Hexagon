@@ -88,6 +88,10 @@ public class PlayerSpecialBullet : MonoBehaviour
         {
             coolDownIcon.fillAmount += 1.0f / powerCD * Time.deltaTime;
         }
+        else
+        {
+            coolDownIcon.fillAmount = 1;
+        }
 
         if (GetComponent<ObjectGravity>().getCurrentGD() == GravityDirection.Up || haveTagObject("ReverseLight") || !canUsePower)
         {

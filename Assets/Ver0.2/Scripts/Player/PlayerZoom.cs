@@ -74,7 +74,7 @@ public class PlayerZoom : MonoBehaviour
             }
 
             curOrthoSize = targetOrthoSize;
-            m_CM.GetComponent<CinemachineVirtualCamera>().Follow = target.transform;
+            //m_CM.GetComponent<CinemachineVirtualCamera>().Follow = target.transform;
             m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = curOrthoSize;
         }
         else if (Input.GetKeyUp(KeyCode.M))
@@ -92,7 +92,7 @@ public class PlayerZoom : MonoBehaviour
             }
 
             curOrthoSize = initialOrthoSize;
-            m_CM.GetComponent<CinemachineVirtualCamera>().Follow = gameObject.transform;
+            //m_CM.GetComponent<CinemachineVirtualCamera>().Follow = gameObject.transform;
             m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = curOrthoSize;
         }
 

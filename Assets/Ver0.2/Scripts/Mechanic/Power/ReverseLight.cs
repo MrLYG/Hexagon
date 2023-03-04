@@ -5,6 +5,19 @@ using UnityEngine;
 public class ReverseLight : ILight
 {
     [SerializeField] private float AffectTime;
+    [SerializeField] private UnityEngine.Rendering.Universal.Light2D m_SphereLight;
+    private float initIntensity;
+
+    public override void Start()
+    {
+        base.Start();
+        initIntensity = m_SphereLight.intensity;
+    }
+
+    private void Update()
+    {
+        m_SphereLight.intensity -= (initIntensity - 0.1f) / ApperanceTime * Time.deltaTime;
+    }
 
     public override void OnTriggerEnter2D(Collider2D collision)
     {

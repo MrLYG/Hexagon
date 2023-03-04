@@ -708,5 +708,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ApperanceTime: 3
-  AffectTime: 3
   AffectedObjects: []
+  AffectTime: 3
+  m_SphereLight: {fileID: 7665251968263393427}

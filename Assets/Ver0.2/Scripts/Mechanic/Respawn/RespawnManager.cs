@@ -27,6 +27,9 @@ public class RespawnManager : MonoBehaviour
 
     public void SetCheckPoint(GameObject newCP)
     {
+        // Reset Player HP
+        m_Player.GetComponent<PlayerHP>().setHP();
+
         // Reset the color of previous checkpoint
         if (curCP != null)
             curCP.GetComponent<SpriteRenderer>().color = Color.yellow;

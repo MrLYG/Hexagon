@@ -8,21 +8,24 @@ public class ForcePlayerCombat : MonoBehaviour
     [SerializeField] private List<GameObject> Enemies;
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        bool clear = true;
-        foreach(GameObject enemy in Enemies)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            if (enemy.activeSelf)
+            bool clear = true;
+            foreach (GameObject enemy in Enemies)
             {
-                clear = false;
+                if (enemy.activeSelf)
+                {
+                    clear = false;
+                }
             }
-        }
-        if (clear)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            WarningText.SetActive(true);
+            if (clear)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                WarningText.SetActive(true);
+            }
         }
     }
     private void OnCollisionExit2D(Collision2D collision)

@@ -11,13 +11,15 @@ public class EnemyControl : IEnemy
     public override void Start()
     {
         base.Start();
-        transform.position = wayPoints[wayPointIndex].transform.position;
+        if(wayPoints.Length > 0)
+            transform.position = wayPoints[wayPointIndex].transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (wayPoints.Length > 0)
+            Move();
     }
 
     void Move()
