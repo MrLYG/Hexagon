@@ -44,7 +44,7 @@ public class AnalyticsUtils
             if (c.CompareTag("Respawn"))
             {
                 //Debug.Log(c.ToString());
-                AnalyticsCheckPoint analyticsCheckpoint = new AnalyticsCheckPoint(false,c.name,0,0,0);
+                AnalyticsCheckPoint analyticsCheckpoint = new AnalyticsCheckPoint(c.GetComponent<CheckPointTrack>().isPass, c.name,c.GetComponent<CheckPointTrack>().playerHpLost, c.GetComponent<CheckPointTrack>().playerHpLostReasonEnemy, c.GetComponent<CheckPointTrack>().playerHpLostReasonDeadZone);
                 analyticsCheckpointsDict.Add(c.GetInstanceID().ToString(), analyticsCheckpoint);
             }
         }

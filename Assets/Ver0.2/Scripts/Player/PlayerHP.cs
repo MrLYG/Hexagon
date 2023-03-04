@@ -70,6 +70,7 @@ public class PlayerHP : MonoBehaviour
 
     public void getHurt(float cd, GameObject reasonObj)
     {
+        
         if (canBeHit)
         {
             // Set invincible time
@@ -93,6 +94,21 @@ public class PlayerHP : MonoBehaviour
             // trigger to collect data
             if(analytics != null)
                 analytics.GetComponent<Analytics>().beHits++;
+
+            Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLost = Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLost + 1;
+            if (reasonObj.CompareTag("DeadZone"))
+            {
+                Debug.Log(reasonObj.tag);
+                Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLostReasonDeadZone = Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLostReasonDeadZone + 1;
+            }
+            if (reasonObj.CompareTag("Enemy"))
+            {
+                Debug.Log(reasonObj.tag);
+                Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLostReasonEnemy = Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLostReasonEnemy + 1;
+            }
+            
+
+
 
             // Respawn player if HP reduced to 0 or below
             if (hp <= 0)

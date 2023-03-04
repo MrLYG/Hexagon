@@ -23,6 +23,11 @@ public class RespawnPoint : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             m_RespawnManager.GetComponent<RespawnManager>().SetCheckPoint(gameObject);
+
+            // Record the currently triggered checkpoint
+            Analytics.curCP = gameObject;
+            Analytics.curCP.GetComponent<CheckPointTrack>().isPass = true;
+
         }
     }
 }
