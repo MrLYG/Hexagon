@@ -20,6 +20,15 @@ public class EnemyHP : MonoBehaviour
 
         // analyse  ??  Falling to the deadzone,enemy can't be damag.
         Debug.Log(byObject.tag);
+        gameObject.GetComponent<EnemyTrack>().harm += damage;
+        if (byObject.CompareTag("Weapon"))
+        {
+            gameObject.GetComponent<EnemyTrack>().weapon = true;
+        }
+        if (byObject.CompareTag("DeadZone"))
+        {
+            gameObject.GetComponent<EnemyTrack>().deadZone = true;
+        }
 
 
         if (hp <= 0)

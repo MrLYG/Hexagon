@@ -7,14 +7,32 @@ public class Analytics : MonoBehaviour
     public float runningTime = 0.0f;
     public float beHits = 0.0f;
     public static GameObject curCP;
+    //public Dictionary<string, AnalyticsEnemy> analyticsEnemiesDict;
+    public GameObject[] allEnemies;
 
     // Start is called before the first frame update
     void Start()
     {
         //GetAllEnemies();
         curCP = new GameObject();
+
+        getAllEnemies();
+       
     }
 
+    void getAllEnemies()
+    {
+        GameObject[] allGameObject = Resources.FindObjectsOfTypeAll<GameObject>();
+        List<GameObject> myList = new List<GameObject>();
+        foreach (GameObject e in allGameObject)
+        {
+            if (e.CompareTag("Enemy"))
+            {
+                myList.Add(e);
+            }
+        }
+        allEnemies = myList.ToArray();
+    }
     
 
     // Update is called once per frame

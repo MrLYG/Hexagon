@@ -98,12 +98,12 @@ public class PlayerHP : MonoBehaviour
             Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLost = Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLost + 1;
             if (reasonObj.CompareTag("DeadZone"))
             {
-                Debug.Log(reasonObj.tag);
+                //Debug.Log(reasonObj.tag);
                 Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLostReasonDeadZone = Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLostReasonDeadZone + 1;
             }
             if (reasonObj.CompareTag("Enemy"))
             {
-                Debug.Log(reasonObj.tag);
+                //Debug.Log(reasonObj.tag);
                 Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLostReasonEnemy = Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLostReasonEnemy + 1;
             }
             // ----------------------------------------------------- collect data end -------------------------------
