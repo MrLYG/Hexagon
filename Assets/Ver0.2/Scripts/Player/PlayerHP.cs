@@ -106,7 +106,7 @@ public class PlayerHP : MonoBehaviour
                 Debug.Log(reasonObj.tag);
                 Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLostReasonEnemy = Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLostReasonEnemy + 1;
             }
-            
+            // ----------------------------------------------------- collect data end -------------------------------
 
 
 

@@ -17,6 +17,11 @@ public class EnemyHP : MonoBehaviour
     {
         //int damage = byObject.GetComponent<IWeapon>().Damage;
         hp -= damage;
+
+        // analyse  ??  Falling to the deadzone,enemy can't be damag.
+        Debug.Log(byObject.tag);
+
+
         if (hp <= 0)
         {
             if (!GetComponent<IEnemy>().stay)

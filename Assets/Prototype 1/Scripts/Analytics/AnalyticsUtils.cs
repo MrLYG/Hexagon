@@ -28,7 +28,7 @@ public class AnalyticsUtils
             if (e.CompareTag("Enemy"))
             {
                 AnalyticsEnemy analyticsEnemie = new AnalyticsEnemy(e.GetInstanceID(), e.name, false, false, false, e.GetComponent<EnemyHP>().getHp(), e.GetComponent<EnemyHP>().getHp() > 0 ? "live" : "dead");
-                analyticsEnemiesDict.Add(e.name, analyticsEnemie);
+                analyticsEnemiesDict.Add(e.GetInstanceID().ToString(), analyticsEnemie);
             }
         }
         return analyticsEnemiesDict;
