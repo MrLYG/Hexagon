@@ -27,7 +27,7 @@ public class EnemyHP : MonoBehaviour
             }
             else
             {
-                gameObject.tag = "Untagged";
+                gameObject.tag = "Object";
                 GetComponent<IEnemy>().enabled = false;
                 GetComponent<SpriteRenderer>().color = Color.yellow;
             }

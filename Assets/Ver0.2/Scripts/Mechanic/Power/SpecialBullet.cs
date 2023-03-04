@@ -9,7 +9,7 @@ public class SpecialBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Object"))
         {
             Instantiate(lights[type], transform.position, Quaternion.identity);
             Destroy(gameObject);

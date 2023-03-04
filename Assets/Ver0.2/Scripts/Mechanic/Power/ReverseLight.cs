@@ -21,7 +21,7 @@ public class ReverseLight : ILight
 
     public override void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Object"))
         {
            if(collision.gameObject.GetComponent<ObjectGravity>() != null)
             {

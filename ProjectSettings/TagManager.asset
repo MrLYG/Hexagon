@@ -23,6 +23,7 @@ TagManager:
   - Weapon
   - EnemyProjectile
   - GreenLight
+  - Object
   layers:
   - Default
   - TransparentFX
