@@ -47,6 +47,9 @@ public class RespawnManager : MonoBehaviour
 
     public void RespawnEnemies() {
         foreach (GameObject enemy in curCP.GetComponent<RespawnPoint>().Enemies) {
+            enemy.GetComponent<IEnemy>().enabled = true;
+            enemy.tag = "Enemy";
+            enemy.GetComponent<SpriteRenderer>().color = Color.red;
             enemy.GetComponent<IEnemy>().reset();
         }
     }

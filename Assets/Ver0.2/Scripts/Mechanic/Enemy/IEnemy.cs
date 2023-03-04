@@ -6,6 +6,7 @@ public class IEnemy : MonoBehaviour
 {
     public float initialSpeed;
     public float curSpeed;
+    public bool stay = false;
 
     public Vector3 initialPos;
 

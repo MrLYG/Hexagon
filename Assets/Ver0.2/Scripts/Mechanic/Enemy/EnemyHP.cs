@@ -19,10 +19,18 @@ public class EnemyHP : MonoBehaviour
         hp -= damage;
         if (hp <= 0)
         {
-            // Deactivate the enemy
-            gameObject.SetActive(false);
-
-            return;
+            if (!GetComponent<IEnemy>().stay)
+            {
+                // Deactivate the enemy
+                gameObject.SetActive(false);
+                return;
+            }
+            else
+            {
+                gameObject.tag = "Untagged";
+                GetComponent<IEnemy>().enabled = false;
+                GetComponent<SpriteRenderer>().color = Color.yellow;
+            }
         }
 
         // If have knockback script, perform knockback
