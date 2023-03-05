@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 043971deb24e8b049886ba7507308097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RespawnManager: {fileID: 0}
+  m_RespawnManager: {fileID: 6706216563829765508, guid: 35489907cfb63054881eb3a43227cc6d, type: 3}
   Enemies: []
   gravityDirection: 0
 --- !u!114 &1609265565803428556
@@ -377,6 +377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29db3f7e249e3f747bd50cd38ea4db82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPass: 0
   playerHpLost: 0
   playerHpLostReasonDeadZone: 0
   playerHpLostReasonEnemy: 0

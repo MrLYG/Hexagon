@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class PlayerHP : MonoBehaviour
@@ -17,8 +18,8 @@ public class PlayerHP : MonoBehaviour
     private bool canBeHit = true;
     private float hitCount;
 
-    [Tooltip("Reference of the HP UI")]
-    [SerializeField] private GameObject HPText;
+    //[Tooltip("Reference of the HP UI")]
+    //[SerializeField] private GameObject HPText;
 
     [Tooltip("Reference of Analytic object")]
     [SerializeField] private GameObject analytics;
@@ -26,6 +27,11 @@ public class PlayerHP : MonoBehaviour
     [Tooltip("Initial HP")]
     [SerializeField] private float initialHP = 3;
     private float hp;
+
+    [SerializeField] private Slider slider;
+    [SerializeField] private GameObject healthBar;
+    [SerializeField] private Gradient healthProgress;
+    public Image fill;
 
     void Start()
     {
@@ -37,15 +43,18 @@ public class PlayerHP : MonoBehaviour
             }
         }
 
-        if(HPText == null)
-            HPText = GameObject.Find("HPCounts");
+        if(healthBar == null)
+            healthBar = GameObject.Find("HPCounts");
 
         if(analytics == null)
             analytics = GameObject.Find("Analystic");
 
         // Initialize HP
         hp = initialHP;
-        HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
+        //HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
+        slider.maxValue = hp;
+        slider.value = hp;
+        fill.color = healthProgress.Evaluate(1f);
     }
 
     private void FixedUpdate()
@@ -83,7 +92,9 @@ public class PlayerHP : MonoBehaviour
             
             // Decrease HP and UI
             hp--;
-            HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
+            //HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
+            slider.value = hp;
+            fill.color = healthProgress.Evaluate(slider.normalizedValue);
 
             // Damage Pop
             if(GetComponent<DamagePop>() != null && hp > 0)
@@ -98,12 +109,12 @@ public class PlayerHP : MonoBehaviour
             Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLost = Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLost + 1;
             if (reasonObj.CompareTag("DeadZone"))
             {
-                Debug.Log(reasonObj.tag);
+                //Debug.Log(reasonObj.tag);
                 Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLostReasonDeadZone = Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLostReasonDeadZone + 1;
             }
             if (reasonObj.CompareTag("Enemy"))
             {
-                Debug.Log(reasonObj.tag);
+                //Debug.Log(reasonObj.tag);
                 Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLostReasonEnemy = Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLostReasonEnemy + 1;
             }
             // ----------------------------------------------------- collect data end -------------------------------
@@ -121,11 +132,13 @@ public class PlayerHP : MonoBehaviour
     public void setHP(float newHP)
     {
         hp = newHP;
-        HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
+        //HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
     }
 
     public void setHP() {
         hp = initialHP;
-        HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
+        slider.value = hp;
+        fill.color = healthProgress.Evaluate(1f);
+        //HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
     }
 }

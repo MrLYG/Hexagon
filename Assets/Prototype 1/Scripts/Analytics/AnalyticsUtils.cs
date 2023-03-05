@@ -12,7 +12,7 @@ public class AnalyticsUtils
 
         foreach (GameObject e in enemies)
         {
-            AnalyticsEnemy analyticsEnemie = new AnalyticsEnemy(e.GetInstanceID(), e.name, false, false, false, e.GetComponent<EnemyHP>().getHp(), e.GetComponent<EnemyHP>().getHp() > 0 ? "live" : "dead");
+            AnalyticsEnemy analyticsEnemie = new AnalyticsEnemy(e.GetInstanceID(), e.name, false, false, false, e.GetComponent<EnemyHP>().getHp(), e.GetComponent<EnemyHP>().getHp() > 0 ? "live" : "dead", e.GetComponent<EnemyTrack>().harm);
             analyticsEnemiesDict.Add(e.name, analyticsEnemie);
         }
         return analyticsEnemiesDict;
@@ -27,12 +27,25 @@ public class AnalyticsUtils
         {
             if (e.CompareTag("Enemy"))
             {
-                AnalyticsEnemy analyticsEnemie = new AnalyticsEnemy(e.GetInstanceID(), e.name, false, false, false, e.GetComponent<EnemyHP>().getHp(), e.GetComponent<EnemyHP>().getHp() > 0 ? "live" : "dead");
+                AnalyticsEnemy analyticsEnemie = new AnalyticsEnemy(e.GetInstanceID(), e.name, false, false, false, e.GetComponent<EnemyHP>().getHp(), e.GetComponent<EnemyHP>().getHp() > 0 ? "live" : "dead", e.GetComponent<EnemyTrack>().harm);
                 analyticsEnemiesDict.Add(e.GetInstanceID().ToString(), analyticsEnemie);
             }
         }
         return analyticsEnemiesDict;
     }
+    public static Dictionary<string, AnalyticsEnemy> GetAllEnemiesObjectByInital(GameObject[] allEnemies)
+    {
+        Dictionary<string, AnalyticsEnemy> analyticsEnemiesDict = new Dictionary<string, AnalyticsEnemy>();
+
+        foreach (GameObject e in allEnemies)
+        {
+            AnalyticsEnemy analyticsEnemie = new AnalyticsEnemy(e.GetInstanceID(), e.name, e.GetComponent<EnemyTrack>().bluelight, e.GetComponent<EnemyTrack>().deadZone, e.GetComponent<EnemyTrack>().weapon, e.GetComponent<EnemyHP>().getHp(), e.GetComponent<EnemyHP>().getHp() > 0 ? "live" : "dead", e.GetComponent<EnemyTrack>().harm);
+            analyticsEnemiesDict.Add(e.GetInstanceID().ToString(), analyticsEnemie);
+        }
+        return analyticsEnemiesDict;
+    }
+
+
     public static Dictionary<string, AnalyticsCheckPoint> GetAllCheckpointsObject()
     {
         Dictionary<string, AnalyticsCheckPoint> analyticsCheckpointsDict = new Dictionary<string, AnalyticsCheckPoint>();

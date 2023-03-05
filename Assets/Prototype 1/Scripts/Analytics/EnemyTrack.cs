@@ -7,7 +7,7 @@ public class EnemyTrack : MonoBehaviour
     public bool bluelight = false;
     public bool deadZone = false;
     public bool weapon = false;
-
+    public float harm = 0;
     // Start is called before the first frame update
     void Start()
     {
