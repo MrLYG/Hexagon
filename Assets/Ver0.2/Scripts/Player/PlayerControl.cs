@@ -10,7 +10,8 @@ public class PlayerControl : MonoBehaviour
     [Space]
 
     [Tooltip("Walking speed")]
-    [SerializeField] private float walkSpeed;
+    [SerializeField] private float initWalkSpeed;
+    private float walkSpeed;
 
     [Tooltip("Moving smoothing, high value will cause player to slide")]
     [Range(0, .3f)] [SerializeField] private float smoothMovementTime = 0.05f;
@@ -56,6 +57,7 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         m_ObjectGravity = GetComponent<ObjectGravity>();
+        walkSpeed = initWalkSpeed;
 
         if (m_GravityManager == null)
         {
@@ -170,7 +172,7 @@ public class PlayerControl : MonoBehaviour
     {
         grounded = false;
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(m_groundCheck.position, 0.1f, groundLayer);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(m_groundCheck.position, 0.2f, groundLayer);
         for (int i = 0; i < colliders.Length; i++)
         {
             if (colliders[i].gameObject != gameObject)
@@ -233,6 +235,21 @@ public class PlayerControl : MonoBehaviour
 
         // And then smoothing it out and applying it to the character
         m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, smoothMovementTime);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Object")) {
+            walkSpeed = initWalkSpeed * 0.5f;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Object"))
+        {
+            walkSpeed = initWalkSpeed;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

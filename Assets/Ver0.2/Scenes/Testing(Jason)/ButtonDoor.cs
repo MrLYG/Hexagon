@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ButtonDoor : MonoBehaviour
 {
-    [SerializeField] private GameObject Door;
+    [SerializeField] private List<GameObject> Doors;
     private float numObj;
     private Color LockedColor;
     private Color OpenedColor;
@@ -15,7 +15,10 @@ public class ButtonDoor : MonoBehaviour
         LockedColor = GetComponent<SpriteRenderer>().color;
         OpenedColor = LockedColor;
         OpenedColor.a = 0.5f;
-        Door.GetComponent<SpriteRenderer>().color = LockedColor;
+        foreach (GameObject door in Doors)
+        {
+            door.GetComponent<SpriteRenderer>().color = LockedColor;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -23,8 +26,11 @@ public class ButtonDoor : MonoBehaviour
         if(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Object"))
         {
             numObj++;
-            Door.GetComponent<BoxCollider2D>().isTrigger = true;
-            Door.GetComponent<SpriteRenderer>().color = OpenedColor;
+            foreach (GameObject door in Doors)
+            {
+                door.GetComponent<BoxCollider2D>().isTrigger = true;
+                door.GetComponent<SpriteRenderer>().color = OpenedColor;
+            }
         }
     }
 
@@ -35,8 +41,11 @@ public class ButtonDoor : MonoBehaviour
             numObj--;
             if (numObj <= 0)
             {
-                Door.GetComponent<BoxCollider2D>().isTrigger = false;
-                Door.GetComponent<SpriteRenderer>().color = LockedColor;
+                foreach (GameObject door in Doors)
+                {
+                    door.GetComponent<BoxCollider2D>().isTrigger = false;
+                    door.GetComponent<SpriteRenderer>().color = LockedColor;
+                }
             }
         }
     }
