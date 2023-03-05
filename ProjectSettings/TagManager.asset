@@ -24,6 +24,8 @@ TagManager:
   - EnemyProjectile
   - GreenLight
   - Object
+  - D Key
+  - A Key
   layers:
   - Default
   - TransparentFX
