@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IEnemy : MonoBehaviour
+public class IEnemy : IEnemyObstacle
 {
     public float initialSpeed;
     public float curSpeed;

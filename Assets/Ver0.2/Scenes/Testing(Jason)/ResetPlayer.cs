@@ -22,5 +22,10 @@ public class ResetPlayer : MonoBehaviour
         {
             m_RepawnManager.GetComponent<RespawnManager>().RespawnPlayer();
         }
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(collision.gameObject);
+        }
     }
 }

@@ -23,6 +23,8 @@ public class ObjectGravity : MonoBehaviour
     void Start()
     {
         m_rg2d = gameObject.GetComponent<Rigidbody2D>();
+        m_rg2d.gravityScale = 0;
+
         GravityScale = initialGravityScale;
 
         if (m_GravityManager == null)

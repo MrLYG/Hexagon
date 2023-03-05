@@ -39,9 +39,15 @@ public class PlayerSpecialBullet : MonoBehaviour
     [SerializeField] private int curBulletIndex = -1;
 
     [Tooltip("CD for using powers")]
-    [SerializeField] private float powerCD = 1f;
+    [SerializeField] private float blueLightCD = 1f;
+    [SerializeField] private float greenLightCD = 10f;
 
-    private bool canUsePower = true;
+    private bool canUseBlueLight = true;
+    private bool canUseGreenLight = true;
+
+    private float blueLightCDCout = 0f;
+    private float greenLightCDCout = 0f;
+
     public Image coolDownIcon;
 
     // Start is called before the first frame update
@@ -49,6 +55,7 @@ public class PlayerSpecialBullet : MonoBehaviour
     {
         coolDownIcon.enabled = false;
 
+        PlayerPrefs.DeleteKey("PlayerGreenLight");
         // If have blue lights
         if (PlayerPrefs.HasKey("PlayerBlueLight"))
         {
@@ -56,7 +63,7 @@ public class PlayerSpecialBullet : MonoBehaviour
         }
         if (PlayerPrefs.HasKey("PlayerGreenLight"))
         {
-            //getPower(BulletPrefabs[1]);
+            getPower(BulletPrefabs[1]);
         }
 
         // Create prediction dots and make them inivisible for now
@@ -71,29 +78,57 @@ public class PlayerSpecialBullet : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-
+            switchToNext();
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            switchTo(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            switchTo(1);
         }
 
         if (curBulletIndex == 0)
         {
             BlueLight();
-        }
-
-        if (curBulletIndex == 1)
+        }else if (curBulletIndex == 1)
         {
             GreenLight();
         }
 
-        if(!canUsePower)
+        if (!canUseBlueLight)
         {
-            coolDownIcon.fillAmount += 1.0f / powerCD * Time.deltaTime;
+            blueLightCDCout += Time.deltaTime;
+            if(blueLightCDCout > blueLightCD)
+            {
+                canUseBlueLight = true;
+            }
         }
-        else
+
+        if (!canUseGreenLight)
         {
+            greenLightCDCout += Time.deltaTime;
+            if (greenLightCDCout > greenLightCD)
+            {
+                canUseGreenLight = true;
+            }
+        }
+
+        if (curBulletIndex == 0 && !canUseBlueLight)
+        {
+            coolDownIcon.fillAmount = blueLightCDCout / blueLightCD;
+        }
+        else if (curBulletIndex == 1 && !canUseGreenLight)
+        {
+            coolDownIcon.fillAmount = greenLightCDCout / greenLightCD;
+        }
+        else {
             coolDownIcon.fillAmount = 1;
         }
 
-        if (GetComponent<ObjectGravity>().getCurrentGD() == GravityDirection.Up || haveTagObject("ReverseLight") || !canUsePower)
+        if ((curBulletIndex == 0 && (GetComponent<ObjectGravity>().getCurrentGD() == GravityDirection.Up || haveTagObject("ReverseLight") || !canUseBlueLight)) 
+            || (curBulletIndex == 1 && !canUseGreenLight))
         {
             Color color = coolDownIcon.color;
             color.a = 0.5f;
@@ -112,7 +147,7 @@ public class PlayerSpecialBullet : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && !charging)
         {
             // Can use power & Player not in reverse position & not other blue light exists
-            if (canUsePower && GetComponent<ObjectGravity>().getCurrentGD() != GravityDirection.Up)
+            if (canUseBlueLight && GetComponent<ObjectGravity>().getCurrentGD() != GravityDirection.Up)
             {
                 if (!haveTagObject("ReverseLight"))
                 {
@@ -135,7 +170,7 @@ public class PlayerSpecialBullet : MonoBehaviour
             else
                 bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(-1, 1) * curLaunchForce;
 
-            startPowerCD(powerCD);
+            startPowerCD();
         }
 
         // Charge up launching force and upate projection line
@@ -154,17 +189,38 @@ public class PlayerSpecialBullet : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             // Can use power & no other green light exists
-            if (canUsePower)
+            if (canUseGreenLight)
             {
                 if (!haveTagObject("GreenLight"))
                 {
                     GameObject greenLight = Instantiate(Bullets[curBulletIndex], transform.position, Quaternion.identity);
                     greenLight.transform.parent = transform;
 
+                    startPowerCD();
                     GetComponent<PlayerSlowFall>().startSlowFall();
-                    Invoke("greenLightCD", Bullets[curBulletIndex].GetComponent<GreenLight>().ApperanceTime);
+                    Invoke("GreenLightPowerEnd", Bullets[1].GetComponent<GreenLight>().ApperanceTime);
                 }
             }
+        }
+    }
+
+    private void switchToNext() {
+        int newIndex = curBulletIndex + 1;
+        if (newIndex == Bullets.Count)
+        {
+            newIndex = 0;
+        }
+        switchTo(newIndex);
+    }
+    private void switchTo(int index) { 
+        if(index < Bullets.Count)
+        {
+            curBulletIndex = index;
+        }
+        switch (curBulletIndex)
+        {
+            case 0: coolDownIcon.color = new Color(85, 208, 255) / 255f; break;
+            case 1: coolDownIcon.color = new Color(86, 255, 86) / 255f; break;
         }
     }
 
@@ -186,35 +242,37 @@ public class PlayerSpecialBullet : MonoBehaviour
     // Get a referene of the bullet prefab and include into player's bullet list
     public void getPower(GameObject bullet)
     {
-        if(bullet.name.Equals("ReverseBullet"))
-        {
-            coolDownIcon.enabled = true;
-            PlayerPrefs.SetInt("PlayerBlueLight", 1);
-        }
-
         if (!Bullets.Contains(bullet))
         {
+            if (bullet.name.Equals("ReverseBullet"))
+            {
+                coolDownIcon.enabled = true;
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+            }
+            else if (bullet.name.Equals("GreenLight")) {
+                PlayerPrefs.SetInt("PlayerGreenLight", 1);
+            }
             Bullets.Add(bullet);
+            switchToNext();
         }
-        curBulletIndex = Bullets.Count - 1;
         //curBulletIndex = 0;
     }
 
-    public void startPowerCD(float time) {
-        canUsePower = false;
+    public void startPowerCD() {
         coolDownIcon.fillAmount = 0.0f;
-
-        Invoke("resetPowerCD", time);
+        if (curBulletIndex == 0)
+        {
+            canUseBlueLight = false;
+            blueLightCDCout = 0;
+        }
+        else if (curBulletIndex == 1) {
+            canUseGreenLight = false;
+            greenLightCDCout = 0;
+        }
     }
 
-    // Invoked when CD for using power has passed
-    private void resetPowerCD() {
-        canUsePower = true;
-    }
-
-    private void greenLightCD() {
+    private void GreenLightPowerEnd() {
         GetComponent<PlayerSlowFall>().stopSlowFall();
-        startPowerCD(powerCD);
     }
 
     // For showing prediction line

@@ -235,24 +235,6 @@ public class PlayerControl : MonoBehaviour
         m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, smoothMovementTime);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("DeadZone") || collision.gameObject.CompareTag("Enemy"))
-        {
-            GetComponent<PlayerHP>().getHurt(0.5f, collision.gameObject);
-            //Debug.Log("You are dead");
-        }
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("DeadZone") || collision.gameObject.CompareTag("Enemy"))
-        {
-            GetComponent<PlayerHP>().getHurt(0.5f, collision.gameObject);
-            //Debug.Log("You are dead");
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GravityDirection currentGD = m_ObjectGravity.getCurrentGD();
@@ -271,7 +253,7 @@ public class PlayerControl : MonoBehaviour
 
         if (collision.gameObject.CompareTag("EnemyProjectile"))
         {
-            GetComponent<PlayerHP>().getHurt(0.5f, collision.gameObject);
+            GetComponent<PlayerHP>().getHurt(1f, 0.5f, collision.gameObject);
         }
     }
 

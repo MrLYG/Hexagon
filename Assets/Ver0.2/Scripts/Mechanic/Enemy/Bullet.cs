@@ -33,7 +33,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerHP>().getHurt(0.2f, gameObject);
+            //collision.gameObject.GetComponent<PlayerHP>().getHurt(1, 0.2f, gameObject);
             Destroy(this);
             //Debug.Log("Game Over");
         }

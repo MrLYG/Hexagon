@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(IEnemy))]
 public class EnemyHP : MonoBehaviour
 {
     [Tooltip("Initial HP")]
@@ -42,13 +43,14 @@ public class EnemyHP : MonoBehaviour
             else
             {
                 gameObject.tag = "Object";
+                GetComponent<IEnemy>().HarmOnTouch = false;
                 GetComponent<IEnemy>().enabled = false;
                 GetComponent<SpriteRenderer>().color = Color.yellow;
             }
         }
 
         // If have knockback script, perform knockback
-        if (GetComponent<EnemyKnockBack>() != null)
+        if (GetComponent<EnemyKnockBack>() != null && byObject.CompareTag("Weapon"))
         {
             GetComponent<EnemyKnockBack>().KnockBack(byObject);
         }

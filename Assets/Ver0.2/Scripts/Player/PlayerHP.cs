@@ -77,7 +77,7 @@ public class PlayerHP : MonoBehaviour
         }
     }
 
-    public void getHurt(float cd, GameObject reasonObj)
+    public void getHurt(float damage, float cd, GameObject reasonObj)
     {
         
         if (canBeHit)
@@ -91,7 +91,7 @@ public class PlayerHP : MonoBehaviour
             GetComponent<SpriteRenderer>().color = Color.yellow;
             
             // Decrease HP and UI
-            hp--;
+            hp -= damage;
             //HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
             slider.value = hp;
             fill.color = healthProgress.Evaluate(slider.normalizedValue);

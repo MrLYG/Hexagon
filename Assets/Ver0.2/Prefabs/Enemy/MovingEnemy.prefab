@@ -189,12 +189,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60065586893ae471d98b7b8233701776, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Damage: 1
+  InvincibleTime: 0.5
   initialSpeed: 0
   curSpeed: 0
+  stay: 0
   initialPos: {x: 0, y: 0, z: 0}
-  wayPoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  wayPoints: []
 --- !u!114 &994601470
 MonoBehaviour:
   m_ObjectHideFlags: 0
