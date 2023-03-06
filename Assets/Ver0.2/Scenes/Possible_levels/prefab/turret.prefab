@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 7
+  speed: 5
   bullet: {fileID: 8759704653879303971, guid: bd62a14dbeebc4019adf3d416cc2b2a4, type: 3}
   startDelay: 1.5
   spawnInterval: 4

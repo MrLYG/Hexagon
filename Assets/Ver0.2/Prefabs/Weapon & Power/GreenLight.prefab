@@ -638,7 +638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ff87cea91b2a0641a5b9ff9e0e1efcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ApperanceTime: 5
+  ApperanceTime: 10
   AffectedObjects: []
   drag: 8
   slowdownRatio: 0.2

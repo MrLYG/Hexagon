@@ -29,5 +29,9 @@ public class BulletControl : IEnemy
             collision.gameObject.GetComponent<PlayerHP>().getHurt(Damage, InvincibleTime, collision.gameObject);
             Destroy(gameObject);
         }
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

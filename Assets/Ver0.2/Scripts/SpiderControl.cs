@@ -26,7 +26,7 @@ public class SpiderControl : IEnemy
                         wayPoints[wayPointIndex].transform.position,
                         curSpeed * Time.deltaTime);
 
-        if (Mathf.Abs(transform.position.y - wayPoints[wayPointIndex].transform.position.y) < 0.1f)
+        if ((transform.position - wayPoints[wayPointIndex].transform.position).magnitude < 0.1f)
         {
             wayPointIndex++;
         }
