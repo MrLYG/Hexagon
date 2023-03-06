@@ -123,11 +123,17 @@ public class PlayerControl : MonoBehaviour
         // Flip player sprite
         if (facingRight)
         {
-            GetComponent<SpriteRenderer>().flipX = true;
+            if(GetComponent<ObjectGravity>().getCurrentGD() == GravityDirection.Down)
+                GetComponent<SpriteRenderer>().flipX = true;
+            else
+                GetComponent<SpriteRenderer>().flipX = false;
         }
         else
         {
-            GetComponent<SpriteRenderer>().flipX = false;
+            if (GetComponent<ObjectGravity>().getCurrentGD() == GravityDirection.Down)
+                GetComponent<SpriteRenderer>().flipX = false;
+            else
+                GetComponent<SpriteRenderer>().flipX = true;
         }
 
         // Player Input to change GD : Rotation
