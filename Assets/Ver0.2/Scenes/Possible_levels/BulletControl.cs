@@ -2,20 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletControl : MonoBehaviour
+public class BulletControl : IEnemy
 {
     public float distance;
-    public float speed = 0.5f;
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
     {
         //transform.Translate(Vector3.left * Time.fixedDeltaTime * speed);
-        transform.localPosition += Vector3.right * Time.deltaTime * speed;
+        transform.localPosition += Vector3.right * Time.deltaTime * curSpeed;
         DestroyGameObject();
     }
 
@@ -31,6 +26,7 @@ public class BulletControl : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            collision.gameObject.GetComponent<PlayerHP>().getHurt(Damage, InvincibleTime, collision.gameObject);
             Destroy(gameObject);
         }
     }

@@ -303,11 +303,6 @@ public class PlayerControl : MonoBehaviour
             m_ObjectGravity.changeGravityScale(collision.gameObject.GetComponent<AbnormalGLight>().getGravityScale(), gameObject);
             m_Rigidbody2D.drag = collision.gameObject.GetComponent<AbnormalGLight>().gravityDrag;
         }
-
-        if (collision.gameObject.CompareTag("EnemyProjectile"))
-        {
-            GetComponent<PlayerHP>().getHurt(1f, 0.5f, collision.gameObject);
-        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
