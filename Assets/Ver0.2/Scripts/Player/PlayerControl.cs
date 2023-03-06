@@ -120,6 +120,16 @@ public class PlayerControl : MonoBehaviour
             jump = true;
         }
 
+        // Flip player sprite
+        if (facingRight)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+
         // Player Input to change GD : Rotation
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E))
         {
