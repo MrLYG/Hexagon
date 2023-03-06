@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4130544444921006165}
   - component: {fileID: 4130544444921006162}
   - component: {fileID: 994601470}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MovingEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -191,6 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 1
   InvincibleTime: 0.5
+  HarmOnTouch: 1
   initialSpeed: 0
   curSpeed: 0
   stay: 0

@@ -259,24 +259,10 @@ public class PlayerControl : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Object")) {
             bool contact = false;
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + new Vector3(0.5f, 0f, 0f), 0.2f, objectLayer);
-            for (int i = 0; i < colliders.Length; i++)
-            {
-                if (colliders[i].gameObject.CompareTag("Object"))
-                {
-                    contact = true;
-                }
-            }
-            Collider2D[] colliders2 = Physics2D.OverlapCircleAll(transform.position + new Vector3(-0.5f, 0f, 0f), 0.2f, objectLayer);
-            for (int i = 0; i < colliders2.Length; i++)
-            {
-                if (colliders2[i].gameObject.CompareTag("Object"))
-                {
-                    contact = true;
-                }
-            }
-            if(contact)
-                walkSpeed = initWalkSpeed * 0.2f;
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + new Vector3(0.5f, 0f, 0f), 0.1f, objectLayer);
+            Collider2D[] colliders2 = Physics2D.OverlapCircleAll(transform.position + new Vector3(-0.5f, 0f, 0f), 0.1f, objectLayer);
+            if(colliders.Length > 0 || colliders2.Length > 0)
+                walkSpeed = initWalkSpeed * 0.5f;
         }
     }
 
