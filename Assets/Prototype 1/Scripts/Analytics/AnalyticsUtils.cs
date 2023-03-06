@@ -39,8 +39,13 @@ public class AnalyticsUtils
 
         foreach (GameObject e in allEnemies)
         {
-            AnalyticsEnemy analyticsEnemie = new AnalyticsEnemy(e.GetInstanceID(), e.name, e.GetComponent<EnemyTrack>().bluelight, e.GetComponent<EnemyTrack>().deadZone, e.GetComponent<EnemyTrack>().weapon, e.GetComponent<EnemyHP>().getHp(), e.GetComponent<EnemyHP>().getHp() > 0 ? "live" : "dead", e.GetComponent<EnemyTrack>().harm,e.GetComponent<EnemyTrack>().numOfBluelight, e.GetComponent<EnemyTrack>().numOfWeapon, e.GetComponent<EnemyTrack>().numOfGreenlight);
-            analyticsEnemiesDict.Add(e.GetInstanceID().ToString(), analyticsEnemie);
+            if(e != null)
+            {
+                //Debug.Log(e.ToString());
+                AnalyticsEnemy analyticsEnemie = new AnalyticsEnemy(e.GetInstanceID(), e.name, e.GetComponent<EnemyTrack>().bluelight, e.GetComponent<EnemyTrack>().deadZone, e.GetComponent<EnemyTrack>().weapon, e.GetComponent<EnemyHP>().getHp(), e.GetComponent<EnemyHP>().getHp() > 0 ? "live" : "dead", e.GetComponent<EnemyTrack>().harm, e.GetComponent<EnemyTrack>().numOfBluelight, e.GetComponent<EnemyTrack>().numOfWeapon, e.GetComponent<EnemyTrack>().numOfGreenlight);
+                analyticsEnemiesDict.Add(e.GetInstanceID().ToString(), analyticsEnemie);
+            }
+            
         }
         return analyticsEnemiesDict;
     }

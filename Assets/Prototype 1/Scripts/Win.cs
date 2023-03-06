@@ -23,7 +23,11 @@ public class Win : MonoBehaviour
         {
             Debug.Log("Win Win");
             SceneManager.LoadScene(nextLevel);
-            generateJson();
+            if(int.Parse(level) <= 6)
+            {
+                generateJson();
+            }
+            
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
