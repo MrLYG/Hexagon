@@ -16,7 +16,7 @@ public class EnemyControl : IEnemy
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         if (wayPoints.Length > 0)
             Move();
