@@ -53,6 +53,8 @@ public class PlayerControl : MonoBehaviour
     public bool facingRight = true;
     private bool moving = false;
 
+    [SerializeField] private LayerMask objectLayer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -240,7 +242,25 @@ public class PlayerControl : MonoBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Object")) {
-            walkSpeed = initWalkSpeed * 0.5f;
+            bool contact = false;
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + new Vector3(0.5f, 0f, 0f), 0.2f, objectLayer);
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                if (colliders[i].gameObject.CompareTag("Object"))
+                {
+                    contact = true;
+                }
+            }
+            Collider2D[] colliders2 = Physics2D.OverlapCircleAll(transform.position + new Vector3(-0.5f, 0f, 0f), 0.2f, objectLayer);
+            for (int i = 0; i < colliders2.Length; i++)
+            {
+                if (colliders2[i].gameObject.CompareTag("Object"))
+                {
+                    contact = true;
+                }
+            }
+            if(contact)
+                walkSpeed = initWalkSpeed * 0.2f;
         }
     }
 

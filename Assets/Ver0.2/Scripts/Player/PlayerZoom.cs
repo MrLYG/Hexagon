@@ -10,6 +10,7 @@ public class PlayerZoom : MonoBehaviour
     private bool camCenter = false;
     private GameObject m_Camera;
     private GameObject m_CM;
+    [SerializeField] private GameObject cameraAnchor;
 
     // Params for 'm' key functions
     private GameObject target;
@@ -52,7 +53,7 @@ public class PlayerZoom : MonoBehaviour
         // Get initial zoom scale and set up camera to follow player
         initialOrthoSize = m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize;
         curOrthoSize = initialOrthoSize;
-        m_CM.GetComponent<CinemachineVirtualCamera>().Follow = gameObject.transform;
+        m_CM.GetComponent<CinemachineVirtualCamera>().Follow = cameraAnchor.transform;
         m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = curOrthoSize;
     }
 
