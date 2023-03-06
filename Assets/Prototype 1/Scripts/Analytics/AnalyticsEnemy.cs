@@ -14,8 +14,11 @@ public class AnalyticsEnemy
     public float hp; 
     public string status;
     public float harm;
+    public float numOfBluelight;
+    public float numOfWeapon;
+    public float numOfGreenlight;
 
-    public AnalyticsEnemy(int instanceId, string name, bool bluelight, bool deadZone, bool weapon, float hp, string status, float harm)
+    public AnalyticsEnemy(int instanceId, string name, bool bluelight, bool deadZone, bool weapon, float hp, string status, float harm, float numOfBluelight, float numOfWeapon, float numOfGreenlight)
     {
         this.instanceId = instanceId;
         this.name = name;
@@ -25,7 +28,15 @@ public class AnalyticsEnemy
         this.hp = hp;
         this.status = status;
         this.harm = harm;
+        this.numOfBluelight = numOfBluelight;
+        this.numOfWeapon = numOfWeapon;
+        this.numOfGreenlight = numOfGreenlight;
     }
+
+
+
+
+
 
 
     /**

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(IEnemy))]
+[RequireComponent(typeof(EnemyTrack))]
 public class EnemyHP : MonoBehaviour
 {
     [Tooltip("Initial HP")]
@@ -25,6 +26,7 @@ public class EnemyHP : MonoBehaviour
         if (byObject.CompareTag("Weapon"))
         {
             gameObject.GetComponent<EnemyTrack>().weapon = true;
+            gameObject.GetComponent<EnemyTrack>().numOfWeapon += 1;
         }
         if (byObject.CompareTag("DeadZone"))
         {

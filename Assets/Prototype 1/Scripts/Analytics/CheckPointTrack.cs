@@ -9,7 +9,7 @@ public class CheckPointTrack : MonoBehaviour
     public float playerHpLost = 0;
     public float playerHpLostReasonDeadZone = 0;
     public float playerHpLostReasonEnemy = 0;
-    
+    public Dictionary<string, AnalyticsEnemy> analyticsEnemiesDict;
 
     // Start is called before the first frame update
     void Start()

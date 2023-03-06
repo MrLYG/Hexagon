@@ -9,6 +9,8 @@ public class Analytics : MonoBehaviour
     public static GameObject curCP;
     //public Dictionary<string, AnalyticsEnemy> analyticsEnemiesDict;
     public GameObject[] allEnemies;
+    public float playerNumOfBluelight = 0;
+    public float playerNumOfGreenlight = 0;
 
     // Start is called before the first frame update
     void Start()

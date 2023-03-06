@@ -57,6 +57,9 @@ public class Win : MonoBehaviour
         m.beHits = analytics.GetComponent<Analytics>().beHits;
         m.analyticsEnemiesDict = AnalyticsUtils.GetAllEnemiesObjectByInital(analytics.GetComponent<Analytics>().allEnemies);
         m.analyticsCheckpointsDict = AnalyticsUtils.GetAllCheckpointsObject();
+        m.playerNumOfBluelight = analytics.GetComponent<Analytics>().playerNumOfBluelight;
+        m.playerNumOfGreenlight = analytics.GetComponent<Analytics>().playerNumOfGreenlight;
+
         Debug.Log(m.ToString());
         //RestClient.Post(basePath + "/hexagon" + ".json?name=YASKJXH9892ASDFA26*&52#&9ASXS851", m.ToString());
         RestClient.Post(basePath + "/hexagon" + ".json", m.ToString());

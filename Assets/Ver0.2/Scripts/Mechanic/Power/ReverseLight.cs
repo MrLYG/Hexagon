@@ -27,6 +27,18 @@ public class ReverseLight : ILight
            if(collision.gameObject.GetComponent<ObjectGravity>() != null)
             {
                 collision.gameObject.GetComponent<ObjectGravity>().ReverseGravityDirection();
+
+                if (collision.gameObject.CompareTag("Player"))
+                {
+                    GameObject analytics = GameObject.FindWithTag("Analytics");
+                    analytics.GetComponent<Analytics>().playerNumOfBluelight +=1;
+                }
+                if (collision.gameObject.CompareTag("Enemy"))
+                {
+                    collision.gameObject.GetComponent<EnemyTrack>().numOfBluelight += 1;
+                    collision.gameObject.GetComponent<EnemyTrack>().bluelight = true;
+                }
+
                 AffectedObjects.Add(collision.gameObject);
                 Invoke("ResetGravity", AffectTime);
 

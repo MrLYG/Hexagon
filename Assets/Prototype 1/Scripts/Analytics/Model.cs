@@ -15,6 +15,8 @@ public class Model
     public float beHits;
     public Dictionary<string, AnalyticsEnemy> analyticsEnemiesDict;
     public Dictionary<string, AnalyticsCheckPoint> analyticsCheckpointsDict;
+    public float playerNumOfBluelight;
+    public float playerNumOfGreenlight;
     public override string ToString()
     {
         //return UnityEngine.JsonUtility.ToJson(this, true);

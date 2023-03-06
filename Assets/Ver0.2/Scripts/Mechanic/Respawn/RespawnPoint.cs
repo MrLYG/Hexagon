@@ -27,7 +27,7 @@ public class RespawnPoint : MonoBehaviour
             // Record the currently triggered checkpoint
             Analytics.curCP = gameObject;
             Analytics.curCP.GetComponent<CheckPointTrack>().isPass = true;
-
+            
         }
     }
 }
