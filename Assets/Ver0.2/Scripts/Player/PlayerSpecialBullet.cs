@@ -239,6 +239,11 @@ public class PlayerSpecialBullet : MonoBehaviour
         return haveObject;
     }
 
+    public void resetCD() {
+        blueLightCD = 0;
+        greenLightCD = 0;
+    }
+
     // Get a referene of the bullet prefab and include into player's bullet list
     public void getPower(GameObject bullet)
     {

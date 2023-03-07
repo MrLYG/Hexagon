@@ -35,6 +35,18 @@ public class PlayerRespawn : MonoBehaviour
         // Set Invincible
         Invincible = true;
         Invoke("resetInvincible", InvincibleTime);
+
+        // Reset green light
+        foreach(GameObject gl in GameObject.FindGameObjectsWithTag("GreenLight"))
+        {
+            gl.GetComponent<ILight>().RemoveLight();
+        }
+        foreach(GameObject bl in GameObject.FindGameObjectsWithTag("ReverseLight"))
+        {
+            bl.GetComponent<ILight>().RemoveLight();
+        }
+        GetComponent<PlayerSlowFall>().stopSlowFall();
+        GetComponent<PlayerSpecialBullet>().resetCD();
     }
 
     private void resetInvincible()
