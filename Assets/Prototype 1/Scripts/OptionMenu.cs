@@ -6,7 +6,6 @@ using TMPro;
 
 public class OptionMenu : MonoBehaviour
 {
-    public static bool isPaused = false;
     public GameObject optionMenuUI;
     [SerializeField] private GameObject deathMenu;
     private GameObject m_RespawnManager;
@@ -23,7 +22,7 @@ public class OptionMenu : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape) && !isDead)
         {
-            if(isPaused)
+            if(Time.timeScale == 0)
             {
                 Resume();
             }
@@ -38,14 +37,12 @@ public class OptionMenu : MonoBehaviour
     {
         optionMenuUI.SetActive(false);
         Time.timeScale = 1f;
-        isPaused = false;
     }
 
     void Pause()
     {
         optionMenuUI.SetActive(true);
-        Time.timeScale = 0f;
-        isPaused = true;   
+        Time.timeScale = 0f;  
     }
 
     private void ResumeAfterDeath()

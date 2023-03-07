@@ -9,6 +9,7 @@ public class LevelSelection : MonoBehaviour
 
     public void StartGame()
     {
+        Time.timeScale = 1;
         PlayerPrefs.DeleteKey("PlayerWeapon");
         PlayerPrefs.DeleteKey("PlayerBlueLight");
         PlayerPrefs.DeleteKey("PlayerGreenLight");
