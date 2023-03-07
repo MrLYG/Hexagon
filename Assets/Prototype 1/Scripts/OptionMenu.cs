@@ -2,16 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class OptionMenu : MonoBehaviour
 {
     public static bool isPaused = false;
     public GameObject optionMenuUI;
+    [SerializeField] private GameObject deathMenu;
+    private GameObject m_RespawnManager;
+    private bool isDead = false;
+
+    private void Start()
+    {
+        optionMenuUI.SetActive(false);
+        deathMenu.SetActive(false);
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && !isDead)
         {
             if(isPaused)
             {
@@ -34,8 +44,15 @@ public class OptionMenu : MonoBehaviour
     void Pause()
     {
         optionMenuUI.SetActive(true);
-        //Time.timeScale = 0f;
+        Time.timeScale = 0f;
         isPaused = true;   
+    }
+
+    private void ResumeAfterDeath()
+    {
+        deathMenu.SetActive(false);
+        Time.timeScale = 1f;
+        isDead = false;
     }
 
     public void LoadMenu()
@@ -46,5 +63,31 @@ public class OptionMenu : MonoBehaviour
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (!isDead)
+            Resume();
+        else
+            ResumeAfterDeath();
+    }
+
+    public void RestartCheckPoint()
+    {
+        if (m_RespawnManager == null) { 
+            foreach(GameObject rm in GameObject.FindGameObjectsWithTag("RespawnManager"))
+            {
+                m_RespawnManager = rm;
+            }
+        }
+        m_RespawnManager.GetComponent<RespawnManager>().RespawnPlayer();
+        if (!isDead)
+            Resume();
+        else
+            ResumeAfterDeath();
+    }
+
+    public void PlayerDeath(string reason) {
+        deathMenu.SetActive(true);
+        isDead = true;
+        deathMenu.transform.Find("DeathReason").GetComponent<TextMeshProUGUI>().text = "You are killed by " + reason;
+        Time.timeScale = 0f;
     }
 }

@@ -55,7 +55,7 @@ public class PlayerSpecialBullet : MonoBehaviour
     {
         coolDownIcon.enabled = false;
 
-        PlayerPrefs.DeleteKey("PlayerGreenLight");
+        //PlayerPrefs.DeleteKey("PlayerGreenLight");
         // If have blue lights
         if (PlayerPrefs.HasKey("PlayerBlueLight"))
         {

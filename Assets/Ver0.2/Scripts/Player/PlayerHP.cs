@@ -33,6 +33,8 @@ public class PlayerHP : MonoBehaviour
     [SerializeField] private Gradient healthProgress;
     public Image fill;
 
+    [SerializeField] private GameObject m_canvas;
+
     void Start()
     {
         if (m_RepawnManager == null)
@@ -124,7 +126,8 @@ public class PlayerHP : MonoBehaviour
             // Respawn player if HP reduced to 0 or below
             if (hp <= 0)
             {
-                m_RepawnManager.GetComponent<RespawnManager>().RespawnPlayer();
+                //m_RepawnManager.GetComponent<RespawnManager>().RespawnPlayer();
+                m_canvas.GetComponent<OptionMenu>().PlayerDeath(reasonObj.tag);
             }
         }
     }

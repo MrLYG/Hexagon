@@ -9,31 +9,40 @@ public class LevelSelection : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(gameLevelScene);
+        PlayerPrefs.DeleteKey("PlayerWeapon");
+        PlayerPrefs.DeleteKey("PlayerBlueLight");
+        PlayerPrefs.DeleteKey("PlayerGreenLight");
+
         switch (gameLevelScene) {
-            case "Level1": PlayerPrefs.DeleteKey("PlayerWeapon");
-                PlayerPrefs.DeleteKey("PlayerBlueLight");
-                break;
-            case "Level2":
-                PlayerPrefs.DeleteKey("PlayerWeapon");
-                PlayerPrefs.DeleteKey("PlayerBlueLight");
-                break;
-            case "Level3":
-                PlayerPrefs.DeleteKey("PlayerWeapon");
-                PlayerPrefs.DeleteKey("PlayerBlueLight");
-                break;
             case "Level4":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
-                PlayerPrefs.DeleteKey("PlayerBlueLight");
                 break;
             case "Level5":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
-                PlayerPrefs.DeleteKey("PlayerBlueLight");
                 break;
             case "Level6":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
                 PlayerPrefs.SetInt("PlayerBlueLight", 1);
                 break;
+            case "Level7":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                break;
+            case "Level8":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                break;
+            case "Level9":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                break;
+            case "Level10":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                PlayerPrefs.SetInt("PlayerGreenLight", 1);
+                break;
         }
+
+        SceneManager.LoadScene(gameLevelScene);
     }
 }
