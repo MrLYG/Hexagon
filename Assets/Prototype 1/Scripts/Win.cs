@@ -66,7 +66,7 @@ public class Win : MonoBehaviour
 
         Debug.Log(m.ToString());
         //RestClient.Post(basePath + "/hexagon" + ".json?name=YASKJXH9892ASDFA26*&52#&9ASXS851", m.ToString());
-        RestClient.Post(basePath + "/hexagon" + ".json", m.ToString());
+        RestClient.Post(basePath + "/mid" + ".json", m.ToString());
         //analytics.GetComponent<Analytics>().GetAllEnemies();
         return null;
     }
