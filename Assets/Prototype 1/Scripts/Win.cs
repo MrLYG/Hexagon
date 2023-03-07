@@ -23,7 +23,7 @@ public class Win : MonoBehaviour
         {
             Debug.Log("Win Win");
             SceneManager.LoadScene(nextLevel);
-            if(int.Parse(level) <= 6)
+            if(int.Parse(level) <= 10)
             {
                 generateJson();
             }

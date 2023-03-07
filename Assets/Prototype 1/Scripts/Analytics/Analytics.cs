@@ -19,21 +19,11 @@ public class Analytics : MonoBehaviour
         curCP = new GameObject();
 
         getAllEnemies();
-       
     }
 
     void getAllEnemies()
     {
-        GameObject[] allGameObject = Resources.FindObjectsOfTypeAll<GameObject>();
-        List<GameObject> myList = new List<GameObject>();
-        foreach (GameObject e in allGameObject)
-        {
-            if (e.CompareTag("Enemy"))
-            {
-                myList.Add(e);
-            }
-        }
-        allEnemies = myList.ToArray();
+        allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
     }
     
 

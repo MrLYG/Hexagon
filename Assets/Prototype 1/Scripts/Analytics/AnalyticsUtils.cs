@@ -35,6 +35,7 @@ public class AnalyticsUtils
     }*/
     public static Dictionary<string, AnalyticsEnemy> GetAllEnemiesObjectByInital(GameObject[] allEnemies)
     {
+        Debug.Log(allEnemies[0].ToString());
         Dictionary<string, AnalyticsEnemy> analyticsEnemiesDict = new Dictionary<string, AnalyticsEnemy>();
 
         foreach (GameObject e in allEnemies)
@@ -42,8 +43,11 @@ public class AnalyticsUtils
             if(e != null)
             {
                 //Debug.Log(e.ToString());
-                AnalyticsEnemy analyticsEnemie = new AnalyticsEnemy(e.GetInstanceID(), e.name, e.GetComponent<EnemyTrack>().bluelight, e.GetComponent<EnemyTrack>().deadZone, e.GetComponent<EnemyTrack>().weapon, e.GetComponent<EnemyHP>().getHp(), e.GetComponent<EnemyHP>().getHp() > 0 ? "live" : "dead", e.GetComponent<EnemyTrack>().harm, e.GetComponent<EnemyTrack>().numOfBluelight, e.GetComponent<EnemyTrack>().numOfWeapon, e.GetComponent<EnemyTrack>().numOfGreenlight);
-                analyticsEnemiesDict.Add(e.GetInstanceID().ToString(), analyticsEnemie);
+                if (e.GetComponent<EnemyHP>())
+                {
+                    AnalyticsEnemy analyticsEnemie = new AnalyticsEnemy(e.GetInstanceID(), e.name, e.GetComponent<EnemyTrack>().bluelight, e.GetComponent<EnemyTrack>().deadZone, e.GetComponent<EnemyTrack>().weapon, e.GetComponent<EnemyHP>().getHp(), e.GetComponent<EnemyHP>().getHp() > 0 ? "live" : "dead", e.GetComponent<EnemyTrack>().harm, e.GetComponent<EnemyTrack>().numOfBluelight, e.GetComponent<EnemyTrack>().numOfWeapon, e.GetComponent<EnemyTrack>().numOfGreenlight);
+                    analyticsEnemiesDict.Add(e.GetInstanceID().ToString(), analyticsEnemie);
+                }
             }
             
         }

@@ -28,6 +28,7 @@ public class PlayerRespawn : MonoBehaviour
 
         // Reset player HP
         GetComponent<PlayerHP>().setHP();
+        GetComponent<SpriteRenderer>().color = Color.white;
 
         // Reset weapon status
         GetComponent<PlayerBattle>().ResetWeapon();
