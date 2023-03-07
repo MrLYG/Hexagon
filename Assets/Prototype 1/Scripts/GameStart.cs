@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameStart : MonoBehaviour
 {
-    public Text gameInstruction;
+    public Image gameInstruction;
 
     // Start is called before the first frame update
     void Start()
