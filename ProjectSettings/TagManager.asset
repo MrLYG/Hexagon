@@ -27,6 +27,9 @@ TagManager:
   - D Key
   - A Key
   - Analytics
+  - Spacebar
+  - RightClick
+  - RightClickBlue
   layers:
   - Default
   - TransparentFX
