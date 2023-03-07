@@ -55,7 +55,13 @@ public class PlayerSpecialBullet : MonoBehaviour
     {
         coolDownIcon.enabled = false;
 
-        //PlayerPrefs.DeleteKey("PlayerGreenLight");
+        // Create prediction dots and make them inivisible for now
+        for (int i = 0; i < numDots; i++)
+        {
+            predicionDots.Add(Instantiate(predicionDot, transform.position, Quaternion.identity));
+        }
+        showDots(false);
+
         // If have blue lights
         if (PlayerPrefs.HasKey("PlayerBlueLight"))
         {
@@ -66,12 +72,6 @@ public class PlayerSpecialBullet : MonoBehaviour
             getPower(BulletPrefabs[1]);
         }
 
-        // Create prediction dots and make them inivisible for now
-        for (int i = 0; i < numDots; i++)
-        {
-            predicionDots.Add(Instantiate(predicionDot, transform.position, Quaternion.identity));
-        }
-        showDots(false);
     }
 
     void Update()
@@ -220,7 +220,10 @@ public class PlayerSpecialBullet : MonoBehaviour
         switch (curBulletIndex)
         {
             case 0: coolDownIcon.color = new Color(85, 208, 255) / 255f; break;
-            case 1: coolDownIcon.color = new Color(86, 255, 86) / 255f; break;
+            case 1: coolDownIcon.color = new Color(86, 255, 86) / 255f;
+                curLaunchForce = initLaunchForce;
+                charging = false;
+                showDots(false); break;
         }
     }
 
