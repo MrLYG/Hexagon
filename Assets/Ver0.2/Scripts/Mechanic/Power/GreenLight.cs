@@ -17,6 +17,12 @@ public class GreenLight : ILight
             collision.gameObject.GetComponent<IEnemy>().chageSpeed(slowdownRatio);
             AffectedObjects.Add(collision.gameObject);
         }
+        if (collision.gameObject.GetComponent<EnemyTrack>())
+        {
+            collision.gameObject.GetComponent<EnemyTrack>().numOfGreenlight += 1;
+        }
+
+
     }
     public override void OnTriggerExit2D(Collider2D collision)
     {
