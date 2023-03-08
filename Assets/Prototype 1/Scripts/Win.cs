@@ -59,6 +59,7 @@ public class Win : MonoBehaviour
         m.isWin = true;
         m.runTime = analytics.GetComponent<Analytics>().runningTime;
         m.beHits = analytics.GetComponent<Analytics>().beHits;
+
         m.analyticsEnemiesDict = AnalyticsUtils.GetAllEnemiesObjectByInital(analytics.GetComponent<Analytics>().allEnemies);
         m.analyticsCheckpointsDict = AnalyticsUtils.GetAllCheckpointsObject();
         m.playerNumOfBluelight = analytics.GetComponent<Analytics>().playerNumOfBluelight;

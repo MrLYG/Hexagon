@@ -35,7 +35,7 @@ public class AnalyticsUtils
     }*/
     public static Dictionary<string, AnalyticsEnemy> GetAllEnemiesObjectByInital(GameObject[] allEnemies)
     {
-        Debug.Log(allEnemies[0].ToString());
+        //Debug.Log(allEnemies[0].ToString());
         Dictionary<string, AnalyticsEnemy> analyticsEnemiesDict = new Dictionary<string, AnalyticsEnemy>();
 
         foreach (GameObject e in allEnemies)
