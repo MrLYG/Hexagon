@@ -25,7 +25,7 @@ public class Win : MonoBehaviour
             SceneManager.LoadScene(nextLevel);
             if(int.Parse(level) <= 10)
             {
-                generateJson();
+                generateJson(true);
             }
             
         }
@@ -48,7 +48,7 @@ public class Win : MonoBehaviour
         }
     }
 
-    private Model generateJson()
+    public Model generateJson(bool win)
     {
         
         Model m = new Model();       
@@ -56,7 +56,7 @@ public class Win : MonoBehaviour
         m.uid = uuid;
         m.collectDate = getNowDate();
         m.level = level;
-        m.isWin = true;
+        m.isWin = win;
         m.runTime = analytics.GetComponent<Analytics>().runningTime;
         m.beHits = analytics.GetComponent<Analytics>().beHits;
 

@@ -59,6 +59,8 @@ public class OptionMenu : MonoBehaviour
 
     public void RestartLevel()
     {
+        GameObject door = GameObject.FindWithTag("Door");
+        door.GetComponent<Win>().generateJson(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         if (!isDead)
             Resume();

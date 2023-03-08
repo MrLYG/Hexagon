@@ -30,6 +30,7 @@ TagManager:
   - Spacebar
   - RightClick
   - RightClickBlue
+  - Door
   layers:
   - Default
   - TransparentFX
