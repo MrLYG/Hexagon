@@ -255,10 +255,9 @@ public class PlayerControl : MonoBehaviour
         m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, smoothMovementTime);
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Object")) {
-            bool contact = false;
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + new Vector3(0.5f, 0f, 0f), 0.1f, objectLayer);
             Collider2D[] colliders2 = Physics2D.OverlapCircleAll(transform.position + new Vector3(-0.5f, 0f, 0f), 0.1f, objectLayer);
             if(colliders.Length > 0 || colliders2.Length > 0)
