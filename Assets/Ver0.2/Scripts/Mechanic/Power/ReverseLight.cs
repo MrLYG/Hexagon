@@ -1,22 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ReverseLight : ILight
 {
     [SerializeField] private float AffectTime;
     [SerializeField] private UnityEngine.Rendering.Universal.Light2D m_SphereLight;
+    [SerializeField] private TextMeshProUGUI m_DurationText;
     private float initIntensity;
+    private float appearanceTimeCount;
 
     public override void Start()
     {
         base.Start();
         initIntensity = m_SphereLight.intensity;
+        appearanceTimeCount = 0;
     }
 
     private void Update()
     {
-        m_SphereLight.intensity -= (initIntensity - 0.1f) / ApperanceTime * Time.deltaTime;
+        if (AffectedObjects.Count == 0)
+        {
+            appearanceTimeCount += Time.deltaTime;
+            m_DurationText.text = (ApperanceTime - appearanceTimeCount).ToString("0.0");
+        }
+        else
+            m_DurationText.text = "";
+        m_SphereLight.intensity -= initIntensity / ApperanceTime * Time.deltaTime;
     }
 
     public override void OnTriggerEnter2D(Collider2D collision)
@@ -24,34 +35,47 @@ public class ReverseLight : ILight
         // Affect Player / Enemy / Object(dead enemy)'s Gravity
         if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Object"))
         {
-           if(collision.gameObject.GetComponent<ObjectGravity>() != null)
-            {
-                collision.gameObject.GetComponent<ObjectGravity>().ReverseGravityDirection();
+            PreAffectedObjects.Add(collision.gameObject);
+        }
+    }
 
-                if (collision.gameObject.CompareTag("Player"))
+    private void LateUpdate()
+    {
+        foreach(GameObject obj in PreAffectedObjects)
+        {
+            if (obj.GetComponent<ObjectGravity>() != null)
+            {
+                if ((obj.CompareTag("Player") && PreAffectedObjects.Count == 1) || (!obj.CompareTag("Player")))
+                    obj.GetComponent<ObjectGravity>().ReverseGravityDirection();
+                else
+                    continue;
+
+                if (obj.CompareTag("Player"))
                 {
+                    obj.GetComponent<PlayerInstruction>().StartBlueLightCountDown(AffectTime);
                     GameObject analytics = GameObject.FindWithTag("Analytics");
                     analytics.GetComponent<Analytics>().playerNumOfBluelight +=1;
                 }
-                if (collision.gameObject.CompareTag("Enemy"))
+                if (obj.CompareTag("Enemy"))
                 {
-                    collision.gameObject.GetComponent<EnemyTrack>().numOfBluelight += 1;
-                    collision.gameObject.GetComponent<EnemyTrack>().bluelight = true;
+                    obj.GetComponent<EnemyTrack>().numOfBluelight += 1;
+                    obj.GetComponent<EnemyTrack>().bluelight = true;
                 }
 
-                AffectedObjects.Add(collision.gameObject);
+                AffectedObjects.Add(obj);
                 Invoke("ResetGravity", AffectTime);
 
                 // Stop really fast falling (Optional)
-                if(collision.gameObject.GetComponent<Rigidbody2D>() != null)
+                if(obj.GetComponent<Rigidbody2D>() != null)
                 {
-                    collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                    obj.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 }
 
                 // Remove light when it affected 1 object
                 RemoveLight();
             }
         }
+        PreAffectedObjects.Clear();
     }
 
     // Reset gravity of object after affecting time

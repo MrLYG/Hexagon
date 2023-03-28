@@ -6,6 +6,7 @@ public class ILight : MonoBehaviour
 {
     public float ApperanceTime;
     public List<GameObject> AffectedObjects = new List<GameObject>();
+    public List<GameObject> PreAffectedObjects = new List<GameObject>();
 
     public virtual void Start()
     {
