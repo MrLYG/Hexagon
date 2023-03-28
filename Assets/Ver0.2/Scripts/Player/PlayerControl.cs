@@ -90,7 +90,7 @@ public class PlayerControl : MonoBehaviour
         }
 
         // Movement inputs
-        if (Input.GetKey(KeyCode.A)) 
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) 
         {
             dirt = -1.0f;
             moving = true;
@@ -100,7 +100,7 @@ public class PlayerControl : MonoBehaviour
                 GetComponent<PlayerBattle>().SwitchWeaponSide();
             }
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             dirt = 1.0f;
             moving = true;
@@ -115,7 +115,7 @@ public class PlayerControl : MonoBehaviour
             dirt = 0f;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
             jump = true;
         }

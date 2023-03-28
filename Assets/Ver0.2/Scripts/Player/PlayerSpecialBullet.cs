@@ -76,15 +76,15 @@ public class PlayerSpecialBullet : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.U))
         {
             switchToNext();
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha1))
+        else if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
         {
             switchTo(0);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
         {
             switchTo(1);
         }
@@ -144,7 +144,7 @@ public class PlayerSpecialBullet : MonoBehaviour
 
     private void BlueLight() {
         // Start Charging
-        if (Input.GetMouseButtonDown(1) && !charging)
+        if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.K)) && !charging)
         {
             // Can use power & Player not in reverse position & not other blue light exists
             if (canUseBlueLight && GetComponent<ObjectGravity>().getCurrentGD() != GravityDirection.Up)
@@ -159,7 +159,7 @@ public class PlayerSpecialBullet : MonoBehaviour
         }
 
         // Release
-        if (Input.GetMouseButtonUp(1) && charging)
+        if ((Input.GetMouseButtonUp(1) || Input.GetKeyUp(KeyCode.K)) && charging)
         {
             charging = false;
             showDots(false);
@@ -186,7 +186,7 @@ public class PlayerSpecialBullet : MonoBehaviour
     }
 
     private void GreenLight() {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.K))
         {
             // Can use power & no other green light exists
             if (canUseGreenLight)
