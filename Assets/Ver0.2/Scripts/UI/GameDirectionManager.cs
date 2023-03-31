@@ -20,11 +20,11 @@ public class GameDirectionManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space) && gameFlow.gameObject.CompareTag("Spacebar"))
-        {
-            gameFlow.SetActive(false);
-        }
-        else if(Input.GetMouseButtonDown(1) && gameFlow.gameObject.CompareTag("RightClickBlue"))
+        //if ((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && gameFlow.gameObject.CompareTag("Spacebar"))
+        //{
+          //  gameFlow.SetActive(false);
+        //}
+        if(Input.GetMouseButtonDown(1) && gameFlow.gameObject.CompareTag("RightClickBlue"))
         {
             gameFlow.SetActive(false);
         }
