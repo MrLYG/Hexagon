@@ -17,6 +17,8 @@ public class EnemyHP : MonoBehaviour
 
     public void damage(GameObject byObject, float damage)
     {
+        if (!GetComponent<IEnemy>().enabled)
+            return;
         //int damage = byObject.GetComponent<IWeapon>().Damage;
         hp -= damage;
 
@@ -45,6 +47,8 @@ public class EnemyHP : MonoBehaviour
             else
             {
                 gameObject.tag = "Object";
+                gameObject.layer = 9;
+                GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
                 GetComponent<IEnemy>().HarmOnTouch = false;
                 GetComponent<IEnemy>().enabled = false;
                 GetComponent<SpriteRenderer>().color = Color.yellow;

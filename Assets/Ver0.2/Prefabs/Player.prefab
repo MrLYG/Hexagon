@@ -292,6 +292,7 @@ GameObject:
   - component: {fileID: 1015405797}
   - component: {fileID: 947359380049399852}
   - component: {fileID: 1959841630}
+  - component: {fileID: 1349814641}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -420,7 +421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initWalkSpeed: 30
   smoothMovementTime: 0.05
-  jumpForce: 750
+  jumpForce: 800
   m_groundCheck: {fileID: 6061397500328888222}
   groundLayer:
     serializedVersion: 2
@@ -432,9 +433,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   facingRight: 1
-  objectLayer:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!114 &1453628578023081076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -475,7 +473,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -10954
+  m_InstanceId: -194566
 --- !u!114 &6061397499637108558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,8 +488,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraAnchor: {fileID: 1143525957}
   movingZoom: 0
-  movingZoomSpeed: 0
-  movingZoomRatio: 0
+  movingZoomSpeed: 2
+  movingZoomRatio: 0.9
 --- !u!114 &6061397499637108564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -528,34 +526,35 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   healthProgress:
     serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
+    key0: {r: 0.9433962, g: 0.12542517, b: 0.04153308, a: 1}
+    key1: {r: 0.9975079, g: 1, b: 0.06289297, a: 1}
+    key2: {r: 0.04945702, g: 0.8018868, b: 0.035303116, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 65535
-    ctime2: 0
+    ctime0: 26214
+    ctime1: 44564
+    ctime2: 65535
     ctime3: 0
     ctime4: 0
     ctime5: 0
     ctime6: 0
     ctime7: 0
     atime0: 0
-    atime1: 65535
+    atime1: 44525
     atime2: 0
     atime3: 0
     atime4: 0
     atime5: 0
     atime6: 0
     atime7: 0
-    m_Mode: 0
-    m_NumColorKeys: 2
+    m_Mode: 1
+    m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   fill: {fileID: 0}
+  m_canvas: {fileID: 0}
 --- !u!114 &6061397499637108566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -607,8 +606,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948b407da7a604148b22f55ee5a84a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initLaunchForce: 8
-  maxLaunchForce: 12
+  initLaunchForce: 6
+  maxLaunchForce: 10
   forceIncreasingSpeed: 4
   predicionDot: {fileID: 5606517341168248430, guid: 3a0cf7acc39c4c34d9859de21f3cfaf6, type: 3}
   numDots: 7
@@ -658,6 +657,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxFallingSpeed: 1
+--- !u!114 &1349814641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6061397498481008598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46efdb0113b68014e85cc1354e8b5e33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  HighlightObject: {fileID: 4034465012665914485, guid: 0647c9795d0e571409603fbb89a05ec0, type: 3}
+  pushing: 0
 --- !u!1 &6061397500328888221
 GameObject:
   m_ObjectHideFlags: 0

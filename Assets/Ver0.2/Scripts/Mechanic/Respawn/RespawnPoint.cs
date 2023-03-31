@@ -6,6 +6,8 @@ public class RespawnPoint : MonoBehaviour
 {
     [SerializeField] private GameObject m_RespawnManager;
     public List<GameObject> Enemies;
+    public List<GameObject> Objects;
+    public List<Vector3> ObjectPositions;
     public GravityDirection gravityDirection;
 
     private void Start()
@@ -14,6 +16,12 @@ public class RespawnPoint : MonoBehaviour
         foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("RespawnManager"))
         {
             m_RespawnManager = gameObject;
+        }
+
+        ObjectPositions = new List<Vector3>();
+        foreach (GameObject obj in Objects)
+        {
+            ObjectPositions.Add(obj.transform.position);
         }
     }
 

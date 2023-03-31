@@ -43,6 +43,7 @@ public class RespawnManager : MonoBehaviour
     {
         m_Player.GetComponent<PlayerRespawn>().Respawn(curCP, curCP.GetComponent<RespawnPoint>().gravityDirection);
         RespawnEnemies();
+        RespawnObjects();
     }
 
     public void RespawnEnemies() {
@@ -51,6 +52,16 @@ public class RespawnManager : MonoBehaviour
             enemy.tag = "Enemy";
             enemy.GetComponent<SpriteRenderer>().color = Color.red;
             enemy.GetComponent<IEnemy>().reset();
+        }
+    }
+
+    public void RespawnObjects()
+    {
+        int index = 0;
+        foreach (GameObject obj in curCP.GetComponent<RespawnPoint>().Objects)
+        {
+            obj.transform.position = curCP.GetComponent<RespawnPoint>().ObjectPositions[index];
+            index++;
         }
     }
 }

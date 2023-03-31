@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4130544444921006165}
   - component: {fileID: 4130544444921006162}
   - component: {fileID: 994601470}
+  - component: {fileID: 2886556585553382161}
   m_Layer: 9
   m_Name: MovingEnemy
   m_TagString: Enemy
@@ -77,8 +78,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1952286087
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
@@ -211,3 +212,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GravityManager: {fileID: 0}
   initialGravityScale: 4
+--- !u!114 &2886556585553382161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4130544444921006166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3008c60d6f6f5a04d8c3808791900839, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bluelight: 0
+  deadZone: 0
+  weapon: 0
+  harm: 0
+  numOfBluelight: 0
+  numOfWeapon: 0
+  numOfGreenlight: 0

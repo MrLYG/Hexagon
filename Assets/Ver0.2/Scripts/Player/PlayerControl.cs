@@ -53,8 +53,6 @@ public class PlayerControl : MonoBehaviour
     public bool facingRight = true;
     private bool moving = false;
 
-    [SerializeField] private LayerMask objectLayer;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -94,7 +92,7 @@ public class PlayerControl : MonoBehaviour
         {
             dirt = -1.0f;
             moving = true;
-            if (facingRight)
+            if (facingRight && !GetComponent<PlayerPushPull>().pushing)
             {
                 facingRight = !facingRight;
                 GetComponent<PlayerBattle>().SwitchWeaponSide();
@@ -104,7 +102,7 @@ public class PlayerControl : MonoBehaviour
         {
             dirt = 1.0f;
             moving = true;
-            if (!facingRight)
+            if (!facingRight && !GetComponent<PlayerPushPull>().pushing)
             {
                 facingRight = !facingRight;
                 GetComponent<PlayerBattle>().SwitchWeaponSide();
@@ -255,22 +253,8 @@ public class PlayerControl : MonoBehaviour
         m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref velocity, smoothMovementTime);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Object")) {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position + new Vector3(0.5f, 0f, 0f), 0.1f, objectLayer);
-            Collider2D[] colliders2 = Physics2D.OverlapCircleAll(transform.position + new Vector3(-0.5f, 0f, 0f), 0.1f, objectLayer);
-            if(colliders.Length > 0 || colliders2.Length > 0)
-                walkSpeed = initWalkSpeed * 0.5f;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Object"))
-        {
-            walkSpeed = initWalkSpeed;
-        }
+    public void changeWalkSpeed(float ratio) {
+        walkSpeed = initWalkSpeed * ratio;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

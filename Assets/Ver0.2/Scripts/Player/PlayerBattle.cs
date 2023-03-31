@@ -62,7 +62,7 @@ public class PlayerBattle : MonoBehaviour
         }
 
         // Attack with left click
-        if ((Input.GetMouseButton(0) || Input.GetKey(KeyCode.J)) && canAttack)
+        if ((Input.GetMouseButton(0) || Input.GetKey(KeyCode.J)) && canAttack && !GetComponent<PlayerPushPull>().pushing)
         {
             AttackWithWeapon();
         }

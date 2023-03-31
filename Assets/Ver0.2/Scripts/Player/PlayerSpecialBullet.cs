@@ -200,6 +200,8 @@ public class PlayerSpecialBullet : MonoBehaviour
                     GetComponent<PlayerSlowFall>().startSlowFall();
                     Invoke("GreenLightPowerEnd", Bullets[1].GetComponent<GreenLight>().ApperanceTime);
 
+                   GetComponent<PlayerInstruction>().StartGreenLightCountDown(Bullets[1].GetComponent<GreenLight>().ApperanceTime);
+
                     GameObject analytics = GameObject.FindWithTag("Analytics");
                     analytics.GetComponent<Analytics>().playerNumOfGreenlight += 1;
                 }

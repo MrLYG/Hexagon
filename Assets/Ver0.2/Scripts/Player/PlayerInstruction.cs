@@ -6,8 +6,10 @@ using TMPro;
 public class PlayerInstruction : MonoBehaviour
 {
     private TextMeshProUGUI OverheadText;
-    private float CountDown;
-    private bool CoutingDown;
+    private float BLCountDown;
+    private float GLCountDown;
+    private bool BLCD;
+    private bool GLCD;
 
     private void Start()
     {
@@ -17,17 +19,33 @@ public class PlayerInstruction : MonoBehaviour
 
     private void Update()
     {
-        if (CoutingDown)
+        if (BLCD)
         {
-            if (CountDown > 0)
+            if (BLCountDown > 0)
             {
-                CountDown -= Time.deltaTime;
-                OverheadText.text = CountDown.ToString("0.0");
+                BLCountDown -= Time.deltaTime;
+                OverheadText.text = BLCountDown.ToString("0.0");
             }
             else
             {
+                BLCD = false;
                 resetText();
-                CoutingDown = false;
+            }
+        }
+        if (GLCD)
+        {
+            if (GLCountDown > 0)
+            {
+                GLCountDown -= Time.deltaTime;
+                if(!BLCD)
+                    OverheadText.text = "<color=purple> " + GLCountDown.ToString("0.0") + "</color>";
+                else
+                    OverheadText.text = OverheadText.text + "<color=purple> " + GLCountDown.ToString("0.0") + "</color>";
+            }
+            else
+            {
+                GLCD = false;
+                resetText();
             }
         }
     }
@@ -39,18 +57,29 @@ public class PlayerInstruction : MonoBehaviour
 
     public void resetText()
     {
-        OverheadText.text = "Player";
-        OverheadText.color = Color.white;
+        if (!BLCD && !GLCD)
+        {
+            OverheadText.text = "Player";
+            OverheadText.color = Color.white;
+        }
         OverheadText.gameObject.transform.localRotation = Quaternion.Euler(Vector3.zero);
     }
 
     public void StartBlueLightCountDown(float time)
     {
-        OverheadText.text = time.ToString("0.0");
         OverheadText.color = new Color(0, 150, 255);
         OverheadText.gameObject.transform.localRotation = Quaternion.Euler(new Vector3(0,0,180));
 
-        CountDown = time;
-        CoutingDown = true;
+        BLCountDown = time;
+        BLCD = true;
+    }
+
+    public void StartGreenLightCountDown(float time) 
+    {
+        //OverheadText.color = new Color(255, 0, 255);
+        //OverheadText.gameObject.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 180));
+
+        GLCountDown = time;
+        GLCD = true;
     }
 }
