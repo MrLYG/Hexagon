@@ -32,11 +32,10 @@ public class RespawnManager : MonoBehaviour
 
         // Reset the color of previous checkpoint
         if (curCP != null)
-            curCP.GetComponent<SpriteRenderer>().color = Color.yellow;
+            curCP.GetComponent<RespawnPoint>().DeActivate();
 
         // Assign new checkpoint
         curCP = newCP;
-        curCP.GetComponent<SpriteRenderer>().color = Color.green;
     }
 
     public void RespawnPlayer()
