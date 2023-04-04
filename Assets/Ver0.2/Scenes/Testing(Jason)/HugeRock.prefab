@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6828117206763509890}
   - component: {fileID: 6828117206763509901}
   - component: {fileID: 6828117206763509900}
-  - component: {fileID: 6828117206763509903}
   - component: {fileID: 6828117206763509902}
   m_Layer: 0
   m_Name: HugeRock
@@ -118,26 +117,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6828117206763509903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6828117206763509897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5e3afbb328b0a148b6b7ffde2a57de1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GravityManager: {fileID: 0}
-  initialGravityScale: 1
 --- !u!58 &6828117206763509902
 CircleCollider2D:
   m_ObjectHideFlags: 0
