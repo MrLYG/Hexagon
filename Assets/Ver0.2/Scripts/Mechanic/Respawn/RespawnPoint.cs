@@ -25,6 +25,8 @@ public class RespawnPoint : MonoBehaviour
         {
             ObjectPositions.Add(obj.transform.position);
         }
+
+        m_Animator = GetComponent<Animator>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
