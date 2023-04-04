@@ -12,30 +12,30 @@ EditorBuildSettings:
     path: Assets/Ver0.2/Scenes/MenuScenes/LevelSelection.unity
     guid: 0f4de23bf2f0d493c85a4ea3a460b0ba
   - enabled: 1
-    path: Assets/Ver0.2/Scenes/Level1-10/Level1.unity
-    guid: b69ab4c7ec588f247a590761b5ae972d
+    path: Assets/Ver0.2/Scenes/New Level1-10/Level1.unity
+    guid: 0c921aa3e403a0f4a81efb9ff732db8e
   - enabled: 1
-    path: Assets/Ver0.2/Scenes/Level1-10/Level2.unity
-    guid: 563c192edf894c845a0e6f48501f85a1
+    path: Assets/Ver0.2/Scenes/New Level1-10/Level2.unity
+    guid: 628f81699d794b449ad2ff3f044e680b
   - enabled: 1
-    path: Assets/Ver0.2/Scenes/Level1-10/Level3.unity
-    guid: 7933a7aeeeddd8444a869de3d1b2539a
+    path: Assets/Ver0.2/Scenes/New Level1-10/Level3.unity
+    guid: 54ba112cadbbf05478bd03ae2efa9f63
   - enabled: 1
-    path: Assets/Ver0.2/Scenes/Level1-10/Level4.unity
-    guid: 763092f308c561b439287377504bb9ba
+    path: Assets/Ver0.2/Scenes/New Level1-10/Level4.unity
+    guid: 39e688430f6b3854a815d524824a36e9
   - enabled: 1
-    path: Assets/Ver0.2/Scenes/Level1-10/Level5.unity
-    guid: 18c49bd16001f4c688fb84f06787bbb7
+    path: Assets/Ver0.2/Scenes/New Level1-10/Level5.unity
+    guid: 656000f8b22a672489df46d9cd0c3a58
   - enabled: 1
-    path: Assets/Ver0.2/Scenes/Level1-10/Level6.unity
-    guid: 3c85238739067463f9bac3be39fd8772
+    path: Assets/Ver0.2/Scenes/New Level1-10/Level6.unity
+    guid: a2d3b97c21ee4f745b400f55b3153082
   - enabled: 1
-    path: Assets/Ver0.2/Scenes/Level1-10/Level7.unity
-    guid: d18b1794f41cf4dccab5304e0874094b
+    path: Assets/Ver0.2/Scenes/New Level1-10/Level7.unity
+    guid: 373f78e8f1e430b42b850990708280d9
   - enabled: 1
-    path: Assets/Ver0.2/Scenes/Level1-10/Level8.unity
-    guid: 06e30417ab6374f0f91a972f2455167c
+    path: Assets/Ver0.2/Scenes/New Level1-10/Level8.unity
+    guid: 340c39632444f5147b98b1308462fe94
   - enabled: 1
-    path: Assets/Ver0.2/Scenes/Level1-10/Level9.unity
-    guid: 9c1bd0f6524b9479981a3b21e82870be
+    path: Assets/Ver0.2/Scenes/New Level1-10/Level9.unity
+    guid: 89a5b8c2b2de9404fb1e7298a71cd859
   m_configObjects: {}
