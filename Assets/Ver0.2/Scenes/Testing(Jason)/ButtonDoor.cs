@@ -14,7 +14,7 @@ public class ButtonDoor : MonoBehaviour
         // Set color to be same as button
         LockedColor = GetComponent<SpriteRenderer>().color;
         OpenedColor = LockedColor;
-        OpenedColor.a = 0.5f;
+        OpenedColor.a = 0f;
         foreach (GameObject door in Doors)
         {
             door.GetComponent<SpriteRenderer>().color = LockedColor;

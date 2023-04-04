@@ -51,7 +51,7 @@ public class EnemyHP : MonoBehaviour
                 GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
                 GetComponent<IEnemy>().HarmOnTouch = false;
                 GetComponent<IEnemy>().enabled = false;
-                GetComponent<SpriteRenderer>().color = Color.yellow;
+                GetComponent<SpriteRenderer>().color = Color.gray;
             }
         }
 
