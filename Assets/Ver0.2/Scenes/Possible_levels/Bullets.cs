@@ -18,7 +18,7 @@ public class Bullets : MonoBehaviour
 
     void FireBullet()
     {
-        GameObject bulletObject = Instantiate(bullet, transform.position, Quaternion.identity);
+        GameObject bulletObject = Instantiate(bullet, transform.position, transform.rotation);
         bulletObject.GetComponent<BulletControl>().distance = distance;
         bulletObject.GetComponent<IEnemy>().initialSpeed = speed;
         bulletObject.GetComponent<IEnemy>().curSpeed = speed;
