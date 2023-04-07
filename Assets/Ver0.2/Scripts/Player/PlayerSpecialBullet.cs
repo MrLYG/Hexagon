@@ -41,12 +41,15 @@ public class PlayerSpecialBullet : MonoBehaviour
     [Tooltip("CD for using powers")]
     [SerializeField] private float blueLightCD = 1f;
     [SerializeField] private float greenLightCD = 10f;
+    [SerializeField] private float yellowLightCD = 5f;
 
     private bool canUseBlueLight = true;
     private bool canUseGreenLight = true;
+    private bool canUseYellowLight = true;
 
     private float blueLightCDCout = 0f;
     private float greenLightCDCout = 0f;
+    private float yellowLightCDCout = 0f;
 
     public Image coolDownIcon;
 
@@ -70,6 +73,10 @@ public class PlayerSpecialBullet : MonoBehaviour
         if (PlayerPrefs.HasKey("PlayerGreenLight"))
         {
             getPower(BulletPrefabs[1]);
+        }
+        if (PlayerPrefs.HasKey("PlayerYellowLight"))
+        {
+            //getPower(BulletPrefabs[2]);
         }
 
     }
@@ -95,6 +102,9 @@ public class PlayerSpecialBullet : MonoBehaviour
         }else if (curBulletIndex == 1)
         {
             GreenLight();
+        }else if(curBulletIndex == 2)
+        {
+            YellowLight();
         }
 
         if (!canUseBlueLight)
@@ -115,6 +125,15 @@ public class PlayerSpecialBullet : MonoBehaviour
             }
         }
 
+        if (!canUseYellowLight)
+        {
+            yellowLightCDCout += Time.deltaTime;
+            if (yellowLightCDCout > yellowLightCD)
+            {
+                canUseYellowLight = true;
+            }
+        }
+
         if (curBulletIndex == 0 && !canUseBlueLight)
         {
             coolDownIcon.fillAmount = blueLightCDCout / blueLightCD;
@@ -122,6 +141,10 @@ public class PlayerSpecialBullet : MonoBehaviour
         else if (curBulletIndex == 1 && !canUseGreenLight)
         {
             coolDownIcon.fillAmount = greenLightCDCout / greenLightCD;
+        }
+        else if (curBulletIndex == 2 && !canUseYellowLight)
+        {
+            coolDownIcon.fillAmount = yellowLightCDCout / yellowLightCD;
         }
         else {
             coolDownIcon.fillAmount = 1;
@@ -209,6 +232,26 @@ public class PlayerSpecialBullet : MonoBehaviour
         }
     }
 
+    private void YellowLight()
+    {
+        if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.K)))
+        {
+            //showDots(true);
+        }
+
+        // Release
+        if ((Input.GetMouseButtonUp(1) || Input.GetKeyUp(KeyCode.K)) && canUseYellowLight)
+        {
+            GameObject bullet = Instantiate(Bullets[curBulletIndex], transform.position, Quaternion.identity);
+            if (GetComponent<PlayerControl>().facingRight)
+                bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(10, 0);
+            else
+                bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(-10, 0);
+
+            startPowerCD();
+        }
+    }
+
     private void switchToNext() {
         int newIndex = curBulletIndex + 1;
         if (newIndex == Bullets.Count)
@@ -229,6 +272,7 @@ public class PlayerSpecialBullet : MonoBehaviour
                 curLaunchForce = initLaunchForce;
                 charging = false;
                 showDots(false); break;
+            case 2: coolDownIcon.color = new Color(255, 255, 50) / 255f; break;
         }
     }
 
@@ -250,6 +294,7 @@ public class PlayerSpecialBullet : MonoBehaviour
     public void resetCD() {
         blueLightCD = 0;
         greenLightCD = 0;
+        yellowLightCD = 0;
     }
 
     // Get a referene of the bullet prefab and include into player's bullet list
@@ -264,6 +309,9 @@ public class PlayerSpecialBullet : MonoBehaviour
             }
             else if (bullet.name.Equals("GreenLight")) {
                 PlayerPrefs.SetInt("PlayerGreenLight", 1);
+            }else if (bullet.name.Equals("YellowLight"))
+            {
+                PlayerPrefs.SetInt("PlayerYellowLight", 1);
             }
             Bullets.Add(bullet);
             switchToNext();
@@ -281,6 +329,10 @@ public class PlayerSpecialBullet : MonoBehaviour
         else if (curBulletIndex == 1) {
             canUseGreenLight = false;
             greenLightCDCout = 0;
+        }else if (curBulletIndex == 2)
+        {
+            canUseYellowLight = false;
+            yellowLightCDCout = 0;
         }
     }
 

@@ -269,7 +269,7 @@ public class PlayerControl : MonoBehaviour
 
         if (collision.gameObject.CompareTag("AbnormalGravityZone"))
         {
-            m_ObjectGravity.changeGravityScale(collision.gameObject.GetComponent<AbnormalGLight>().getGravityScale(), gameObject);
+            m_ObjectGravity.changeGravityScale(collision.gameObject.GetComponent<AbnormalGLight>().getGravityScale());
             m_Rigidbody2D.drag = collision.gameObject.GetComponent<AbnormalGLight>().gravityDrag;
         }
     }

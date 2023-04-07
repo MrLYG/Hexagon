@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(IEnemy))]
-[RequireComponent(typeof(EnemyTrack))]
 public class EnemyHP : MonoBehaviour
 {
     [Tooltip("Initial HP")]
     [SerializeField] private float initialHP = 2;
     private float hp = 2;
+    private List<float> DamageList = new List<float>();
+    private List<GameObject> ByObjectList = new List<GameObject>();
 
     private void Start()
     {
@@ -17,11 +18,19 @@ public class EnemyHP : MonoBehaviour
 
     public void damage(GameObject byObject, float damage)
     {
-        if (!GetComponent<IEnemy>().enabled)
+        if (!GetComponent<IEnemy>().enabled || hp <= 0)
             return;
+
+        if (GetComponent<IEnemy>().freeze)
+        {
+            storeDamage(byObject, damage);
+            return;
+        }
+
         //int damage = byObject.GetComponent<IWeapon>().Damage;
         hp -= damage;
 
+        /*
         // analyse  ??  Falling to the deadzone,enemy can't be damag.
         Debug.Log(byObject.tag);
         gameObject.GetComponent<EnemyTrack>().harm += damage;
@@ -34,7 +43,7 @@ public class EnemyHP : MonoBehaviour
         {
             gameObject.GetComponent<EnemyTrack>().deadZone = true;
         }
-
+        */
 
         if (hp <= 0)
         {
@@ -66,6 +75,29 @@ public class EnemyHP : MonoBehaviour
         {
             GetComponent<DamagePop>().PopDamage(damage);
         }
+    }
+
+    private void storeDamage(GameObject byObject, float damage)
+    {
+        ByObjectList.Add(byObject);
+        DamageList.Add(damage);
+    }
+
+    public void releaseDamage() {
+
+        StartCoroutine("releaseOneDamage");
+    }
+
+    IEnumerator releaseOneDamage()
+    {
+        if (DamageList.Count > 0)
+        {
+            damage(ByObjectList[0], DamageList[0]);
+            DamageList.RemoveAt(0);
+            ByObjectList.RemoveAt(0);
+        }
+        yield return new WaitForSeconds(0.1f);
+        StartCoroutine("releaseOneDamage");
     }
 
     public void resetHP() {

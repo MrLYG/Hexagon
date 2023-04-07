@@ -41,13 +41,13 @@ public class PlayerPushPull : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.J))
         {
             if(curObject != null)
             {
                 startPushing();
             }
-        }else if (Input.GetMouseButtonUp(0))
+        }else if (Input.GetMouseButtonUp(0) || Input.GetKeyDown(KeyCode.J))
         {
             if (curObject != null) {
                 endPushing();

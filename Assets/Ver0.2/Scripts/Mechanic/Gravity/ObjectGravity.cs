@@ -64,7 +64,7 @@ public class ObjectGravity : MonoBehaviour
     }
 
     // Change GS to given scale
-    public void changeGravityScale(float newGS, GameObject target)
+    public void changeGravityScale(float newGS)
     {
         GravityScale = newGS;
     }

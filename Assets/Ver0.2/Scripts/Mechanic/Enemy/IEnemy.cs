@@ -7,6 +7,7 @@ public class IEnemy : IEnemyObstacle
     public float initialSpeed;
     public float curSpeed;
     public bool stay = false;
+    public bool freeze = false;
 
     public Vector3 initialPos;
 
@@ -35,5 +36,28 @@ public class IEnemy : IEnemyObstacle
 
     public virtual void resetSpeed() {
         curSpeed = initialSpeed;
+    }
+
+    public virtual void freezeSelf() {
+        freeze = true;
+        chageSpeed(0);
+        if (GetComponent<ObjectGravity>())
+        {
+            GetComponent<ObjectGravity>().changeGravityScale(0);
+        }
+    }
+
+    public virtual void unfreezeSelf()
+    {
+        freeze = false;
+        resetSpeed();
+        if (GetComponent<ObjectGravity>())
+        {
+            GetComponent<ObjectGravity>().resetGravityScale();
+        }
+        if (GetComponent<EnemyHP>())
+        {
+            GetComponent<EnemyHP>().releaseDamage();
+        }
     }
 }
