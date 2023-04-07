@@ -272,7 +272,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 256
+  spritePixelsToUnits: 255
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -1930,7 +1930,7 @@ TextureImporter:
       tileset_1_33: -6264314700428176321
       tileset_1_39: -8450295650506546065
       tileset_1_18: 8458814960144615047
-      tileset_1_2: -4237424226228174032
+      tileset_1_50: -4646503845075199427
       tileset_1_45: -1723761272178627813
       tileset_1_8: -371894785065914332
       tileset_1_70: -7184354325540966205
@@ -2000,8 +2000,8 @@ TextureImporter:
       tileset_1_4: -6489014197620929596
       tileset_1_17: 5826004300318112913
       tileset_1_21: -1223447810789847147
+      tileset_1_2: -4237424226228174032
       tileset_1_42: -3892890448371923582
-      tileset_1_50: -4646503845075199427
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
