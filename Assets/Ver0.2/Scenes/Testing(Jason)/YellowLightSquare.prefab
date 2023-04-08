@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3847214588374450411
+--- !u!1 &4239820858643965427
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,39 +8,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4803459117580825424}
-  - component: {fileID: 693400161873588165}
-  - component: {fileID: 8577665203119480332}
-  - component: {fileID: 4096320553753218894}
-  m_Layer: 0
-  m_Name: Weapon_Stick
-  m_TagString: Weapon
+  - component: {fileID: 7117519706499519135}
+  - component: {fileID: 8615730737181402633}
+  - component: {fileID: 4620486021005941496}
+  - component: {fileID: 4400959573994540079}
+  m_Layer: 6
+  m_Name: YellowLightSquare
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4803459117580825424
+--- !u!4 &7117519706499519135
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3847214588374450411}
+  m_GameObject: {fileID: 4239820858643965427}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.65, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 25, y: 15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &693400161873588165
+--- !u!212 &8615730737181402633
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3847214588374450411}
+  m_GameObject: {fileID: 4239820858643965427}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -75,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 1952286087
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b8662f8438caa8b47b5457c9dfe79657, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 1, g: 0.87464464, b: 0.2679245, a: 0.28235295}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -86,24 +86,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &8577665203119480332
+--- !u!61 &4620486021005941496
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3847214588374450411}
-  m_Enabled: 0
+  m_GameObject: {fileID: 4239820858643965427}
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.5}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.86, y: 0.94}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -112,25 +112,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4096320553753218894
+--- !u!114 &4400959573994540079
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3847214588374450411}
+  m_GameObject: {fileID: 4239820858643965427}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3f3b18368d017545822629023e9a4fc, type: 3}
+  m_Script: {fileID: 11500000, guid: d90220f2ff35f8a46afeff33daba3683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackCD: 0.6
-  Damage: 1
-  InitialPos: {x: 0.65, y: 0, z: 0}
-  InitialRot: {x: 0, y: 0, z: 0}
-  CurPos: {x: 0, y: 0, z: 0}
-  CurRot: {x: 0, y: 0, z: 0}
-  m_Player: {fileID: 0}
-  Reverse: 0
-  AttackSpeed: 10
-  EndLocationRotation: {x: 0, y: 0, z: 210}
+  ApperanceTime: 0
+  AffectedObjects: []
+  PreAffectedObjects: []
+  AffectTime: 0
+  m_SphereLight: {fileID: 0}
+  m_DurationText: {fileID: 0}

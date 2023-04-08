@@ -31,7 +31,8 @@ public class IEnemy : IEnemyObstacle
     }
 
     public virtual void chageSpeed(float ratio){
-        curSpeed = initialSpeed * ratio;
+        if(!freeze)
+            curSpeed = initialSpeed * ratio;
     }
 
     public virtual void resetSpeed() {
@@ -39,17 +40,16 @@ public class IEnemy : IEnemyObstacle
     }
 
     public virtual void freezeSelf() {
-        freeze = true;
-        chageSpeed(0);
+        chageSpeed(0);        
         if (GetComponent<ObjectGravity>())
         {
             GetComponent<ObjectGravity>().changeGravityScale(0);
         }
+        freeze = true;
     }
 
     public virtual void unfreezeSelf()
     {
-        freeze = false;
         resetSpeed();
         if (GetComponent<ObjectGravity>())
         {
@@ -59,5 +59,6 @@ public class IEnemy : IEnemyObstacle
         {
             GetComponent<EnemyHP>().releaseDamage();
         }
+        freeze = false;
     }
 }

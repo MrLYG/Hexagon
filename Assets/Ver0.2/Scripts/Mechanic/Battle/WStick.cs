@@ -59,31 +59,19 @@ public class WStick : IWeapon
         if (!Attacking)
         {
             switchTimes = 0;
-            if (!facingRight)
+
+            if (Reverse == facingRight)
             {
-                if (!Reverse)
-                {
-                    CurPos = new Vector3(InitialPos.x * -1, InitialPos.y, InitialPos.z);
-                    CurELR = new Vector3(0, 0, EndLocationRotation.z * -1);
-                }
-                else {
-                    CurPos = InitialPos;
-                    CurELR = EndLocationRotation;
-                }
+                CurPos = new Vector3(InitialPos.x * -1, InitialPos.y, InitialPos.z);
+                CurELR = new Vector3(0, 0, EndLocationRotation.z * -1);
+                GetComponent<SpriteRenderer>().flipX = true;
             }
-            else
-            {
-                if (!Reverse)
-                {
-                    CurPos = InitialPos;
-                    CurELR = EndLocationRotation;
-                }
-                else
-                {
-                    CurPos = new Vector3(InitialPos.x * -1, InitialPos.y, InitialPos.z);
-                    CurELR = new Vector3(0, 0, EndLocationRotation.z * -1);
-                }
+            else {
+                CurPos = InitialPos;
+                CurELR = EndLocationRotation;
+                GetComponent<SpriteRenderer>().flipX = false;
             }
+
             Reset();
         }
         else

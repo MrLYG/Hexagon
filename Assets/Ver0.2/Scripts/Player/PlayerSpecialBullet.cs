@@ -53,6 +53,8 @@ public class PlayerSpecialBullet : MonoBehaviour
 
     public Image coolDownIcon;
 
+    [SerializeField] private GameObject YellowLightObj;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,7 +80,6 @@ public class PlayerSpecialBullet : MonoBehaviour
         {
             //getPower(BulletPrefabs[2]);
         }
-
     }
 
     void Update()
@@ -234,6 +235,7 @@ public class PlayerSpecialBullet : MonoBehaviour
 
     private void YellowLight()
     {
+        /*
         if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.K)))
         {
             //showDots(true);
@@ -250,6 +252,19 @@ public class PlayerSpecialBullet : MonoBehaviour
 
             startPowerCD();
         }
+        */
+        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.K))
+        {
+            // Can use power & no other green light exists
+            if (canUseYellowLight)
+            {
+                //YellowLightObj = Instantiate(Bullets[curBulletIndex], transform.position, Quaternion.identity);
+                YellowLightObj.transform.parent = null;
+                YellowLightObj.GetComponent<YellowLightN>().ActivateLight();
+
+                startPowerCD();
+            }
+        }
     }
 
     private void switchToNext() {
@@ -265,6 +280,8 @@ public class PlayerSpecialBullet : MonoBehaviour
         {
             curBulletIndex = index;
         }
+        if(!YellowLightObj.GetComponent<YellowLightN>().activated)
+            YellowLightObj.SetActive(false);
         switch (curBulletIndex)
         {
             case 0: coolDownIcon.color = new Color(85, 208, 255) / 255f; break;
@@ -272,7 +289,10 @@ public class PlayerSpecialBullet : MonoBehaviour
                 curLaunchForce = initLaunchForce;
                 charging = false;
                 showDots(false); break;
-            case 2: coolDownIcon.color = new Color(255, 255, 50) / 255f; break;
+            case 2: coolDownIcon.color = new Color(255, 255, 50) / 255f;
+                YellowLightObj.SetActive(true);
+                //YellowLightObj.transform.parent = transform;
+                break;
         }
     }
 
