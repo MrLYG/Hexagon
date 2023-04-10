@@ -53,7 +53,7 @@ public class PlayerSpecialBullet : MonoBehaviour
 
     public Image coolDownIcon;
 
-    [SerializeField] private GameObject YellowLightObj;
+    private GameObject YellowLightObj;
 
     // Start is called before the first frame update
     void Start()
@@ -67,6 +67,16 @@ public class PlayerSpecialBullet : MonoBehaviour
         }
         showDots(false);
 
+        if (PlayerPrefs.HasKey("PlayerYellowLight"))
+        {
+            if (!YellowLightObj)
+            {
+                YellowLightObj = Instantiate(BulletPrefabs[2], transform.position, Quaternion.identity);
+                YellowLightObj.transform.parent = transform;
+            }
+            //getPower(BulletPrefabs[2]);
+        }
+
         // If have blue lights
         if (PlayerPrefs.HasKey("PlayerBlueLight"))
         {
@@ -75,11 +85,7 @@ public class PlayerSpecialBullet : MonoBehaviour
         if (PlayerPrefs.HasKey("PlayerGreenLight"))
         {
             getPower(BulletPrefabs[1]);
-        }
-        if (PlayerPrefs.HasKey("PlayerYellowLight"))
-        {
-            //getPower(BulletPrefabs[2]);
-        }
+        }        
     }
 
     void Update()
@@ -163,6 +169,14 @@ public class PlayerSpecialBullet : MonoBehaviour
             Color color = coolDownIcon.color;
             color.a = 1f;
             coolDownIcon.color = color;
+        }
+
+        if (YellowLightObj)
+        {
+            if (curBulletIndex == 2 && canUseYellowLight)
+                YellowLightObj.SetActive(true);
+            else
+                YellowLightObj.SetActive(false);
         }
     }
 
@@ -280,8 +294,6 @@ public class PlayerSpecialBullet : MonoBehaviour
         {
             curBulletIndex = index;
         }
-        if(!YellowLightObj.GetComponent<YellowLightN>().activated)
-            YellowLightObj.SetActive(false);
         switch (curBulletIndex)
         {
             case 0: coolDownIcon.color = new Color(85, 208, 255) / 255f; break;
@@ -290,7 +302,7 @@ public class PlayerSpecialBullet : MonoBehaviour
                 charging = false;
                 showDots(false); break;
             case 2: coolDownIcon.color = new Color(255, 255, 50) / 255f;
-                YellowLightObj.SetActive(true);
+                //YellowLightObj.SetActive(true);
                 //YellowLightObj.transform.parent = transform;
                 break;
         }
@@ -329,12 +341,17 @@ public class PlayerSpecialBullet : MonoBehaviour
             }
             else if (bullet.name.Equals("GreenLight")) {
                 PlayerPrefs.SetInt("PlayerGreenLight", 1);
-            }else if (bullet.name.Equals("YellowLight"))
+            }else if (bullet.name.Equals("YellowBullet"))
             {
                 PlayerPrefs.SetInt("PlayerYellowLight", 1);
+                if (!YellowLightObj)
+                {
+                    YellowLightObj = Instantiate(BulletPrefabs[2], transform.position, Quaternion.identity);
+                    YellowLightObj.transform.parent = transform;
+                }
             }
             Bullets.Add(bullet);
-            switchToNext();
+            switchTo(Bullets.Count - 1);
         }
         //curBulletIndex = 0;
     }

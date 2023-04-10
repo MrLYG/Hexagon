@@ -113,9 +113,14 @@ public class YellowLightN : ILight
     public override void RemoveLight()
     {
         activated = false;
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
         appearanceTimeCount = 0;
         transform.position = m_Player.transform.position;
         transform.parent = m_Player.transform;
+
+        // Set Alpha
+        Color curColor = GetComponent<SpriteRenderer>().color;
+        curColor.a = 72f / 255f;
+        GetComponent<SpriteRenderer>().color = curColor;
     }
 }
