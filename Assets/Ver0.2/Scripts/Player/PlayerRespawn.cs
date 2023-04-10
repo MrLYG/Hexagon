@@ -27,7 +27,7 @@ public class PlayerRespawn : MonoBehaviour
         m_GravityManager.GetComponent<GravityManager>().ForceSwitchGravityDirection(gravityDirection, gameObject);
 
         // Reset player HP
-        GetComponent<PlayerHP>().setHP();
+        //GetComponent<PlayerHP>().setHP();
         GetComponent<SpriteRenderer>().color = Color.white;
 
         // Reset weapon status

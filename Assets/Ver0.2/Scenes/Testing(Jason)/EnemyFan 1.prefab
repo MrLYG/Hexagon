@@ -47,12 +47,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40997a9ded620ff4bbc2eda7ea437544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 1
+  Damage: 2
   InvincibleTime: 0.5
   HarmOnTouch: 1
   initialSpeed: 500
   curSpeed: 0
   stay: 0
+  freeze: 0
   initialPos: {x: 0, y: 0, z: 0}
   clockwise: 1
 --- !u!58 &3593828327204003668

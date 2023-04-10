@@ -67,6 +67,7 @@ public class PlayerSpecialBullet : MonoBehaviour
         }
         showDots(false);
 
+        PlayerPrefs.DeleteKey("PlayerYellowLight");
         if (PlayerPrefs.HasKey("PlayerYellowLight"))
         {
             if (!YellowLightObj)
@@ -74,7 +75,7 @@ public class PlayerSpecialBullet : MonoBehaviour
                 YellowLightObj = Instantiate(BulletPrefabs[2], transform.position, Quaternion.identity);
                 YellowLightObj.transform.parent = transform;
             }
-            //getPower(BulletPrefabs[2]);
+            getPower(BulletPrefabs[2]);
         }
 
         // If have blue lights
