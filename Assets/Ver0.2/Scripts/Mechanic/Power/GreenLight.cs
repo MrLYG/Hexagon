@@ -17,6 +17,11 @@ public class GreenLight : ILight
             collision.gameObject.GetComponent<IEnemy>().chageSpeed(slowdownRatio);
             AffectedObjects.Add(collision.gameObject);
         }
+        if (collision.gameObject.GetComponent<IObject>())
+        {
+            collision.gameObject.GetComponent<IObject>().chageSpeed(slowdownRatio);
+            AffectedObjects.Add(collision.gameObject);
+        }
         if (collision.gameObject.GetComponent<EnemyTrack>())
         {
             collision.gameObject.GetComponent<EnemyTrack>().numOfGreenlight += 1;
@@ -36,6 +41,11 @@ public class GreenLight : ILight
             collision.gameObject.GetComponent<IEnemy>().resetSpeed();
             AffectedObjects.Remove(collision.gameObject);
         }
+        if (collision.gameObject.GetComponent<IObject>())
+        {
+            collision.gameObject.GetComponent<IObject>().resetSpeed();
+            AffectedObjects.Remove(collision.gameObject);
+        }
     }
 
     public override void RemoveLight()
@@ -48,6 +58,10 @@ public class GreenLight : ILight
             if (obj.GetComponent<IEnemy>())
             {
                 obj.GetComponent<IEnemy>().resetSpeed();
+            }
+            if (obj.GetComponent<IObject>())
+            {
+                obj.GetComponent<IObject>().resetSpeed();
             }
         }
         base.RemoveLight();

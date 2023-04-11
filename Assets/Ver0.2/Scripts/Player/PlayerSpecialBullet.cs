@@ -67,7 +67,7 @@ public class PlayerSpecialBullet : MonoBehaviour
         }
         showDots(false);
 
-        PlayerPrefs.DeleteKey("PlayerYellowLight");
+        //PlayerPrefs.DeleteKey("PlayerYellowLight");
         if (PlayerPrefs.HasKey("PlayerYellowLight"))
         {
             if (!YellowLightObj)
@@ -75,7 +75,6 @@ public class PlayerSpecialBullet : MonoBehaviour
                 YellowLightObj = Instantiate(BulletPrefabs[2], transform.position, Quaternion.identity);
                 YellowLightObj.transform.parent = transform;
             }
-            getPower(BulletPrefabs[2]);
         }
 
         // If have blue lights
@@ -86,7 +85,11 @@ public class PlayerSpecialBullet : MonoBehaviour
         if (PlayerPrefs.HasKey("PlayerGreenLight"))
         {
             getPower(BulletPrefabs[1]);
-        }        
+        }
+        if (PlayerPrefs.HasKey("PlayerYellowLight"))
+        {
+            getPower(BulletPrefabs[2]);
+        }
     }
 
     void Update()
@@ -172,7 +175,7 @@ public class PlayerSpecialBullet : MonoBehaviour
             coolDownIcon.color = color;
         }
 
-        if (YellowLightObj)
+        if (YellowLightObj && !YellowLightObj.GetComponent<YellowLightN>().activated)
         {
             if (curBulletIndex == 2 && canUseYellowLight)
                 YellowLightObj.SetActive(true);
@@ -325,9 +328,9 @@ public class PlayerSpecialBullet : MonoBehaviour
     }
 
     public void resetCD() {
-        blueLightCD = 0;
-        greenLightCD = 0;
-        yellowLightCD = 0;
+        blueLightCDCout = blueLightCD;
+        greenLightCDCout = greenLightCD;
+        yellowLightCDCout = yellowLightCD;
     }
 
     // Get a referene of the bullet prefab and include into player's bullet list

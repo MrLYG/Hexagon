@@ -13,13 +13,19 @@ public class LevelSelection : MonoBehaviour
         PlayerPrefs.DeleteKey("PlayerWeapon");
         PlayerPrefs.DeleteKey("PlayerBlueLight");
         PlayerPrefs.DeleteKey("PlayerGreenLight");
+        PlayerPrefs.DeleteKey("PlayerYellowLight");
 
         switch (gameLevelScene) {
+            case "Level3":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                break;
             case "Level4":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
                 break;
             case "Level5":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
                 break;
             case "Level6":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
@@ -32,16 +38,19 @@ public class LevelSelection : MonoBehaviour
             case "Level8":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
                 PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                PlayerPrefs.SetInt("PlayerGreenLight", 1);
                 break;
             case "Level9":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
                 PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                PlayerPrefs.SetInt("PlayerGreenLight", 1);
                 break;
             case "Level10":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
                 PlayerPrefs.SetInt("PlayerBlueLight", 1);
                 PlayerPrefs.SetInt("PlayerGreenLight", 1);
-                break;
+                PlayerPrefs.SetInt("PlayerYellowLight", 1);
+                break;   
         }
 
         SceneManager.LoadScene(gameLevelScene);

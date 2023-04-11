@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3898719987551466191}
   m_Layer: 0
   m_Name: elevator_track
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,8 +99,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80ef807a1ae80344aab54baf28a5424, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  downSpeed: 30
-  upSpeed: 0.1
+  Damage: 3
+  InvincibleTime: 0
+  HarmOnTouch: 1
+  initialSpeed: 30
+  curSpeed: 0
+  stay: 0
+  freeze: 0
+  initialPos: {x: 0, y: 0, z: 0}
   downDistance: 7.5
   upDuration: 2
 --- !u!61 &3898719987551466188
@@ -173,7 +179,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3898719987693455417}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 33.88, y: -1.18, z: -1.5126998}
   m_LocalScale: {x: 1.55, y: 1.3546875, z: 1}
   m_ConstrainProportionsScale: 0

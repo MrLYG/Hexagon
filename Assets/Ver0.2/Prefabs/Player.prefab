@@ -473,7 +473,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -194566
+  m_InstanceId: -59710
 --- !u!114 &6061397499637108558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,38 +522,12 @@ MonoBehaviour:
   hitCD: 0.4
   analytics: {fileID: 0}
   initialHP: 3
-  slider: {fileID: 0}
-  healthBar: {fileID: 0}
-  healthProgress:
-    serializedVersion: 2
-    key0: {r: 0.9433962, g: 0.12542517, b: 0.04153308, a: 1}
-    key1: {r: 0.9975079, g: 1, b: 0.06289297, a: 1}
-    key2: {r: 0.04945702, g: 0.8018868, b: 0.035303116, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 26214
-    ctime1: 44564
-    ctime2: 65535
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 44525
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 1
-    m_NumColorKeys: 3
-    m_NumAlphaKeys: 2
-  fill: {fileID: 0}
+  heartHealthBar: {fileID: 0}
+  numOfHearts: 3
+  hearts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   m_canvas: {fileID: 0}
 --- !u!114 &6061397499637108566
 MonoBehaviour:
@@ -614,10 +588,12 @@ MonoBehaviour:
   BulletPrefabs:
   - {fileID: 4805909504083269419, guid: 4ebc830f2bec9b249a18c254b6a9a044, type: 3}
   - {fileID: 6551134191914079333, guid: da6d2d240a670ce45b6b4a646bd27f21, type: 3}
+  - {fileID: 4239820858643965427, guid: 8a79ff3605e97df4fb9ef77606b128e0, type: 3}
   Bullets: []
   curBulletIndex: -1
   blueLightCD: 1
   greenLightCD: 10
+  yellowLightCD: 10
   coolDownIcon: {fileID: 0}
 --- !u!114 &1015405797
 MonoBehaviour:

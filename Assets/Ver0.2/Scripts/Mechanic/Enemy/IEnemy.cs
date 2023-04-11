@@ -36,7 +36,8 @@ public class IEnemy : IEnemyObstacle
     }
 
     public virtual void resetSpeed() {
-        curSpeed = initialSpeed;
+        if (!freeze)
+            curSpeed = initialSpeed;
     }
 
     public virtual void freezeSelf() {
@@ -50,6 +51,7 @@ public class IEnemy : IEnemyObstacle
 
     public virtual void unfreezeSelf()
     {
+        freeze = false;
         resetSpeed();
         if (GetComponent<ObjectGravity>())
         {
@@ -59,6 +61,5 @@ public class IEnemy : IEnemyObstacle
         {
             GetComponent<EnemyHP>().releaseDamage();
         }
-        freeze = false;
     }
 }
