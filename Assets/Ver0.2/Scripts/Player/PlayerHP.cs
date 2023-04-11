@@ -28,10 +28,17 @@ public class PlayerHP : MonoBehaviour
     [SerializeField] private float initialHP = 3;
     private float hp;
 
+    /*
     [SerializeField] private Slider slider;
     [SerializeField] private GameObject healthBar;
     [SerializeField] private Gradient healthProgress;
     public Image fill;
+    */
+
+    // Heart health bar variables
+    [SerializeField] private GameObject heartHealthBar;
+    [SerializeField] private float numOfHearts;
+    [SerializeField] private Image[] hearts;
 
     [SerializeField] private GameObject m_canvas;
 
@@ -45,18 +52,15 @@ public class PlayerHP : MonoBehaviour
             }
         }
 
-        if(healthBar == null)
-            healthBar = GameObject.Find("HPCounts");
+        if(heartHealthBar == null)
+            heartHealthBar = GameObject.Find("HPCounts");
 
         if(analytics == null)
             analytics = GameObject.Find("Analystic");
 
         // Initialize HP
         hp = initialHP;
-        //HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
-        slider.maxValue = hp;
-        slider.value = hp;
-        fill.color = healthProgress.Evaluate(1f);
+        numOfHearts = hp;
     }
 
     private void FixedUpdate()
@@ -94,9 +98,17 @@ public class PlayerHP : MonoBehaviour
             
             // Decrease HP and UI
             hp -= damage;
-            //HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
-            slider.value = hp;
-            fill.color = healthProgress.Evaluate(slider.normalizedValue);
+            for(int i = 0; i < hearts.Length; i++)
+            {
+                if (i < hp)
+                {
+                    hearts[i].enabled = true;
+                }
+                else
+                {
+                    hearts[i].enabled = false;
+                }
+            }
 
             // Damage Pop
             if(GetComponent<DamagePop>() != null && hp > 0)
@@ -135,13 +147,22 @@ public class PlayerHP : MonoBehaviour
     public void setHP(float newHP)
     {
         hp = newHP;
-        //HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
     }
 
     public void setHP() {
         hp = initialHP;
-        slider.value = hp;
-        fill.color = healthProgress.Evaluate(1f);
-        //HPText.GetComponent<TextMeshProUGUI>().text = "HP: " + hp;
+
+        // Sets heart health bar back to initial HP.
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if(i < hp)
+            {
+                hearts[i].enabled = true;
+            }
+            else
+            {
+                hearts[i].enabled = false;
+            }
+        }
     }
 }
