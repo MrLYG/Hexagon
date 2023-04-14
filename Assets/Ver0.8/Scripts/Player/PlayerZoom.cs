@@ -7,7 +7,7 @@ using TMPro;
 public class PlayerZoom : MonoBehaviour
 {
     // References
-    private bool camCenter = false;
+    //private bool camCenter = false;
     private GameObject m_Camera;
     private GameObject m_CM;
     [SerializeField] private GameObject cameraAnchor;
@@ -62,7 +62,7 @@ public class PlayerZoom : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            camCenter = true;
+            //camCenter = true;
 
             // Make Important Object Bigger
             foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Item"))
@@ -80,7 +80,7 @@ public class PlayerZoom : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.M))
         {
-            camCenter = false;
+            //camCenter = false;
 
             // Reset Scale of Important Object
             foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Item"))

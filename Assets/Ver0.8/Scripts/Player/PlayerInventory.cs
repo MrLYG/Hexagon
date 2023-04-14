@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     private List<GameObject> items = new List<GameObject>();
-    [SerializeField] private float itemFollowingSpeed = 10f;
+    //[SerializeField] private float itemFollowingSpeed = 10f;
     [SerializeField] private float smoothTime = 0.1f;
 
     private Vector3 velocity = Vector3.zero;

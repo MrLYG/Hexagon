@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class GameDirectionManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameFlow;
-    private float click = 0.0f;
-    private float clickTime = 0.0f;
-    private float clickDelay = 0.0f;
+    //private float click = 0.0f;
+    //private float clickTime = 0.0f;
+    //private float clickDelay = 0.0f;
     private bool active = true;
 
     private void Start()
