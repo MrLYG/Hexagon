@@ -412,4 +412,14 @@ public class PlayerSpecialBullet : MonoBehaviour
         Vector2 gravityScale = GetComponent<ObjectGravity>().getCurrentGravity();
         return transform.position + direction * curLaunchForce * time + 0.5f * new Vector3(gravityScale.x, gravityScale.y, 0) * Mathf.Pow(time, 2);
     }
+
+    private void OnApplicationQuit()
+    {
+        /*
+        PlayerPrefs.DeleteKey("PlayerWeapon");
+        PlayerPrefs.DeleteKey("PlayerBlueLight");
+        PlayerPrefs.DeleteKey("PlayerGreenLight");
+        PlayerPrefs.DeleteKey("PlayerYellowLight");
+        */
+    }
 }

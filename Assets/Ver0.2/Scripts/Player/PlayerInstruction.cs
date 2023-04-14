@@ -59,9 +59,17 @@ public class PlayerInstruction : MonoBehaviour
     {
         if (!BLCD && !GLCD)
         {
-            OverheadText.text = "Player";
+            OverheadText.text = "";
             OverheadText.color = Color.white;
         }
+        OverheadText.gameObject.transform.localRotation = Quaternion.Euler(Vector3.zero);
+    }
+
+    public void forceReset() {
+        BLCD = false;
+        GLCD = false;
+        OverheadText.text = "";
+        OverheadText.color = Color.white;
         OverheadText.gameObject.transform.localRotation = Quaternion.Euler(Vector3.zero);
     }
 

@@ -36,11 +36,6 @@ public class RespawnPoint : MonoBehaviour
         {
             m_RespawnManager.GetComponent<RespawnManager>().SetCheckPoint(gameObject);
             Activate();
-
-            // Record the currently triggered checkpoint
-            Analytics.curCP = gameObject;
-            Analytics.curCP.GetComponent<CheckPointTrack>().isPass = true;
-            
         }
     }
 

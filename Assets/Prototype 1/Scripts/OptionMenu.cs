@@ -59,6 +59,8 @@ public class OptionMenu : MonoBehaviour
 
     public void RestartLevel()
     {
+        PlayerPrefs.DeleteKey("RespawnX");
+        PlayerPrefs.DeleteKey("RespawnY");
         GameObject door = GameObject.FindWithTag("Door");
         door.GetComponent<Win>().generateJson(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

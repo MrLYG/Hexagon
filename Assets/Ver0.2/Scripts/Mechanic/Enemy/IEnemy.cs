@@ -9,12 +9,15 @@ public class IEnemy : IEnemyObstacle
     public bool stay = false;
     public bool freeze = false;
 
+    private bool initHarmOnTouch;
+
     public Vector3 initialPos;
 
     public virtual void Start()
     {
         curSpeed = initialSpeed;
         initialPos = transform.position;
+        initHarmOnTouch = HarmOnTouch;
     }
 
     public virtual void damage(GameObject byObject, float damage)
@@ -47,11 +50,13 @@ public class IEnemy : IEnemyObstacle
             GetComponent<ObjectGravity>().changeGravityScale(0);
         }
         freeze = true;
+        HarmOnTouch = false;
     }
 
     public virtual void unfreezeSelf()
     {
         freeze = false;
+        HarmOnTouch = initHarmOnTouch;
         resetSpeed();
         if (GetComponent<ObjectGravity>())
         {

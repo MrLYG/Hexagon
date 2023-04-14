@@ -27,11 +27,14 @@ public class PlayerRespawn : MonoBehaviour
         m_GravityManager.GetComponent<GravityManager>().ForceSwitchGravityDirection(gravityDirection, gameObject);
 
         // Reset player HP
-        //GetComponent<PlayerHP>().setHP();
+        GetComponent<PlayerHP>().setHP();
         GetComponent<SpriteRenderer>().color = Color.white;
 
         // Reset weapon status
         GetComponent<PlayerBattle>().ResetWeapon();
+
+        // Reset overhead text
+        GetComponent<PlayerInstruction>().forceReset();
 
         // Set Invincible
         Invincible = true;
@@ -45,6 +48,10 @@ public class PlayerRespawn : MonoBehaviour
         foreach(GameObject bl in GameObject.FindGameObjectsWithTag("ReverseLight"))
         {
             bl.GetComponent<ILight>().RemoveLight();
+        }
+        foreach (GameObject yl in GameObject.FindGameObjectsWithTag("YellowLight"))
+        {
+            yl.GetComponent<ILight>().RemoveLight();
         }
         GetComponent<PlayerSlowFall>().stopSlowFall();
         GetComponent<PlayerSpecialBullet>().resetCD();

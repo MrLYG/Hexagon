@@ -14,6 +14,8 @@ public class LevelSelection : MonoBehaviour
         PlayerPrefs.DeleteKey("PlayerBlueLight");
         PlayerPrefs.DeleteKey("PlayerGreenLight");
         PlayerPrefs.DeleteKey("PlayerYellowLight");
+        PlayerPrefs.DeleteKey("RespawnX");
+        PlayerPrefs.DeleteKey("RespawnY");
 
         switch (gameLevelScene) {
             case "Level3":

@@ -43,6 +43,7 @@ public class YellowLightN : ILight
     {
         activated = true;
         //GetComponent<BoxCollider2D>().enabled = true;
+        gameObject.tag = "YellowLight";
 
         // Set Alpha
         Color curColor = GetComponent<SpriteRenderer>().color;
@@ -55,7 +56,7 @@ public class YellowLightN : ILight
     public override void OnTriggerEnter2D(Collider2D collision)
     {
         // Affect Player / Enemy / Object(dead enemy)'s Gravity
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.GetComponent<IObject>())
+        if (collision.gameObject.GetComponent<IEnemy>() || collision.gameObject.GetComponent<IObject>())
         {
             PreAffectedObjects.Add(collision.gameObject);
         }
@@ -63,7 +64,7 @@ public class YellowLightN : ILight
 
     public override void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.GetComponent<IObject>())
+        if (collision.gameObject.GetComponent<IEnemy>() || collision.gameObject.GetComponent<IObject>())
         {
             PreAffectedObjects.Remove(collision.gameObject);
         }
@@ -73,21 +74,25 @@ public class YellowLightN : ILight
     {
          foreach (GameObject obj in PreAffectedObjects)
          {
-            if (obj.CompareTag("Enemy"))
+            if (obj)
             {
-                obj.GetComponent<IEnemy>().freezeSelf();
-            }
-            if (obj.GetComponent<IObject>())
-            {
-                obj.GetComponent<IObject>().freezeSelf();
-            }
+                if (obj.GetComponent<IEnemy>())
+                {
+                    obj.GetComponent<IEnemy>().freezeSelf();
+                }
+                if (obj.GetComponent<IObject>())
+                {
+                    obj.GetComponent<IObject>().freezeSelf();
+                }
 
-            if (obj.GetComponent<SpriteRenderer>())
-            {
-                obj.GetComponent<SpriteRenderer>().color = Color.yellow;
-            }
+                if (obj.GetComponent<SpriteRenderer>())
+                {
+                    obj.GetComponent<SpriteRenderer>().color = Color.yellow;
+                }
 
-            AffectedObjects.Add(obj);
+
+                AffectedObjects.Add(obj);
+            }
 
         }
         PreAffectedObjects.Clear();
@@ -100,18 +105,21 @@ public class YellowLightN : ILight
         yield return new WaitForSeconds(AffectTime);
         foreach (GameObject obj in AffectedObjects)
         {
-            if (obj.GetComponent<IEnemy>())
+            if (obj)
             {
-                obj.GetComponent<IEnemy>().unfreezeSelf();
-            }
-            if (obj.GetComponent<IObject>())
-            {
-                obj.GetComponent<IObject>().unfreezeSelf();
-            }
+                if (obj.GetComponent<IEnemy>())
+                {
+                    obj.GetComponent<IEnemy>().unfreezeSelf();
+                }
+                if (obj.GetComponent<IObject>())
+                {
+                    obj.GetComponent<IObject>().unfreezeSelf();
+                }
 
-            if (obj.GetComponent<SpriteRenderer>())
-            {
-                obj.GetComponent<SpriteRenderer>().color = Color.white;
+                if (obj.GetComponent<SpriteRenderer>())
+                {
+                    obj.GetComponent<SpriteRenderer>().color = Color.white;
+                }
             }
         }
         AffectedObjects.Clear();
@@ -121,7 +129,9 @@ public class YellowLightN : ILight
     public override void RemoveLight()
     {
         activated = false;
-        //gameObject.SetActive(false);
+        gameObject.tag = "Untagged";
+        gameObject.SetActive(false);
+        
         appearanceTimeCount = 0;
         transform.position = m_Player.transform.position;
         transform.parent = m_Player.transform;

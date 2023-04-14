@@ -53,13 +53,6 @@ public class ReverseLight : ILight
                 if (obj.CompareTag("Player"))
                 {
                     obj.GetComponent<PlayerInstruction>().StartBlueLightCountDown(AffectTime);
-                    GameObject analytics = GameObject.FindWithTag("Analytics");
-                    analytics.GetComponent<Analytics>().playerNumOfBluelight +=1;
-                }
-                if (obj.CompareTag("Enemy"))
-                {
-                    obj.GetComponent<EnemyTrack>().numOfBluelight += 1;
-                    obj.GetComponent<EnemyTrack>().bluelight = true;
                 }
 
                 AffectedObjects.Add(obj);

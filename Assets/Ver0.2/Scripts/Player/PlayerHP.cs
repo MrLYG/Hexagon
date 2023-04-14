@@ -116,6 +116,7 @@ public class PlayerHP : MonoBehaviour
                 GetComponent<DamagePop>().PopDamage(1);
             }
 
+            /*
             // trigger to collect data
             if(analytics != null)
                 analytics.GetComponent<Analytics>().beHits++;
@@ -132,8 +133,7 @@ public class PlayerHP : MonoBehaviour
                 Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLostReasonEnemy = Analytics.curCP.GetComponent<CheckPointTrack>().playerHpLostReasonEnemy + 1;
             }
             // ----------------------------------------------------- collect data end -------------------------------
-
-
+            */
 
             // Respawn player if HP reduced to 0 or below
             if (hp <= 0)

@@ -82,7 +82,7 @@ public class PlayerControl : MonoBehaviour
         }
 
         // Stop movement when at overallview
-        if (GetComponent<PlayerZoom>().enabled && Input.GetKey(KeyCode.M))
+        if (GetComponent<PlayerZoom>() && Input.GetKey(KeyCode.M))
         {
             return;
         }
