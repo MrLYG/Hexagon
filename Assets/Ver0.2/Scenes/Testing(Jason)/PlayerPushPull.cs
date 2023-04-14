@@ -47,7 +47,7 @@ public class PlayerPushPull : MonoBehaviour
             {
                 startPushing();
             }
-        }else if (Input.GetMouseButtonUp(0) || Input.GetKeyDown(KeyCode.J))
+        }else if (Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.J))
         {
             if (curObject != null) {
                 endPushing();

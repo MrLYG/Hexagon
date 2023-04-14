@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 4130544444921006162}
   - component: {fileID: 994601470}
   - component: {fileID: 2886556585553382161}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: MovingEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -196,6 +196,7 @@ MonoBehaviour:
   initialSpeed: 0
   curSpeed: 0
   stay: 0
+  freeze: 0
   initialPos: {x: 0, y: 0, z: 0}
   wayPoints: []
 --- !u!114 &994601470
