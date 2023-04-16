@@ -22,7 +22,8 @@ public class Puncher : IEnemy
     IEnumerator MoveObjectDown()
     {
         // Calculate the target position to move the object down
-        Vector3 targetPosition = initialPosition - new Vector3(0, downDistance, 0);
+        Vector3 parentPosition = transform.parent.position;
+        Vector3 targetPosition = parentPosition - new Vector3(0, downDistance, 0);
 
         // Move the object down
         while (transform.position.y > targetPosition.y)
