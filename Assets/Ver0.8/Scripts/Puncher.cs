@@ -13,7 +13,7 @@ public class Puncher : IEnemy
     {
         base.Start();
         // Store the initial position of the object
-        initialPosition = transform.position;
+        initialPosition = transform.localPosition;
 
         // Start the coroutine to move the object down initially
         StartCoroutine(MoveObjectDown());
@@ -22,16 +22,16 @@ public class Puncher : IEnemy
     IEnumerator MoveObjectDown()
     {
         // Calculate the target position to move the object down
-        Vector3 parentPosition = transform.parent.position;
-        Vector3 targetPosition = parentPosition - new Vector3(0, downDistance, 0);
+
+        Vector3 targetPosition = initialPosition - new Vector3(0, downDistance, 0);
 
         // Move the object down
-        while (transform.position.y > targetPosition.y)
+        while (transform.localPosition.y > targetPosition.y)
         {
-            transform.position -= Vector3.up * curSpeed * Time.deltaTime;
+            transform.localPosition -= Vector3.up * curSpeed * Time.deltaTime;
             yield return null;
         }
-        transform.position = targetPosition;
+        transform.localPosition = targetPosition;
 
         // Start the coroutine to move the object up slowly
         StartCoroutine(MoveObjectUp());
@@ -42,14 +42,14 @@ public class Puncher : IEnemy
         // Calculate the target position to move the object up
         Vector3 targetPosition = initialPosition;
 
-        while (transform.position.y < targetPosition.y - 0.1f)
+        while (transform.localPosition.y < targetPosition.y - 0.1f)
         {
-            transform.position += Vector3.up * curSpeed * Time.deltaTime * 0.5f;
+            transform.localPosition += Vector3.up * curSpeed * Time.deltaTime * 0.5f;
             yield return null;
         }
 
         // Set the object position to the target position to avoid precision errors
-        transform.position = targetPosition;
+        transform.localPosition = targetPosition;
 
         yield return new WaitForSeconds(0.5f);
 
