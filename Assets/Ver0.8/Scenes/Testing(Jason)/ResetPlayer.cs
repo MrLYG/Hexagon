@@ -18,10 +18,11 @@ public class ResetPlayer : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        /*
         if (collision.gameObject.CompareTag("Player"))
         {
             m_RepawnManager.GetComponent<RespawnManager>().RespawnPlayer();
-        }
+        }*/
 
         if (collision.gameObject.CompareTag("Enemy"))
         {
