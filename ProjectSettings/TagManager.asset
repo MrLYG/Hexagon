@@ -32,6 +32,7 @@ TagManager:
   - RightClickBlue
   - Door
   - YellowLight
+  - Clone
   layers:
   - Default
   - TransparentFX

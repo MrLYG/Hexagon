@@ -10,14 +10,14 @@ public class IEnemyObstacle : MonoBehaviour
 
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (HarmOnTouch && collision.gameObject.CompareTag("Player"))
+        if (HarmOnTouch && collision.gameObject.GetComponent<PlayerControl>())
         {
             collision.gameObject.GetComponent<PlayerHP>().getHurt(Damage, InvincibleTime, gameObject);
         }
     }
     public virtual void OnCollisionStay2D(Collision2D collision)
     {
-        if (HarmOnTouch && collision.gameObject.CompareTag("Player"))
+        if (HarmOnTouch && collision.gameObject.GetComponent<PlayerControl>())
         {
             collision.gameObject.GetComponent<PlayerHP>().getHurt(Damage, InvincibleTime, gameObject);
         }

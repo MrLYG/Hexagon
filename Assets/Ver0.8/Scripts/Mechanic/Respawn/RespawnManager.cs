@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class RespawnManager : MonoBehaviour
 {
     private GameObject curCP;
-    private GameObject curCPClone;
     [SerializeField] private GameObject m_Player;
     [SerializeField] private GameObject m_Clone;
 
@@ -17,6 +16,10 @@ public class RespawnManager : MonoBehaviour
         {
              m_Player = gameObject;
         }
+        foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("Clone"))
+        {
+            m_Clone = gameObject;
+        }
 
         if (PlayerPrefs.HasKey("RespawnX"))
         {
@@ -25,6 +28,15 @@ public class RespawnManager : MonoBehaviour
             m_Player.transform.position = new Vector2(respawnX, respawnY);
             PlayerPrefs.DeleteKey("RespawnX");
             PlayerPrefs.DeleteKey("RespawnY");
+        }
+
+        if (PlayerPrefs.HasKey("RespawnXC") && m_Clone != null)
+        {
+            float respawnX = PlayerPrefs.GetFloat("RespawnXC");
+            float respawnY = PlayerPrefs.GetFloat("RespawnYC");
+            m_Clone.transform.position = new Vector2(respawnX, respawnY);
+            PlayerPrefs.DeleteKey("RespawnXC");
+            PlayerPrefs.DeleteKey("RespawnYC");
         }
     }
 
@@ -46,10 +58,26 @@ public class RespawnManager : MonoBehaviour
         if (curCP != null)
             curCP.GetComponent<RespawnPoint>().DeActivate();
 
+        PlayerPrefs.DeleteKey("RespawnXC");
+        PlayerPrefs.DeleteKey("RespawnYC");
         // Assign new checkpoint
         curCP = newCP;
         PlayerPrefs.SetFloat("RespawnX", curCP.transform.position.x);
         PlayerPrefs.SetFloat("RespawnY", curCP.transform.position.y);
+    }
+
+    public void SetCheckPoint(GameObject newCP, GameObject newCPC)
+    {
+        if (curCP != null)
+            curCP.GetComponent<RespawnPoint>().DeActivate();
+
+        // Assign new checkpoint
+        curCP = newCP;
+        PlayerPrefs.SetFloat("RespawnX", curCP.transform.position.x);
+        PlayerPrefs.SetFloat("RespawnY", curCP.transform.position.y);
+
+        PlayerPrefs.SetFloat("RespawnXC", newCPC.transform.position.x);
+        PlayerPrefs.SetFloat("RespawnYC", newCPC.transform.position.y);
     }
 
     public void RespawnPlayer()
@@ -87,5 +115,7 @@ public class RespawnManager : MonoBehaviour
     {
         PlayerPrefs.DeleteKey("RespawnX");
         PlayerPrefs.DeleteKey("RespawnY");
+        PlayerPrefs.DeleteKey("RespawnXC");
+        PlayerPrefs.DeleteKey("RespawnYC");
     }
 }

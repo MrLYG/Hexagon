@@ -121,4 +121,15 @@ public class PlayerZoom : MonoBehaviour
             targetOrthoSize = collision.gameObject.GetComponent<CameraZone>().orthoSize;
         }
     }
+
+    public GameObject getCameraAnchor()
+    {
+        return cameraAnchor;
+    }
+
+    public void zoomOut(float ratio)
+    {
+        curOrthoSize = initialOrthoSize * ratio;
+        m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = curOrthoSize;
+    }
 }

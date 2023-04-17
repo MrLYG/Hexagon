@@ -21,12 +21,20 @@ public class Win : MonoBehaviour
     {
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.W))
         {
-            Debug.Log("Win Win");
+            //Debug.Log("Win Win");
+            PlayerPrefs.DeleteKey("RespawnX");
+            PlayerPrefs.DeleteKey("RespawnY");
+            PlayerPrefs.DeleteKey("RespawnXC");
+            PlayerPrefs.DeleteKey("RespawnYC");
             SceneManager.LoadScene(nextLevel);
+            //GetComponent<LevelSelection>().StartGame();
+
+            /*
             if(int.Parse(level) <= 10)
             {
                 generateJson(true);
             }
+            */
             
         }
     }

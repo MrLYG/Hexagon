@@ -12,6 +12,8 @@ public class RespawnPoint : MonoBehaviour
     public List<Vector3> ObjectPositions;
     public GravityDirection gravityDirection;
 
+    [SerializeField] private GameObject CloneRespawn;
+
     private void Start()
     {
         // Get reference of RespawnManager
@@ -34,7 +36,10 @@ public class RespawnPoint : MonoBehaviour
         // Player activate the checkpoint by touching it
         if (collision.gameObject.CompareTag("Player"))
         {
-            m_RespawnManager.GetComponent<RespawnManager>().SetCheckPoint(gameObject);
+            if (CloneRespawn == null)
+                m_RespawnManager.GetComponent<RespawnManager>().SetCheckPoint(gameObject);
+            else
+                m_RespawnManager.GetComponent<RespawnManager>().SetCheckPoint(gameObject, CloneRespawn);
             Activate();
         }
     }
