@@ -473,7 +473,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -59710
+  m_InstanceId: -179632
 --- !u!114 &6061397499637108558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,7 +554,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d41d9ea665638d54a97483130ad86048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemFollowingSpeed: 8
   smoothTime: 0.005
 --- !u!114 &820199934
 MonoBehaviour:
@@ -593,7 +592,7 @@ MonoBehaviour:
   curBulletIndex: -1
   blueLightCD: 1
   greenLightCD: 10
-  yellowLightCD: 10
+  yellowLightCD: 5
   coolDownIcon: {fileID: 0}
 --- !u!114 &1015405797
 MonoBehaviour:
@@ -632,7 +631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e03253ff5a937e4469601e50367c6a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxFallingSpeed: 1
+  maxFallingSpeed: 2
 --- !u!114 &1349814641
 MonoBehaviour:
   m_ObjectHideFlags: 0

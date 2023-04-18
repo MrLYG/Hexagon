@@ -21,7 +21,11 @@ public class LevelSelection : MonoBehaviour
             case "Level3":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
                 break;
-            case "Level4":
+            case "Level4-0":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                break;
+            case "Level4-1":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
                 PlayerPrefs.SetInt("PlayerBlueLight", 1);
                 break;
@@ -33,7 +37,19 @@ public class LevelSelection : MonoBehaviour
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
                 PlayerPrefs.SetInt("PlayerBlueLight", 1);
                 break;
-            case "Level7":
+            case "Level7-0":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                break;
+            case "Level7-1":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                break;
+            case "Level7-2":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                break;
+            case "Level7-3":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
                 PlayerPrefs.SetInt("PlayerBlueLight", 1);
                 break;
@@ -47,12 +63,48 @@ public class LevelSelection : MonoBehaviour
                 PlayerPrefs.SetInt("PlayerBlueLight", 1);
                 PlayerPrefs.SetInt("PlayerGreenLight", 1);
                 break;
-            case "Level10":
+            case "Level10-0":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
                 PlayerPrefs.SetInt("PlayerBlueLight", 1);
                 PlayerPrefs.SetInt("PlayerGreenLight", 1);
                 PlayerPrefs.SetInt("PlayerYellowLight", 1);
-                break;   
+                break;
+            case "Level10-1":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                PlayerPrefs.SetInt("PlayerGreenLight", 1);
+                PlayerPrefs.SetInt("PlayerYellowLight", 1);
+                break;
+            case "Level10-2":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                PlayerPrefs.SetInt("PlayerGreenLight", 1);
+                PlayerPrefs.SetInt("PlayerYellowLight", 1);
+                break;
+            case "Level10-3":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                PlayerPrefs.SetInt("PlayerGreenLight", 1);
+                PlayerPrefs.SetInt("PlayerYellowLight", 1);
+                break;
+            case "Level10-4":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                PlayerPrefs.SetInt("PlayerGreenLight", 1);
+                PlayerPrefs.SetInt("PlayerYellowLight", 1);
+                break;
+            case "Level10-5":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                PlayerPrefs.SetInt("PlayerGreenLight", 1);
+                PlayerPrefs.SetInt("PlayerYellowLight", 1);
+                break;
+            case "Level10-6":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                PlayerPrefs.SetInt("PlayerGreenLight", 1);
+                PlayerPrefs.SetInt("PlayerYellowLight", 1);
+                break;
         }
 
         SceneManager.LoadScene(gameLevelScene);

@@ -188,7 +188,7 @@ public class PlayerControl : MonoBehaviour
     {
         grounded = false;
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(m_groundCheck.position, 0.2f, groundLayer);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(m_groundCheck.position, 0.3f, groundLayer);
         for (int i = 0; i < colliders.Length; i++)
         {
             if (colliders[i].gameObject != gameObject)

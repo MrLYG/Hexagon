@@ -8,6 +8,7 @@ public class Puncher : IEnemy
     public float upDuration = 2.0f; // Duration to move up
 
     private Vector3 initialPosition; // Initial position of the object
+    public float startDelay = 0f;
 
     public override void Start()
     {
@@ -15,6 +16,10 @@ public class Puncher : IEnemy
         // Store the initial position of the object
         initialPosition = transform.localPosition;
 
+        Invoke("startMoving", startDelay);
+    }
+
+    private void startMoving() {
         // Start the coroutine to move the object down initially
         StartCoroutine(MoveObjectDown());
     }

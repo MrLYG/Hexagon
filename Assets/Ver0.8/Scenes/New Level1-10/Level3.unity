@@ -1454,12 +1454,7 @@ MonoBehaviour:
   numOfBluelight: 0
   numOfWeapon: 0
   numOfGreenlight: 0
---- !u!4 &325890135 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3372461257183698766, guid: 55bedd6bb85f6cd4185384acd2207f3a, type: 3}
-  m_PrefabInstance: {fileID: 1543687833}
-  m_PrefabAsset: {fileID: 0}
---- !u!43 &349436732
+--- !u!43 &311861420
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1623,6 +1618,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &325890135 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3372461257183698766, guid: 55bedd6bb85f6cd4185384acd2207f3a, type: 3}
+  m_PrefabInstance: {fileID: 1543687833}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &360609012
 GameObject:
   m_ObjectHideFlags: 0
@@ -20405,7 +20405,7 @@ PrefabInstance:
       objectReference: {fileID: 950613927}
     - target: {fileID: 3408379573961132449, guid: 3adb6d197e416b64a8fe64441be21109, type: 3}
       propertyPath: nextLevel
-      value: Level4
+      value: Level4-0
       objectReference: {fileID: 0}
     - target: {fileID: 7206704124321496142, guid: 3adb6d197e416b64a8fe64441be21109, type: 3}
       propertyPath: m_Name
