@@ -104,10 +104,13 @@ public class GravityManager : MonoBehaviour
 
     public void ReverseGravityDirection(GameObject target)
     {
-        if (target.CompareTag("Player"))
+        if (target.CompareTag("Player") || target.CompareTag("Clone"))
         {
-            target.GetComponent<PlayerBattle>().ReverseWeapon();
-            target.GetComponent<PlayerBattle>().SwitchWeaponSide();
+            if (target.GetComponent<PlayerBattle>())
+            {
+                target.GetComponent<PlayerBattle>().ReverseWeapon();
+                target.GetComponent<PlayerBattle>().SwitchWeaponSide();
+            }
             if (getCameraFollowing())
                 target.GetComponent<ObjectGravity>().setPreviousGD(target.GetComponent<ObjectGravity>().getCurrentGD());
             setCameraFollowing(false);
@@ -122,7 +125,8 @@ public class GravityManager : MonoBehaviour
         // Switch GD
         target.GetComponent<ObjectGravity>().resetGravityScale();
 
-        if (target.CompareTag("Player"))
+        /*
+        if (target.CompareTag("Player") || target.CompareTag("Clone"))
         {
             // Rotate Camera if needed
             if (cameraFollowing)
@@ -144,8 +148,10 @@ public class GravityManager : MonoBehaviour
                 }
             }
         }
+        */
 
-        if (target.CompareTag("Player"))
+        /*
+        if (target.CompareTag("Player") || target.GetComponent("Clone"))
         {
             // Rotate all spot light to current GD
             foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("RotationLight"))
@@ -167,6 +173,7 @@ public class GravityManager : MonoBehaviour
                 }
             }
         }
+        */
         
         prevCameraFollowing = cameraFollowing;
     }

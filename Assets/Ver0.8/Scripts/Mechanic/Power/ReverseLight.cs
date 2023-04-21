@@ -33,7 +33,7 @@ public class ReverseLight : ILight
     public override void OnTriggerEnter2D(Collider2D collision)
     {
         // Affect Player / Enemy / Object(dead enemy)'s Gravity
-        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Object"))
+        if (collision.gameObject.GetComponent<ObjectGravity>())
         {
             PreAffectedObjects.Add(collision.gameObject);
         }

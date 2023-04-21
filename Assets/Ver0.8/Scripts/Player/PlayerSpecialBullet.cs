@@ -8,55 +8,55 @@ using UnityEngine.UI;
 public class PlayerSpecialBullet : MonoBehaviour
 {
     [Tooltip("Initial distance")]
-    [SerializeField] private float initLaunchForce;
+    [SerializeField] protected float initLaunchForce;
 
     [Tooltip("Max distance")]
-    [SerializeField] private float maxLaunchForce;
+    [SerializeField] protected float maxLaunchForce;
 
     [Tooltip("Charging speed while holding down button")]
-    [SerializeField] private float forceIncreasingSpeed;
+    [SerializeField] protected float forceIncreasingSpeed;
 
     [Tooltip("Prefab of prediction dots")]
-    [SerializeField] private GameObject predicionDot;
+    [SerializeField] protected GameObject predicionDot;
 
     [Tooltip("Number of dots to have for prediction line")]
-    [SerializeField] private int numDots;
+    [SerializeField] protected int numDots;
 
     // Reference of the list of prediction dots
-    private List<GameObject> predicionDots = new List<GameObject>();
+    protected List<GameObject> predicionDots = new List<GameObject>();
 
     // Params related to throwing lights
-    private float curLaunchForce;
-    private bool charging = false;
+    protected float curLaunchForce;
+    protected bool charging = false;
 
     [Tooltip("All bullets prefabs for different lights")]
-    [SerializeField] private List<GameObject> BulletPrefabs;
+    [SerializeField] protected List<GameObject> BulletPrefabs;
 
     [Tooltip("Bullets prefabs that player currently have")]
-    [SerializeField] private List<GameObject> Bullets;
+    [SerializeField] protected List<GameObject> Bullets;
 
     // Prefab of the curret in-use bullet
-    [SerializeField] private int curBulletIndex = -1;
+    [SerializeField] protected int curBulletIndex = -1;
 
     [Tooltip("CD for using powers")]
-    [SerializeField] private float blueLightCD = 1f;
-    [SerializeField] private float greenLightCD = 10f;
-    [SerializeField] private float yellowLightCD = 5f;
+    [SerializeField] protected float blueLightCD = 1f;
+    [SerializeField] protected float greenLightCD = 10f;
+    [SerializeField] protected float yellowLightCD = 5f;
 
-    private bool canUseBlueLight = true;
-    private bool canUseGreenLight = true;
-    private bool canUseYellowLight = true;
+    protected bool canUseBlueLight = true;
+    protected bool canUseGreenLight = true;
+    protected bool canUseYellowLight = true;
 
-    private float blueLightCDCout = 0f;
-    private float greenLightCDCout = 0f;
-    private float yellowLightCDCout = 0f;
+    protected float blueLightCDCout = 0f;
+    protected float greenLightCDCout = 0f;
+    protected float yellowLightCDCout = 0f;
 
     public Image coolDownIcon;
 
-    private GameObject YellowLightObj;
+    protected GameObject YellowLightObj;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         coolDownIcon.enabled = false;
 
@@ -92,7 +92,7 @@ public class PlayerSpecialBullet : MonoBehaviour
         }
     }
 
-    void Update()
+    public virtual void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.U))
         {
@@ -184,7 +184,7 @@ public class PlayerSpecialBullet : MonoBehaviour
         }
     }
 
-    private void BlueLight() {
+    protected void BlueLight() {
         // Start Charging
         if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.K)) && !charging)
         {
@@ -227,31 +227,28 @@ public class PlayerSpecialBullet : MonoBehaviour
         }
     }
 
-    private void GreenLight() {
+    protected void GreenLight() {
         if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.K))
         {
             // Can use power & no other green light exists
             if (canUseGreenLight)
             {
-                if (!haveTagObject("GreenLight"))
-                {
-                    GameObject greenLight = Instantiate(Bullets[curBulletIndex], transform.position, Quaternion.identity);
-                    greenLight.transform.parent = transform;
+                GameObject greenLight = Instantiate(Bullets[curBulletIndex], transform.position, Quaternion.identity);
+                greenLight.transform.parent = transform;
 
-                    startPowerCD();
-                    GetComponent<PlayerSlowFall>().startSlowFall();
-                    Invoke("GreenLightPowerEnd", Bullets[1].GetComponent<GreenLight>().ApperanceTime);
+                startPowerCD();
+                GetComponent<PlayerSlowFall>().startSlowFall();
+                Invoke("GreenLightPowerEnd", Bullets[1].GetComponent<GreenLight>().ApperanceTime);
 
-                   GetComponent<PlayerInstruction>().StartGreenLightCountDown(Bullets[1].GetComponent<GreenLight>().ApperanceTime);
+                GetComponent<PlayerInstruction>().StartGreenLightCountDown(Bullets[1].GetComponent<GreenLight>().ApperanceTime);
 
-                    GameObject analytics = GameObject.FindWithTag("Analytics");
-                    analytics.GetComponent<Analytics>().playerNumOfGreenlight += 1;
-                }
+                GameObject analytics = GameObject.FindWithTag("Analytics");
+                analytics.GetComponent<Analytics>().playerNumOfGreenlight += 1;
             }
         }
     }
 
-    private void YellowLight()
+    protected void YellowLight()
     {
         /*
         if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.K)))
@@ -285,7 +282,7 @@ public class PlayerSpecialBullet : MonoBehaviour
         }
     }
 
-    private void switchToNext() {
+    protected void switchToNext() {
         int newIndex = curBulletIndex + 1;
         if (newIndex == Bullets.Count)
         {
@@ -293,7 +290,7 @@ public class PlayerSpecialBullet : MonoBehaviour
         }
         switchTo(newIndex);
     }
-    private void switchTo(int index) { 
+    protected void switchTo(int index) { 
         if(index < Bullets.Count)
         {
             curBulletIndex = index;
@@ -312,7 +309,7 @@ public class PlayerSpecialBullet : MonoBehaviour
         }
     }
 
-    private bool haveTagObject(string tag) {
+    protected bool haveTagObject(string tag) {
         bool haveObject = false;
         if (GameObject.FindGameObjectsWithTag(tag).Length != 0)
         {
@@ -377,12 +374,12 @@ public class PlayerSpecialBullet : MonoBehaviour
         }
     }
 
-    private void GreenLightPowerEnd() {
+    protected void GreenLightPowerEnd() {
         GetComponent<PlayerSlowFall>().stopSlowFall();
     }
 
     // For showing prediction line
-    private void showDots(bool show)
+    protected void showDots(bool show)
     {
         for (int i = 0; i < numDots; i++)
         {
@@ -390,7 +387,7 @@ public class PlayerSpecialBullet : MonoBehaviour
         }
     }
 
-    private void DrawProjectile()
+    protected void DrawProjectile()
     {
         for (int i = 0; i < numDots; i++)
         {
@@ -398,7 +395,7 @@ public class PlayerSpecialBullet : MonoBehaviour
         }
     }
 
-    private Vector3 PredictLocation(float time)
+    protected Vector3 PredictLocation(float time)
     {
         Vector3 direction;
         if (GetComponent<PlayerControl>().facingRight)
@@ -413,7 +410,7 @@ public class PlayerSpecialBullet : MonoBehaviour
         return transform.position + direction * curLaunchForce * time + 0.5f * new Vector3(gravityScale.x, gravityScale.y, 0) * Mathf.Pow(time, 2);
     }
 
-    private void OnApplicationQuit()
+    protected void OnApplicationQuit()
     {
         /*
         PlayerPrefs.DeleteKey("PlayerWeapon");

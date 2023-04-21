@@ -73,10 +73,23 @@ public class ObjectGravity : MonoBehaviour
     public void resetGravityScale()
     {
         GravityScale = initialGravityScale;
-        if (gameObject.CompareTag("Player"))
+        if (gameObject.CompareTag("Player") || gameObject.CompareTag("Clone"))
         {
             // Rotate Player according to current GD
             gameObject.GetComponent<PlayerControl>().RotatePlayerWithGD();
+        }
+        else
+        {
+            GravityDirection currentGD = gameObject.GetComponent<ObjectGravity>().getCurrentGD();
+            switch (currentGD)
+            {
+                case GravityDirection.Down:
+                    gameObject.GetComponent<SpriteRenderer>().flipY = false;
+                    break;
+                case GravityDirection.Up:
+                    gameObject.GetComponent<SpriteRenderer>().flipY = true;
+                    break;
+            }
         }
     }
 

@@ -5,14 +5,19 @@ using UnityEngine;
 public class EnemyControl : IEnemy
 {
     [SerializeField] Transform[] wayPoints;
+    private Animator m_Anim;
     int wayPointIndex = 0;
 
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
-        if(wayPoints.Length > 0)
+        m_Anim = GetComponent<Animator>();
+        if (wayPoints.Length > 0)
+        {
             transform.position = wayPoints[wayPointIndex].transform.position;
+            m_Anim.SetBool("Moving", true);
+        }
     }
 
     // Update is called once per frame
@@ -26,6 +31,15 @@ public class EnemyControl : IEnemy
     {
         Vector2 targetPosition = wayPoints[wayPointIndex].transform.position;
         targetPosition.y = transform.position.y;
+
+        if(targetPosition.x < transform.position.x)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
 
         transform.position = Vector2.MoveTowards(transform.position,
                         targetPosition,

@@ -10,6 +10,7 @@ public class EnemyHP : MonoBehaviour
     private float hp = 2;
     private List<float> DamageList = new List<float>();
     private List<GameObject> ByObjectList = new List<GameObject>();
+    private bool isDead = false;
 
     private void Start()
     {
@@ -45,13 +46,14 @@ public class EnemyHP : MonoBehaviour
         }
         */
 
-        if (hp <= 0)
+        if (hp <= 0 && !isDead)
         {
             if (!GetComponent<IEnemy>().stay)
             {
                 // Deactivate the enemy
-                gameObject.SetActive(false);
-                return;
+                StartCoroutine("Death");
+                isDead = true;
+                //return;
             }
             else
             {
@@ -75,6 +77,17 @@ public class EnemyHP : MonoBehaviour
         {
             GetComponent<DamagePop>().PopDamage(damage);
         }
+    }
+
+    IEnumerator Death()
+    {
+        if (GetComponent<Animator>())
+        {
+            GetComponent<Animator>().SetTrigger("Death");
+            GetComponent<IEnemy>().enabled = false;
+            yield return new WaitForSeconds(1f);
+        }
+        gameObject.SetActive(false);
     }
 
     private void storeDamage(GameObject byObject, float damage)

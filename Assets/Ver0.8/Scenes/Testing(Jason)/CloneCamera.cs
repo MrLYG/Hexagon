@@ -47,6 +47,6 @@ public class CloneCamera : MonoBehaviour
     private void Update()
     {
         cameraAnchor.transform.position = Vector3.Lerp(gameObject.transform.position, m_Player.transform.position + new Vector3(0, 2, 0), 0.5f);
-        m_Player.GetComponent<PlayerZoom>().zoomOut((transform.position - m_Player.transform.position).magnitude / 8f);
+        m_Player.GetComponent<PlayerZoom>().zoomOut(Mathf.Max((transform.position - m_Player.transform.position).magnitude / 8f, 1.2f));
     }
 }
