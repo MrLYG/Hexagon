@@ -355,9 +355,9 @@ public class PlayerSpecialBullet : MonoBehaviour
     {
         if (!Bullets.Contains(bullet))
         {
+            highLight.enabled = true;
             if (bullet.name.Equals("ReverseBullet"))
             {
-                highLight.enabled = true;
                 PlayerPrefs.SetInt("PlayerBlueLight", 1);
                 Color color = coolDownIcon[0].color;
                 color.a = 1f;
@@ -376,10 +376,10 @@ public class PlayerSpecialBullet : MonoBehaviour
                 {
                     YellowLightObj = Instantiate(BulletPrefabs[2], transform.position, Quaternion.identity);
                     YellowLightObj.transform.parent = transform;
-                    Color color = coolDownIcon[2].color;
-                    color.a = 1f;
-                    coolDownIcon[2].color = color;
                 }
+                Color color = coolDownIcon[2].color;
+                color.a = 1f;
+                coolDownIcon[2].color = color;
             }
             Bullets.Add(bullet);
             switchTo(Bullets.Count - 1);

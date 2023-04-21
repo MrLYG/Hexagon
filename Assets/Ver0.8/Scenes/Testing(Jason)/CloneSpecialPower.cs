@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class CloneSpecialPower : PlayerSpecialBullet
 {
-    /*
+    
     [SerializeField] bool hasBlueLight;
     [SerializeField] bool hasGreenLight;
     [SerializeField] bool hasYellowLight;
 
     public override void Start()
     {
-        coolDownIcon.enabled = false;
+        //coolDownIcon.enabled = false;
+        highLight.enabled = false;
+        for (int i = 0; i < coolDownIcon.Count; i++)
+        {
+            Color color = coolDownIcon[i].color;
+            color.a = 0.1f;
+            coolDownIcon[i].color = color;
+            //coolDownIcon[i].enabled = false;
+        }
 
         // Create prediction dots and make them inivisible for now
         for (int i = 0; i < numDots; i++)
@@ -20,12 +28,14 @@ public class CloneSpecialPower : PlayerSpecialBullet
         }
         showDots(false);
 
-
-        if (!YellowLightObj)
+        //PlayerPrefs.DeleteKey("PlayerYellowLight");
+        if (PlayerPrefs.HasKey("PlayerYellowLight"))
         {
-            YellowLightObj = Instantiate(BulletPrefabs[2], transform.position, Quaternion.identity);
-            YellowLightObj.transform.parent = transform;
-            YellowLightObj.SetActive(false);
+            if (!YellowLightObj)
+            {
+                YellowLightObj = Instantiate(BulletPrefabs[2], transform.position, Quaternion.identity);
+                YellowLightObj.transform.parent = transform;
+            }
         }
 
         // If have blue lights
@@ -56,105 +66,101 @@ public class CloneSpecialPower : PlayerSpecialBullet
             Bullets.Add(null);
         }
 
-        curBulletIndex = 2;
+        //curBulletIndex = 2;
     }
 
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.U))
+        if (curBulletIndex > -1 && Bullets[curBulletIndex] != null)
         {
-            switchToNext();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1))
-        {
-            switchTo(0);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2))
-        {
-            switchTo(1);
-        }
-
-        if (Bullets[curBulletIndex] != null)
-        {
-            if (curBulletIndex == 0)
+            if (curBulletIndex == 0 && Bullets.Count > 0)
             {
                 BlueLight();
             }
-            else if (curBulletIndex == 1)
+            else if (curBulletIndex == 1 && Bullets.Count > 1)
             {
                 GreenLight();
             }
-            else if (curBulletIndex == 2)
+            else if (curBulletIndex == 2 && Bullets.Count > 2)
             {
                 YellowLight();
             }
+        }
 
-            if (!canUseBlueLight)
+        if (!canUseBlueLight)
+        {
+            blueLightCDCout += Time.deltaTime;
+            if (blueLightCDCout > blueLightCD)
             {
-                blueLightCDCout += Time.deltaTime;
-                if (blueLightCDCout > blueLightCD)
-                {
-                    canUseBlueLight = true;
-                }
-            }
-
-            if (!canUseGreenLight)
-            {
-                greenLightCDCout += Time.deltaTime;
-                if (greenLightCDCout > greenLightCD)
-                {
-                    canUseGreenLight = true;
-                }
-            }
-
-            if (!canUseYellowLight)
-            {
-                yellowLightCDCout += Time.deltaTime;
-                if (yellowLightCDCout > yellowLightCD)
-                {
-                    canUseYellowLight = true;
-                }
-            }
-
-            if (curBulletIndex == 0 && !canUseBlueLight)
-            {
-                coolDownIcon.fillAmount = blueLightCDCout / blueLightCD;
-            }
-            else if (curBulletIndex == 1 && !canUseGreenLight)
-            {
-                coolDownIcon.fillAmount = greenLightCDCout / greenLightCD;
-            }
-            else if (curBulletIndex == 2 && !canUseYellowLight)
-            {
-                coolDownIcon.fillAmount = yellowLightCDCout / yellowLightCD;
-            }
-            else
-            {
-                coolDownIcon.fillAmount = 1;
-            }
-
-            if ((curBulletIndex == 0 && (GetComponent<ObjectGravity>().getCurrentGD() == GravityDirection.Up || haveTagObject("ReverseLight") || !canUseBlueLight))
-                || (curBulletIndex == 1 && !canUseGreenLight))
-            {
-                Color color = coolDownIcon.color;
-                color.a = 0.5f;
-                coolDownIcon.color = color;
-            }
-            else
-            {
-                Color color = coolDownIcon.color;
-                color.a = 1f;
-                coolDownIcon.color = color;
-            }
-
-            if (YellowLightObj && !YellowLightObj.GetComponent<YellowLightN>().activated)
-            {
-                if (curBulletIndex == 2 && canUseYellowLight)
-                    YellowLightObj.SetActive(true);
-                else
-                    YellowLightObj.SetActive(false);
+                canUseBlueLight = true;
             }
         }
+
+        if (!canUseGreenLight)
+        {
+            greenLightCDCout += Time.deltaTime;
+            if (greenLightCDCout > greenLightCD)
+            {
+                canUseGreenLight = true;
+            }
+        }
+
+        if (!canUseYellowLight)
+        {
+            yellowLightCDCout += Time.deltaTime;
+            if (yellowLightCDCout > yellowLightCD)
+            {
+                canUseYellowLight = true;
+            }
+        }
+
+        if (!canUseBlueLight)
+        {
+            coolDownIcon[0].fillAmount = blueLightCDCout / blueLightCD;
+        }
+        else
+        {
+            coolDownIcon[0].fillAmount = 1;
+        }
+
+        if (!canUseGreenLight)
+        {
+            coolDownIcon[1].fillAmount = greenLightCDCout / greenLightCD;
+        }
+        else
+        {
+            coolDownIcon[1].fillAmount = 1;
+        }
+        if (!canUseYellowLight)
+        {
+            coolDownIcon[2].fillAmount = yellowLightCDCout / yellowLightCD;
+        }
+        else
+        {
+            coolDownIcon[2].fillAmount = 1;
+        }
+
+        //
+        if ((curBulletIndex == 0 && (GetComponent<ObjectGravity>().getCurrentGD() == GravityDirection.Up || haveTagObject("ReverseLight") || !canUseBlueLight))
+            || (curBulletIndex == 1 && !canUseGreenLight))
+        {
+            Color color = coolDownIcon[0].color;
+            color.a = 0.5f;
+            coolDownIcon[0].color = color;
+        }
+        else if (curBulletIndex == 0 && Bullets.Count > 0)
+        {
+            Color color = coolDownIcon[0].color;
+            color.a = 1f;
+            coolDownIcon[0].color = color;
+        }
+
+        if (YellowLightObj && !YellowLightObj.GetComponent<YellowLightN>().activated)
+        {
+            if (curBulletIndex == 2 && canUseYellowLight)
+                YellowLightObj.SetActive(true);
+            else
+                YellowLightObj.SetActive(false);
+        }
     }
-    */
 }
