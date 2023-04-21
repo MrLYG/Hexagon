@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CloneSpecialPower : PlayerSpecialBullet
 {
+    /*
     [SerializeField] bool hasBlueLight;
     [SerializeField] bool hasGreenLight;
     [SerializeField] bool hasYellowLight;
@@ -155,4 +156,5 @@ public class CloneSpecialPower : PlayerSpecialBullet
             }
         }
     }
+    */
 }

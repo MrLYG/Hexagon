@@ -32,7 +32,7 @@ public class EnemyControl : IEnemy
         Vector2 targetPosition = wayPoints[wayPointIndex].transform.position;
         targetPosition.y = transform.position.y;
 
-        if(targetPosition.x < transform.position.x)
+        if (targetPosition.x < transform.position.x)
         {
             GetComponent<SpriteRenderer>().flipX = true;
         }
@@ -45,12 +45,12 @@ public class EnemyControl : IEnemy
                         targetPosition,
                         curSpeed * Time.deltaTime);
 
-        if(Mathf.Abs(transform.position.x - wayPoints[wayPointIndex].transform.position.x) < 0.1f)
+        if (Mathf.Abs(transform.position.x - wayPoints[wayPointIndex].transform.position.x) < 0.1f)
         {
             wayPointIndex++;
         }
 
-        if(wayPointIndex == wayPoints.Length)
+        if (wayPointIndex == wayPoints.Length)
         {
             wayPointIndex = 0;
         }
