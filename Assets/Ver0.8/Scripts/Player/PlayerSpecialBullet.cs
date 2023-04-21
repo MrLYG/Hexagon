@@ -51,14 +51,23 @@ public class PlayerSpecialBullet : MonoBehaviour
     protected float greenLightCDCout = 0f;
     protected float yellowLightCDCout = 0f;
 
-    public Image coolDownIcon;
+    public List<Image> coolDownIcon;
+    public Image highLight;
 
     protected GameObject YellowLightObj;
 
     // Start is called before the first frame update
     public virtual void Start()
     {
-        coolDownIcon.enabled = false;
+        //coolDownIcon.enabled = false;
+        highLight.enabled = false;
+        for(int i = 0; i < coolDownIcon.Count; i++)
+        {
+            Color color = coolDownIcon[i].color;
+            color.a = 0.1f;
+            coolDownIcon[i].color = color;
+            //coolDownIcon[i].enabled = false;
+        }
 
         // Create prediction dots and make them inivisible for now
         for (int i = 0; i < numDots; i++)
@@ -107,13 +116,13 @@ public class PlayerSpecialBullet : MonoBehaviour
             switchTo(1);
         }
 
-        if (curBulletIndex == 0)
+        if (curBulletIndex == 0 && Bullets.Count > 0)
         {
             BlueLight();
-        }else if (curBulletIndex == 1)
+        }else if (curBulletIndex == 1 && Bullets.Count > 1)
         {
             GreenLight();
-        }else if(curBulletIndex == 2)
+        }else if(curBulletIndex == 2 && Bullets.Count > 2)
         {
             YellowLight();
         }
@@ -145,34 +154,45 @@ public class PlayerSpecialBullet : MonoBehaviour
             }
         }
 
-        if (curBulletIndex == 0 && !canUseBlueLight)
+        if (!canUseBlueLight)
         {
-            coolDownIcon.fillAmount = blueLightCDCout / blueLightCD;
-        }
-        else if (curBulletIndex == 1 && !canUseGreenLight)
-        {
-            coolDownIcon.fillAmount = greenLightCDCout / greenLightCD;
-        }
-        else if (curBulletIndex == 2 && !canUseYellowLight)
-        {
-            coolDownIcon.fillAmount = yellowLightCDCout / yellowLightCD;
-        }
-        else {
-            coolDownIcon.fillAmount = 1;
-        }
-
-        if ((curBulletIndex == 0 && (GetComponent<ObjectGravity>().getCurrentGD() == GravityDirection.Up || haveTagObject("ReverseLight") || !canUseBlueLight)) 
-            || (curBulletIndex == 1 && !canUseGreenLight))
-        {
-            Color color = coolDownIcon.color;
-            color.a = 0.5f;
-            coolDownIcon.color = color;
+            coolDownIcon[0].fillAmount = blueLightCDCout / blueLightCD;
         }
         else
         {
-            Color color = coolDownIcon.color;
+            coolDownIcon[0].fillAmount = 1;
+        }
+
+        if (!canUseGreenLight)
+        {
+            coolDownIcon[1].fillAmount = greenLightCDCout / greenLightCD;
+        }
+        else
+        {
+            coolDownIcon[1].fillAmount = 1;
+        }
+        if (!canUseYellowLight)
+        {
+            coolDownIcon[2].fillAmount = yellowLightCDCout / yellowLightCD;
+        }
+        else
+        {
+            coolDownIcon[2].fillAmount = 1;
+        }
+        
+        //
+        if ((curBulletIndex == 0 && (GetComponent<ObjectGravity>().getCurrentGD() == GravityDirection.Up || haveTagObject("ReverseLight") || !canUseBlueLight)) 
+            || (curBulletIndex == 1 && !canUseGreenLight))
+        {
+            Color color = coolDownIcon[0].color;
+            color.a = 0.5f;
+            coolDownIcon[0].color = color;
+        }
+        else if (curBulletIndex == 0 && Bullets.Count > 0)
+        {
+            Color color = coolDownIcon[0].color;
             color.a = 1f;
-            coolDownIcon.color = color;
+            coolDownIcon[0].color = color;
         }
 
         if (YellowLightObj && !YellowLightObj.GetComponent<YellowLightN>().activated)
@@ -284,25 +304,25 @@ public class PlayerSpecialBullet : MonoBehaviour
 
     protected void switchToNext() {
         int newIndex = curBulletIndex + 1;
-        if (newIndex == Bullets.Count)
+        if (newIndex == 3)
         {
             newIndex = 0;
         }
         switchTo(newIndex);
     }
-    protected void switchTo(int index) { 
-        if(index < Bullets.Count)
-        {
-            curBulletIndex = index;
-        }
+    protected void switchTo(int index) {
+        curBulletIndex = index;
         switch (curBulletIndex)
         {
-            case 0: coolDownIcon.color = new Color(85, 208, 255) / 255f; break;
-            case 1: coolDownIcon.color = new Color(86, 255, 86) / 255f;
+            case 0: 
+                highLight.transform.position = coolDownIcon[0].transform.position + new Vector3(-6.5f, 6.3f, 0); break;
+            case 1:
+                highLight.transform.position = coolDownIcon[1].transform.position + new Vector3(-6.5f, 6.3f, 0);
                 curLaunchForce = initLaunchForce;
                 charging = false;
                 showDots(false); break;
-            case 2: coolDownIcon.color = new Color(255, 255, 50) / 255f;
+            case 2:
+                highLight.transform.position = coolDownIcon[2].transform.position + new Vector3(-6.5f, 6.3f, 0);
                 //YellowLightObj.SetActive(true);
                 //YellowLightObj.transform.parent = transform;
                 break;
@@ -337,18 +357,28 @@ public class PlayerSpecialBullet : MonoBehaviour
         {
             if (bullet.name.Equals("ReverseBullet"))
             {
-                coolDownIcon.enabled = true;
+                highLight.enabled = true;
                 PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                Color color = coolDownIcon[0].color;
+                color.a = 1f;
+                coolDownIcon[0].color = color;
             }
             else if (bullet.name.Equals("GreenLight")) {
                 PlayerPrefs.SetInt("PlayerGreenLight", 1);
-            }else if (bullet.name.Equals("YellowBullet"))
+                Color color = coolDownIcon[1].color;
+                color.a = 1f;
+                coolDownIcon[1].color = color;
+            }
+            else if (bullet.name.Equals("YellowBullet"))
             {
                 PlayerPrefs.SetInt("PlayerYellowLight", 1);
                 if (!YellowLightObj)
                 {
                     YellowLightObj = Instantiate(BulletPrefabs[2], transform.position, Quaternion.identity);
                     YellowLightObj.transform.parent = transform;
+                    Color color = coolDownIcon[2].color;
+                    color.a = 1f;
+                    coolDownIcon[2].color = color;
                 }
             }
             Bullets.Add(bullet);
@@ -358,19 +388,22 @@ public class PlayerSpecialBullet : MonoBehaviour
     }
 
     public void startPowerCD() {
-        coolDownIcon.fillAmount = 0.0f;
         if (curBulletIndex == 0)
         {
             canUseBlueLight = false;
             blueLightCDCout = 0;
+            coolDownIcon[0].fillAmount = 0.0f;
         }
         else if (curBulletIndex == 1) {
             canUseGreenLight = false;
             greenLightCDCout = 0;
-        }else if (curBulletIndex == 2)
+            coolDownIcon[1].fillAmount = 0.0f;
+        }
+        else if (curBulletIndex == 2)
         {
             canUseYellowLight = false;
             yellowLightCDCout = 0;
+            coolDownIcon[2].fillAmount = 0.0f;
         }
     }
 
