@@ -48,21 +48,23 @@ public class EnemyHP : MonoBehaviour
 
         if (hp <= 0 && !isDead)
         {
+            // Deactivate the enemy
+            isDead = true;
             if (!GetComponent<IEnemy>().stay)
             {
-                // Deactivate the enemy
                 StartCoroutine("Death");
-                isDead = true;
                 //return;
             }
             else
             {
+                GetComponent<Animator>().SetTrigger("Death");
                 gameObject.tag = "Object";
                 gameObject.layer = 9;
                 GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX;
                 GetComponent<IEnemy>().HarmOnTouch = false;
                 GetComponent<IEnemy>().enabled = false;
                 GetComponent<SpriteRenderer>().color = Color.gray;
+                GetComponent<BoxCollider2D>().size = new Vector2(1, 1);
             }
         }
 
@@ -81,10 +83,11 @@ public class EnemyHP : MonoBehaviour
 
     IEnumerator Death()
     {
+        GetComponent<IEnemy>().HarmOnTouch = false;
+        GetComponent<IEnemy>().enabled = false;
         if (GetComponent<Animator>())
         {
             GetComponent<Animator>().SetTrigger("Death");
-            GetComponent<IEnemy>().enabled = false;
             yield return new WaitForSeconds(1f);
         }
         gameObject.SetActive(false);

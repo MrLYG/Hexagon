@@ -188,7 +188,7 @@ public class PlayerSpecialBullet : MonoBehaviour
             color.a = 0.5f;
             coolDownIcon[0].color = color;
         }
-        else if (curBulletIndex == 0 && Bullets.Count > 0)
+        else if (Bullets.Count > 0)
         {
             Color color = coolDownIcon[0].color;
             color.a = 1f;

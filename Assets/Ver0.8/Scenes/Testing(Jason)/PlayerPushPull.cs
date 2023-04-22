@@ -69,9 +69,9 @@ public class PlayerPushPull : MonoBehaviour
         relativeX = curObject.transform.localPosition.x;
 
         if(relativeX > 0)
-            relativeX = 1.322f;
+            relativeX = 1.35f;
         else
-            relativeX = -1.322f;
+            relativeX = -1.35f;
         // Make sure the obj isn't too close or too far
         /*
         if (Mathf.Abs(relativeX) < 1.4f)
