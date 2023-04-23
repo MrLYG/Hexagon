@@ -23,7 +23,7 @@ public class ButtonDoor : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Object"))
+        if(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Clone"))
         {
             numObj++;
             foreach (GameObject door in Doors)
@@ -36,7 +36,7 @@ public class ButtonDoor : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Object"))
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Clone"))
         {
             numObj--;
             if (numObj <= 0)
