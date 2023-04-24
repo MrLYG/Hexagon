@@ -89,7 +89,7 @@ public class EnemyHP : MonoBehaviour
         if (GetComponent<Animator>())
         {
             GetComponent<Animator>().SetTrigger("Death");
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
         }
         gameObject.SetActive(false);
     }
