@@ -71,4 +71,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Ver0.8/Scenes/New Level1-10/Level10-6.unity
     guid: 31879ba10b51ea04da50e27d4e67e7bd
+  - enabled: 1
+    path: Assets/Ver0.8/Scenes/New Level1-10/Clone1.unity
+    guid: 25d53bc21dbdc4e1393cb08bdaaf76a3
+  - enabled: 1
+    path: Assets/Ver0.8/Scenes/New Level1-10/Clone2.unity
+    guid: b2cdb7b12c90e4e079df8640bb6a3bc6
+  - enabled: 1
+    path: Assets/Ver0.8/Scenes/New Level1-10/clone3.unity
+    guid: 1667f7cc05b074ded8f274e3d7af6771
+  - enabled: 1
+    path: Assets/Ver0.8/Scenes/New Level1-10/Clone4.unity
+    guid: 97a9eb7931248a543b76b9710c3486f1
   m_configObjects: {}
