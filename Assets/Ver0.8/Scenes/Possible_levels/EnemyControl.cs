@@ -16,7 +16,8 @@ public class EnemyControl : IEnemy
         if (wayPoints.Length > 0)
         {
             transform.position = wayPoints[wayPointIndex].transform.position;
-            m_Anim.SetBool("Moving", true);
+            if(m_Anim)
+                m_Anim.SetBool("Moving", true);
         }
     }
 
@@ -32,13 +33,16 @@ public class EnemyControl : IEnemy
         Vector2 targetPosition = wayPoints[wayPointIndex].transform.position;
         targetPosition.y = transform.position.y;
 
-        if (targetPosition.x < transform.position.x)
+        if (GetComponent<SpriteRenderer>())
         {
-            GetComponent<SpriteRenderer>().flipX = true;
-        }
-        else
-        {
-            GetComponent<SpriteRenderer>().flipX = false;
+            if (targetPosition.x < transform.position.x)
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+            }
         }
 
         transform.position = Vector2.MoveTowards(transform.position,

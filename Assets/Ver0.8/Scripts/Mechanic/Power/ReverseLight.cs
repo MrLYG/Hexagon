@@ -70,7 +70,7 @@ public class ReverseLight : ILight
                 {
                     GameObject CDText = Instantiate(cdText);
                     CDText.transform.parent = obj.transform;
-                    CDText.transform.localPosition = new Vector3(0, -0.5f, 0);
+                    CDText.transform.localPosition = new Vector3(0, -0.8f, 0);
                 }
 
                 // Remove light when it affected 1 object
