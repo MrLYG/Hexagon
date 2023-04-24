@@ -108,6 +108,30 @@ public class LevelSelection : MonoBehaviour
                 PlayerPrefs.SetInt("PlayerGreenLight", 1);
                 PlayerPrefs.SetInt("PlayerYellowLight", 1);
                 break;
+            case "Clone1":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                PlayerPrefs.SetInt("PlayerGreenLight", 1);
+                PlayerPrefs.SetInt("PlayerYellowLight", 1);
+                break;
+            case "Clone2":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                PlayerPrefs.SetInt("PlayerGreenLight", 1);
+                PlayerPrefs.SetInt("PlayerYellowLight", 1);
+                break;
+            case "clone3":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                PlayerPrefs.SetInt("PlayerGreenLight", 1);
+                PlayerPrefs.SetInt("PlayerYellowLight", 1);
+                break;
+            case "Clone4":
+                PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
+                PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                PlayerPrefs.SetInt("PlayerGreenLight", 1);
+                PlayerPrefs.SetInt("PlayerYellowLight", 1);
+                break;
         }
 
         SceneManager.LoadScene(gameLevelScene);
