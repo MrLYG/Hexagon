@@ -86,6 +86,10 @@ public class PlayerControl : MonoBehaviour
         {
             return;
         }
+        if (gameObject.CompareTag("Clone") && !GetComponent<CloneCamera>().canMove)
+        {
+            return;
+        }
 
         // Movement inputs
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) 

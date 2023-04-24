@@ -12,6 +12,8 @@ public class CloneCamera : MonoBehaviour
     private GameObject m_Player;
     private GameObject cameraAnchor;
 
+    public bool canMove = false;
+
     // Params for 'm' key functions
     //private GameObject target;
     //private float targetOrthoSize;
@@ -46,7 +48,9 @@ public class CloneCamera : MonoBehaviour
 
     private void Update()
     {
-        if (!m_Player.GetComponent<PlayerZoom>().initMoving)
+        canMove = !m_Player.GetComponent<PlayerZoom>().initMoving;
+
+        if (canMove)
         {
             cameraAnchor.transform.position = Vector3.Lerp(gameObject.transform.position, m_Player.transform.position + new Vector3(0, 2, 0), 0.5f);
             m_Player.GetComponent<PlayerZoom>().zoomOut(Mathf.Max((transform.position - m_Player.transform.position).magnitude / 8f, 1.2f));
