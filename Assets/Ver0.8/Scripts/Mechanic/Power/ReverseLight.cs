@@ -8,6 +8,7 @@ public class ReverseLight : ILight
     [SerializeField] private float AffectTime;
     [SerializeField] private UnityEngine.Rendering.Universal.Light2D m_SphereLight;
     [SerializeField] private TextMeshProUGUI m_DurationText;
+    [SerializeField] private GameObject cdText;
     private float initIntensity;
     private float appearanceTimeCount;
 
@@ -50,7 +51,7 @@ public class ReverseLight : ILight
                 else
                     continue;
 
-                if (obj.CompareTag("Player"))
+                if (obj.GetComponent<PlayerInstruction>())
                 {
                     obj.GetComponent<PlayerInstruction>().StartBlueLightCountDown(AffectTime);
                 }
@@ -62,6 +63,14 @@ public class ReverseLight : ILight
                 if(obj.GetComponent<Rigidbody2D>() != null)
                 {
                     obj.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                }
+
+                // Add CD text
+                if (!obj.GetComponent<PlayerInstruction>())
+                {
+                    GameObject CDText = Instantiate(cdText);
+                    CDText.transform.parent = obj.transform;
+                    CDText.transform.localPosition = new Vector3(0, -0.5f, 0);
                 }
 
                 // Remove light when it affected 1 object

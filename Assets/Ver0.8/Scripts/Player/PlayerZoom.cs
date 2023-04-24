@@ -32,6 +32,11 @@ public class PlayerZoom : MonoBehaviour
     [Tooltip("Scale ratio to zoom in while moving")]
     [SerializeField] private float movingZoomRatio;
 
+    public bool initMoving;
+    private bool startMoving;
+    private Vector3 initalPosAnchor;
+    private Vector3 initialLocalPosAnchor;
+
     void Start()
     {
         // Get reference of camera if we don't already have
@@ -55,11 +60,29 @@ public class PlayerZoom : MonoBehaviour
         curOrthoSize = initialOrthoSize;
         m_CM.GetComponent<CinemachineVirtualCamera>().Follow = cameraAnchor.transform;
         m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = curOrthoSize;
+
+        if(!PlayerPrefs.HasKey("RespawnX"))
+            StartCoroutine("InitMove");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (initMoving)
+        {
+            if (startMoving)
+            {
+                cameraAnchor.transform.position = Vector3.MoveTowards(cameraAnchor.transform.position, initalPosAnchor, 15 * Time.deltaTime);
+                if ((cameraAnchor.transform.position - initalPosAnchor).magnitude < 1f)
+                {
+                    initMoving = false;
+                    startMoving = false;
+                    cameraAnchor.transform.localPosition = initialLocalPosAnchor;
+                }
+            }
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.M))
         {
             //camCenter = true;
@@ -131,5 +154,19 @@ public class PlayerZoom : MonoBehaviour
     {
         curOrthoSize = initialOrthoSize * ratio;
         m_CM.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = curOrthoSize;
+    }
+
+    IEnumerator InitMove()
+    {
+        if (GameObject.FindGameObjectWithTag("Door"))
+        {
+            initMoving = true;
+            startMoving = false;
+            initalPosAnchor = cameraAnchor.transform.position;
+            initialLocalPosAnchor = cameraAnchor.transform.localPosition;
+            cameraAnchor.transform.position = GameObject.FindGameObjectWithTag("Door").transform.position;
+            yield return new WaitForSeconds(1.0f);
+            startMoving = true;
+        }
     }
 }

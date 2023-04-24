@@ -44,14 +44,17 @@ public class LevelSelection : MonoBehaviour
             case "Level7-1":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
                 PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                PlayerPrefs.SetInt("PlayerGreenLight", 1);
                 break;
             case "Level7-2":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
                 PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                PlayerPrefs.SetInt("PlayerGreenLight", 1);
                 break;
             case "Level7-3":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");
                 PlayerPrefs.SetInt("PlayerBlueLight", 1);
+                PlayerPrefs.SetInt("PlayerGreenLight", 1);
                 break;
             case "Level8":
                 PlayerPrefs.SetString("PlayerWeapon", "Weapon_Stick");

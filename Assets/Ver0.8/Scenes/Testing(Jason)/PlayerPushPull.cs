@@ -6,8 +6,10 @@ public class PlayerPushPull : MonoBehaviour
 {
     [SerializeField] private LayerMask objectLayer;
     [SerializeField] private GameObject HighlightObject;
+    [SerializeField] private GameObject HighlightEnemy;
 
     private GameObject highlightObj;
+    private GameObject highlightEnm;
     private GameObject curObject;
     private float relativeX;
 
@@ -18,6 +20,9 @@ public class PlayerPushPull : MonoBehaviour
     {
         highlightObj = Instantiate(HighlightObject);
         highlightObj.SetActive(false);
+
+        highlightEnm = Instantiate(HighlightEnemy);
+        highlightEnm.SetActive(false);
     }
 
     private void Update()
@@ -30,7 +35,10 @@ public class PlayerPushPull : MonoBehaviour
 
         if (hit.collider != null)
         {
-            recordObject(hit.collider.gameObject);  
+            if (!hit.collider.gameObject.GetComponent<IEnemy>())
+                recordObject(hit.collider.gameObject);
+            else
+                recordEnemy(hit.collider.gameObject);
         }
         else
         {
@@ -69,23 +77,9 @@ public class PlayerPushPull : MonoBehaviour
         relativeX = curObject.transform.localPosition.x;
 
         if(relativeX > 0)
-            relativeX = 1.35f;
+            relativeX = 1.33f;
         else
-            relativeX = -1.35f;
-        // Make sure the obj isn't too close or too far
-        /*
-        if (Mathf.Abs(relativeX) < 1.4f)
-        {
-            if (relativeX > 0)
-                relativeX = 1.5f;
-            else
-                relativeX = -1.5f;
-            curObject.transform.localPosition = new Vector3(relativeX, curObject.transform.localPosition.y, 0);
-        }
-        else 
-        if (relativeX > 2f)
-            relativeX = 2f;
-        */
+            relativeX = -1.33f;
 
         curObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
         GetComponent<PlayerControl>().changeWalkSpeed(0.5f);
@@ -108,9 +102,19 @@ public class PlayerPushPull : MonoBehaviour
         
     }
 
+    private void recordEnemy(GameObject obj)
+    {
+        curObject = obj;
+        highlightEnm.SetActive(true);
+        highlightEnm.transform.parent = obj.transform;
+        highlightEnm.transform.localPosition = Vector3.zero;
+
+    }
+
     private void resetObject()
     {
         curObject = null;
         highlightObj.SetActive(false);
+        highlightEnm.SetActive(false);
     }
 }

@@ -26,8 +26,8 @@ public class RespawnManager : MonoBehaviour
             float respawnX = PlayerPrefs.GetFloat("RespawnX");
             float respawnY = PlayerPrefs.GetFloat("RespawnY");
             m_Player.transform.position = new Vector2(respawnX, respawnY);
-            PlayerPrefs.DeleteKey("RespawnX");
-            PlayerPrefs.DeleteKey("RespawnY");
+            //PlayerPrefs.DeleteKey("RespawnX");
+            //PlayerPrefs.DeleteKey("RespawnY");
         }
 
         if (PlayerPrefs.HasKey("RespawnXC") && m_Clone != null)
@@ -35,8 +35,8 @@ public class RespawnManager : MonoBehaviour
             float respawnX = PlayerPrefs.GetFloat("RespawnXC");
             float respawnY = PlayerPrefs.GetFloat("RespawnYC");
             m_Clone.transform.position = new Vector2(respawnX, respawnY);
-            PlayerPrefs.DeleteKey("RespawnXC");
-            PlayerPrefs.DeleteKey("RespawnYC");
+            //PlayerPrefs.DeleteKey("RespawnXC");
+            //PlayerPrefs.DeleteKey("RespawnYC");
         }
     }
 

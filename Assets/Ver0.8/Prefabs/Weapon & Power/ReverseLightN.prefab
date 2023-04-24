@@ -946,6 +946,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ApperanceTime: 2
   AffectedObjects: []
+  PreAffectedObjects: []
   AffectTime: 3
   m_SphereLight: {fileID: 7665251968263393427}
   m_DurationText: {fileID: 5126800898283820138}
+  cdText: {fileID: 2497294798107169312, guid: f27e20164b7ae124e9631fc190537941, type: 3}

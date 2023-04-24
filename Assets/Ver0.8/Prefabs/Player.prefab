@@ -490,6 +490,7 @@ MonoBehaviour:
   movingZoom: 0
   movingZoomSpeed: 2
   movingZoomRatio: 0.9
+  initMoving: 0
 --- !u!114 &6061397499637108564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -652,6 +653,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   HighlightObject: {fileID: 4034465012665914485, guid: 0647c9795d0e571409603fbb89a05ec0, type: 3}
+  HighlightEnemy: {fileID: 6436148467657951574, guid: 84a4e96af4971624f98e5ccf56482920, type: 3}
   pushing: 0
 --- !u!1 &6061397500328888221
 GameObject:

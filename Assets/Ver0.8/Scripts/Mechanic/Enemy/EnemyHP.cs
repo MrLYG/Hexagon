@@ -65,6 +65,7 @@ public class EnemyHP : MonoBehaviour
                 GetComponent<IEnemy>().enabled = false;
                 GetComponent<SpriteRenderer>().color = Color.gray;
                 GetComponent<BoxCollider2D>().size = new Vector2(1, 1);
+                GetComponent<BoxCollider2D>().offset = new Vector2(0, 0);
             }
         }
 
